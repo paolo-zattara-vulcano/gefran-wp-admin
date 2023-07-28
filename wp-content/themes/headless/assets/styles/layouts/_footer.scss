@@ -1,0 +1,45 @@
+// ---------------------------------------------------------- FOOTER
+// ----------------------------------------------------------
+
+footer.site-footer{
+  font-size: $h7-font-size;
+  margin-top: $footer-margin;
+
+  padding-top: $spacer-4;
+  padding-bottom: $spacer-4;
+  border-top: 1px solid $secondary;
+
+  #footer-menu{
+
+    li{
+      padding: 0 $spacer-2;
+
+      &:first-child{
+        padding-left: 0;
+      }
+      &:last-child{
+        padding-right: 0;
+      }
+
+      a.disabled-link{
+        color: $secondary;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .site-info > div{
+    padding: 0 $grid-gutter-width/2 .25rem;
+    @include make-col-auto();
+
+    &.social-network{
+      font-size: $h5-font-size;
+      a{
+        margin-right: 1rem;
+        &:last-child{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

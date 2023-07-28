@@ -1,0 +1,65 @@
+{
+    "key": "group_601fdadf2dd92",
+    "title": "Pagine \/",
+    "fields": [
+        {
+            "key": "field_6461db111be4a",
+            "label": "Square thumbnail",
+            "name": "square_thumbnail",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Square thumbnail used in related pages carousel",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "return_format": "array",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium",
+            "acfe_field_group_condition": 0,
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "!=",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_display_title": "",
+    "acfe_meta": "",
+    "acfe_note": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "acfPages_all",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1684134881
+}

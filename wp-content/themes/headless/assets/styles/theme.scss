@@ -1,0 +1,23 @@
+// bootstrap 5
+// @import "../_src/sass/bootstrap5/functions";
+@import "vendors/bootstrap5"; // <--------- Loads  Bootstrap5.
+
+/*! purgecss start ignore */
+
+// base
+@import "base/global";// <-------- Loads the overstrap defaults. Just a few classes to incorporate BS in WP
+
+
+
+// utilities
+@import "utilities/grid-dev";
+@import "utilities/pxtorem";
+
+
+// componenti
+@import "bs-components/grid";
+
+
+// layouts
+@import "layouts/header";
+@import "layouts/footer";

@@ -1,0 +1,1 @@
+{"version":3,"sources":["admin.scss"],"names":[],"mappings":"AAAA,YACE,QAAA","file":"admin.min.css","sourcesContent":["#wpadminbar{\n  z-index: 99992;\n}\n"]}

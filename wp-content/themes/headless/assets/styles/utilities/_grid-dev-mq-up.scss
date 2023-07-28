@@ -1,0 +1,124 @@
+body > header.dev-header{
+  padding-top: 68px;
+}
+
+.dev-grid-container{
+  background-color: $blue;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  left: 0;
+  right: 0;
+
+  #rw-dev-grid2{
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 2px;
+    position: relative;
+    height: 52px;
+  }
+
+  #rw-dev-grid{
+    position: relative;
+  }
+
+  &:hover::after{
+    position: absolute;
+    width: 100%;
+    font-size: 1rem;
+    background-color: #000;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .col-1.h-100{
+    color: #fff;
+    font-size: 10px;
+  }
+
+  //-------------------------------------- XS
+  @include media-breakpoint-up(xs) {
+    .col-1.h-100{
+      background-color: $teal;
+      div.bg-secondary::after{
+        content: "xs";
+      }
+    }
+    &:hover::after{
+      content: "xs: 0 to #{map-get($grid-breakpoints, "sm")}";
+    }
+  }
+
+  //-------------------------------------- SM
+  @include media-breakpoint-up(sm) {
+    .col-1.h-100{
+      background-color: $yellow;
+      div.bg-secondary::after{
+        content: "sm";
+      }
+    }
+    &:hover::after{
+      content: "sm: #{map-get($grid-breakpoints, "sm")} to #{map-get($grid-breakpoints, "md")} | container: #{map-get($container-max-widths, "sm")}";
+    }
+  }
+
+  //-------------------------------------- MD
+  @include media-breakpoint-up(md) {
+    .col-1.h-100{
+      background-color: $purple;
+      div.bg-secondary::after{
+        content: "md";
+      }
+    }
+    &:hover::after{
+      content: "md: #{map-get($grid-breakpoints, "md")} to #{map-get($grid-breakpoints, "lg")} | container: #{map-get($container-max-widths, "md")}";
+    }
+  }
+
+  //-------------------------------------- LG
+  @include media-breakpoint-up(lg) {
+    .col-1.h-100{
+      background-color: $green;
+      div.bg-secondary::after{
+        content: "lg";
+      }
+    }
+    &:hover::after{
+      content: "lg: #{map-get($grid-breakpoints, "lg")} to #{map-get($grid-breakpoints, "xl")} | container: #{map-get($container-max-widths, "lg")}";
+    }
+  }
+
+  //-------------------------------------- XL
+  @include media-breakpoint-up(xl) {
+    .col-1.h-100{
+      background-color: $black;
+      div.bg-secondary::after{
+        content: "xl";
+      }
+    }
+    &:hover::after{
+      content: "xl: #{map-get($grid-breakpoints, "xl")} to #{map-get($grid-breakpoints, "xxl")} | container: #{map-get($container-max-widths, "xl")}";
+    }
+  }
+
+  //-------------------------------------- XLXL
+  @include media-breakpoint-up(xxl) {
+    .col-1.h-100{
+      background-color: $pink;
+
+      div.bg-secondary::after{
+        content: "xxl";
+      }
+    }
+    &:hover::after{
+      content: "xxl: > #{map-get($grid-breakpoints, "xxl")} | container: #{map-get($container-max-widths, "xxl")}";
+    }
+  }
+}

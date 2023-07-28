@@ -1,0 +1,53 @@
+Index: wp-content/plugins/filebird-pro/includes/Model/Folder.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/wp-content/plugins/filebird-pro/includes/Model/Folder.php b/wp-content/plugins/filebird-pro/includes/Model/Folder.php
+--- a/wp-content/plugins/filebird-pro/includes/Model/Folder.php	
++++ b/wp-content/plugins/filebird-pro/includes/Model/Folder.php	(date 1679700985057)
+@@ -78,6 +78,8 @@
+ 			array( '%d', '%d' ),
+ 			array( '%d' )
+ 		);
++    //custom mattia hook
++    do_action( 'fbv_after_update_folder_order_and_parent', $id, $new_ord, $new_parent );
+ 	}
+ 	public static function updateAuthor( $from_author, $to_author ) {
+ 		global $wpdb;
+@@ -90,6 +92,8 @@
+ 			array( '%d' ),
+ 			array( '%d' )
+ 		);
++    //custom mattia hook
++    do_action( 'fbv_after_update_folder_author', $from_author, $to_author );
+ 	}
+ 	public static function deleteByAuthor( $author ) {
+ 		global $wpdb;
+@@ -198,6 +202,8 @@
+ 				array( '%s' ),
+ 				array( '%d' )
+ 			);
++      //custom mattia hook
++      do_action( 'fbv_after_rename_folder', $folder_id, $new_name );
+ 			return true;
+ 		}
+ 		return false;
+@@ -211,6 +217,8 @@
+ 			array( '%d' ),
+ 			array( '%d' )
+ 		);
++    //custom mattia hook
++    do_action( 'fbv_after_update_folder_parent', $folder_id, $new_parent );
+ 	}
+ 	public static function deleteAll() {
+ 		global $wpdb;
+@@ -245,6 +253,8 @@
+ 			)
+ 		);
+ 		$wpdb->insert( self::getTable( self::$folder_table ), $data );
++    //custom mattia hook
++    do_action( 'fbv_after_create_folder', $wpdb->insert_id);
+ 		return $wpdb->insert_id;
+ 	}
+ 	public static function newOrGet( $name, $parent, $return_id_if_exist = true ) {

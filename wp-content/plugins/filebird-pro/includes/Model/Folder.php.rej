@@ -1,0 +1,85 @@
+***************
+*** 78,83 ****
+  			array( '%d', '%d' ),
+  			array( '%d' )
+  		);
+  	}
+  	public static function updateAuthor( $from_author, $to_author ) {
+  		global $wpdb;
+--- 78,85 ----
+  			array( '%d', '%d' ),
+  			array( '%d' )
+  		);
++     //custom mattia hook
++     do_action( 'fbv_after_update_folder_order_and_parent', $id, $new_ord, $new_parent );
+  	}
+  	public static function updateAuthor( $from_author, $to_author ) {
+  		global $wpdb;
+***************
+*** 90,95 ****
+  			array( '%d' ),
+  			array( '%d' )
+  		);
+  	}
+  	public static function deleteByAuthor( $author ) {
+  		global $wpdb;
+--- 92,99 ----
+  			array( '%d' ),
+  			array( '%d' )
+  		);
++     //custom mattia hook
++     do_action( 'fbv_after_update_folder_author', $from_author, $to_author );
+  	}
+  	public static function deleteByAuthor( $author ) {
+  		global $wpdb;
+***************
+*** 198,203 ****
+  				array( '%s' ),
+  				array( '%d' )
+  			);
+  			return true;
+  		}
+  		return false;
+--- 202,209 ----
+  				array( '%s' ),
+  				array( '%d' )
+  			);
++       //custom mattia hook
++       do_action( 'fbv_after_rename_folder', $folder_id, $new_name );
+  			return true;
+  		}
+  		return false;
+***************
+*** 211,216 ****
+  			array( '%d' ),
+  			array( '%d' )
+  		);
+  	}
+  	public static function deleteAll() {
+  		global $wpdb;
+--- 217,224 ----
+  			array( '%d' ),
+  			array( '%d' )
+  		);
++     //custom mattia hook
++     do_action( 'fbv_after_update_folder_parent', $folder_id, $new_parent );
+  	}
+  	public static function deleteAll() {
+  		global $wpdb;
+***************
+*** 245,250 ****
+  			)
+  		);
+  		$wpdb->insert( self::getTable( self::$folder_table ), $data );
+  		return $wpdb->insert_id;
+  	}
+  	public static function newOrGet( $name, $parent, $return_id_if_exist = true ) {
+--- 253,260 ----
+  			)
+  		);
+  		$wpdb->insert( self::getTable( self::$folder_table ), $data );
++     //custom mattia hook
++     do_action( 'fbv_after_create_folder', $wpdb->insert_id);
+  		return $wpdb->insert_id;
+  	}
+  	public static function newOrGet( $name, $parent, $return_id_if_exist = true ) {

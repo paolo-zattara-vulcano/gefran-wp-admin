@@ -1,0 +1,184 @@
+{
+    "key": "group_639d9032af1dd",
+    "title": "CPT \/ Investor Docs",
+    "fields": [
+        {
+            "key": "field_639d9034e5cff",
+            "label": "Documents",
+            "name": "documents",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "acfe_repeater_stylised_button": 0,
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_639da0381bdef",
+            "button_label": "Aggiungi Investor Doc",
+            "acfe_field_group_condition": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_639d91cee5d01",
+                    "label": "Document",
+                    "name": "document",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "show_in_graphql": 1,
+                    "uploader": "",
+                    "return_format": "array",
+                    "upload_folder": "",
+                    "multiple": 0,
+                    "max": "",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "acfe_field_group_condition": 0,
+                    "library": "all",
+                    "parent_repeater": "field_639d9034e5cff"
+                },
+                {
+                    "key": "field_639da0381bdef",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "show_in_graphql": 1,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "acfe_field_group_condition": 0,
+                    "parent_repeater": "field_639d9034e5cff"
+                },
+                {
+                    "key": "field_639d9e052c1ca",
+                    "label": "Url",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "show_in_graphql": 1,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "acfe_field_group_condition": 0,
+                    "parent_repeater": "field_639d9034e5cff"
+                },
+                {
+                    "key": "field_639d926ee5d02",
+                    "label": "Date",
+                    "name": "date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "show_in_graphql": 1,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "d\/m\/Y",
+                    "first_day": 1,
+                    "placeholder": "",
+                    "min_date": "",
+                    "max_date": "",
+                    "no_weekends": 0,
+                    "acfe_field_group_condition": 0,
+                    "parent_repeater": "field_639d9034e5cff"
+                }
+            ]
+        },
+        {
+            "key": "field_63c49c7f6023c",
+            "label": "Original ID",
+            "name": "original_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "acfe_field_group_condition": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "investor_doc"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_autosync": [
+        "php",
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_display_title": "",
+    "acfe_meta": "",
+    "acfe_note": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "cptInvestorDoc",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1679906849
+}

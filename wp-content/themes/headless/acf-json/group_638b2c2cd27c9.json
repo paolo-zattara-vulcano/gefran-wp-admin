@@ -1,0 +1,89 @@
+{
+    "key": "group_638b2c2cd27c9",
+    "title": "Atom \/ Color - Background",
+    "fields": [
+        {
+            "key": "field_638b2c2cd890b",
+            "label": "Background",
+            "name": "background",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "hide_field": "",
+            "hide_label": "",
+            "hide_instructions": "",
+            "hide_required": "",
+            "show_in_graphql": 1,
+            "choices": {
+                "FFFFFF": "White",
+                "F4F3E7": "Sust white",
+                "006B59": "Susut green",
+                "014550": "Sust dark green",
+                "0D1E36": "Blue",
+                "E4EAF0": "Light blue",
+                "3A7BA5": "Pastel blue",
+                "4AA1B5": "Pastel light blue",
+                "9AC88A": "Pastel green",
+                "D2DC97": "Pastel light green",
+                "E99F58": "Pastel orange",
+                "E64A33": "Pastel red"
+            },
+            "default_value": "FFFFFF",
+            "return_format": "value",
+            "multiple": 0,
+            "max": "",
+            "prepend": "",
+            "append": "",
+            "acfe_settings": "",
+            "acfe_validate": "",
+            "allow_null": 0,
+            "instruction_placement": "",
+            "acfe_permissions": "",
+            "ui": 0,
+            "acfe_field_group_condition": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_autosync": [
+        "php",
+        "json"
+    ],
+    "acfe_form": 1,
+    "acfe_display_title": "",
+    "acfe_permissions": "",
+    "acfe_meta": "",
+    "acfe_note": "",
+    "show_in_graphql": 0,
+    "graphql_field_name": "Comp_Hero",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1671445531
+}

@@ -1,0 +1,21 @@
+# Ignore everything in the root except the specific files/directories below
+/*
+
+# Unignore specific files/directories
+!.gitignore
+!wp-config.php
+!local-config-sample.php
+!/wp-content/
+
+# Ignore the uploads directory
+/wp-content/uploads/
+
+# Ignore files in all project
+**/.DS_Store
+**/debug.log
+
+# Ignore folders in all project
+**/node_modules/
+
+# Ignore the nested .git directory in the theme
+/wp-content/themes/headless/.nogit/

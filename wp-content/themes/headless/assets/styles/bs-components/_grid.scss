@@ -1,0 +1,90 @@
+// POSITIONS
+.sticky-top{
+  position: -webkit-sticky;
+}
+
+// WIDTH
+.w-inherit{
+  width: inherit !important;
+}
+
+// CONTAINERS
+
+.cpad{
+  padding-left: $cpad;
+  padding-right: $cpad;
+}
+
+// SPAZIATURE
+
+// margin-top
+.mtw-6{
+  margin-top: 6vw;
+}
+.mtw-9{
+  margin-top: 9vw;
+}
+.mtw-12{
+  margin-top: 12vw;
+}
+.mtw-15{
+  margin-top: 15vw;
+}
+
+.mtw-6n{
+  margin-top: -6vw;
+}
+.mtw-9n{
+  margin-top: -9vw;
+}
+.mtw-12n{
+  margin-top: -12vw;
+}
+.mtw-15n{
+  margin-top: -15vw;
+}
+
+// margin-bottom
+.mbw-6{
+  margin-bottom: 6vw;
+}
+.mbw-9{
+  margin-bottom: 9vw;
+}
+.mbw-12{
+  margin-bottom: 12vw;
+}
+.mbw-15{
+  margin-bottom: 15vw;
+}
+
+// RESPONSIVE
+
+
+
+@include media-breakpoint-down(xl) {  //---------------------------------------- XL
+
+}
+
+
+@include media-breakpoint-down(lg) { //---------------------------------------- LG
+
+
+}
+
+@include media-breakpoint-down(md) { //---------------------------------------- MD
+
+
+}
+
+
+@include media-breakpoint-down(sm) { //---------------------------------------- SM
+
+
+}
+
+
+@include media-breakpoint-down(xs) { //---------------------------------------- XS
+
+
+}

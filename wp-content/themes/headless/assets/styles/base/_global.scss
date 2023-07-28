@@ -1,0 +1,228 @@
+// Percorsi
+$icon-font-path:        "../fonts/";
+$image-path:						"../images/";
+
+
+// Utilities
+
+$spacer-1: map-get($spacers, 1);
+$spacer-2: map-get($spacers, 2);
+$spacer-3: map-get($spacers, 3);
+$spacer-4: map-get($spacers, 4);
+$spacer-5: map-get($spacers, 5);
+
+// grid
+$cpad: $container-padding-x;
+$footer-margin: 6rem;
+.nfm{
+  margin-bottom: -$footer-margin;
+}
+
+
+// start
+html,
+body {
+  /*Avoid flicker on slides transitions for mobile phones #336 */
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  overflow-x: visible;
+  // https://css-tricks.com/almanac/properties/s/scroll-snap-stop/
+  // scroll-snap-type: y mandatory;
+}
+
+body{
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+// prevent borders around images without src
+img[src=""],
+img:not([src]){
+  opacity: 0;
+}
+
+img[src="*"]{
+  opacity: 1;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+
+// immagini con video-media
+.play-layer{
+    @extend .rw-transition;
+    background-color: rgba(0,0,0,0);
+    position: absolute;
+    z-index: 300;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg{
+      @extend .rw-transition;
+      width: 100px;
+      height: 100px;
+
+      @include media-breakpoint-down(lg) { //---------------------------------------- MD
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+    &:hover{
+      // background-color: rgba(0,0,0,0.2);
+
+      svg{
+        @extend .rw-transition;
+        width: 110px;
+        height: 110px;
+
+        @include media-breakpoint-down(lg) { //---------------------------------------- MD
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+}
+
+
+:focus,
+a:focus { outline: none !important; }
+
+
+// utilities
+.rw-active{
+  color: $primary;
+}
+
+.no-hover:hover{
+  text-decoration: none !important;
+}
+
+
+// Z-INDEX
+.index-0{
+  z-index: 0;
+}
+
+.index-1{
+  z-index: 1;
+}
+
+.index-10{
+  z-index: 10;
+}
+
+
+//BACKGROUNDS
+.bg-cover{
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-contain{
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// BORDI
+.bl-1{
+  border-left: 1px solid $primary;
+}
+
+.br-1{
+  border-right: 1px solid $primary;
+}
+
+.bt-fw{ // border-top full-width
+  position: relative;
+  overflow: hidden;
+
+  &::before{
+    position: absolute;
+    top:0;
+    margin-left: 50%;
+    content: " ";
+    height: 1px;
+    background-color: $secondary;
+    width: 120vw;
+    transform: translateX(-60vw);
+  }
+}
+
+.bb-fw{ // border-bottom full-width
+  position: relative;
+
+  &::after{
+    position: absolute;
+    bottom:0;
+    margin-left: 50%;
+    content: " ";
+    height: 1px;
+    background-color: $secondary;
+    width: 120vw;
+    transform: translateX(-60vw);
+  }
+}
+
+.bb-0{
+  border-bottom: 0 !important;
+}
+
+
+
+// IMMAGINI
+.img-fit,
+.img-cover{
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.img-contain{
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.img-full{
+  width: 100%;
+  height: auto;
+}
+
+
+// TRANSITIONS
+.rw-transition{
+  transition: all 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+// OPACITY
+
+.opacity-0{
+  opacity: 0;
+}
+
+.opaca{
+  opacity: 0.5;
+}
+
+
+// TOOLTIP
+.tooltip-inner{
+  border: 2px solid $primary;
+  @extend .shadow;
+  border-radius: 4px;
+}

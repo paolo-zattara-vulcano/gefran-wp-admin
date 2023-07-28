@@ -1,0 +1,23 @@
+{
+  "browserSyncOptions" : {
+    "proxy": "https://gefran-admin.dvl",
+    "_comments": "SSL hook",
+    "https": {
+      "key": "/Applications/MAMP/conf/apache/ssl/browsersync-key.pem",
+      "cert": "/Applications/MAMP/conf/apache/ssl/browsersync.pem"
+    },
+    "notify": true
+  },
+
+  "browserSyncWatchFiles" : [
+    "./dist/**/*.*",
+    "./**/*.php"
+  ],
+
+  "paths" : {
+    "assets": "./assets",
+    "dist": "./dist",
+    "node": "./node_modules/",
+    "vendor": ""
+  }
+}

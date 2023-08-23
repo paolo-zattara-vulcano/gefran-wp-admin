@@ -1,11 +1,9 @@
-# Ignore everything in the root except the specific files/directories below
-/*
-
-# Unignore specific files/directories
-!.gitignore
-!wp-config.php
-!local-config-sample.php
-!/wp-content/
+# Ignore root files
+license.txt
+readme.html
+.htaccess
+local-config.php
+sincronizzazione.php
 
 # Ignore the uploads directory
 /wp-content/uploads/
@@ -17,5 +15,5 @@
 # Ignore folders in all project
 **/node_modules/
 
-# Ignore the nested .git directory in the theme
+# Ignore nested .git directory in the theme
 /wp-content/themes/headless/.nogit/

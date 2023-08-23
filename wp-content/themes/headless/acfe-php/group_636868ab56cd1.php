@@ -82,6 +82,28 @@ acf_add_local_field_group(array(
 			'acfe_field_group_condition' => 0,
 		),
 		array(
+			'key' => 'field_64e5f769b66cf',
+			'label' => 'CADENAS link',
+			'name' => 'cadenas_link',
+			'aria-label' => '',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '100',
+				'class' => '',
+				'id' => '',
+			),
+			'show_in_graphql' => 1,
+			'default_value' => '',
+			'maxlength' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'acfe_field_group_condition' => 0,
+		),
+		array(
 			'key' => 'field_6369c84dfdcbe',
 			'label' => '(Column 6/12)',
 			'name' => '',
@@ -847,7 +869,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'AcfCptProduct',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1677503417,
+	'modified' => 1692792825,
 ));
 
 endif;

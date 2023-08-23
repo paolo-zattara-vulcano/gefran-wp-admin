@@ -40,9 +40,9 @@ class Product_Sync
             $source_taxonimies_terms[$tax] = wp_get_object_terms($source_post_id, $tax);
         }
 
-        //$source_thumbnail_id = get_post_thumbnail_id($source_post_id);
-        //$source_thumbnail_path = get_attached_file($source_thumbnail_id);
-        $source_thumbnail_url = get_the_post_thumbnail_url($source_post_id);
+        // Get the original size post thumbnail url
+        $attachment_id = get_post_thumbnail_id($source_post_id); // Replace $post_id with the ID of your post
+        $source_thumbnail_url = wp_get_attachment_url($attachment_id);
 
         $source_gallery_images = get_field('gallery', $source_post_id);
         // Get an array of all site IDs in the network

@@ -10,12 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $overstrap_includes = array(
+	//'/hooks.php',                           // Custom hooks.
 	'/rest.php',                           	// Custom REST APIs
 	'/setup.php',                           // Theme setup and custom theme supports.
 	'/widgets.php',                         // Register widget area.
 	'/enqueue.php',                         // Enqueue scripts and styles.
-	//'/hooks.php',                           // Custom hooks.
-	'/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker.
 	'/editor.php',                          // Load Editor functions.
 	'/rwcustom.php',                       // RW Custom functions.
 	'/multilingualpress.php',                       // RW Custom functions.
@@ -32,6 +31,7 @@ $overstrap_includes = array(
 	// PLUGINS
 	'/plugins/duplicator/duplicator.php',
 	'/plugins/multisite-global-sync/multisite-global-sync.php',
+	'/plugins/gatsby-builder-and-notifier/gatsby-builder-and-notifier.php',
 
 	// --------------------------------------- Utilities
 	// '/moduli/_util-check-page-template.php',	// report page template

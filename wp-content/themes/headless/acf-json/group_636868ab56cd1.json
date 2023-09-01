@@ -78,28 +78,6 @@
             "acfe_field_group_condition": 0
         },
         {
-            "key": "field_64e5f769b66cf",
-            "label": "CADENAS link",
-            "name": "cadenas_link",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "100",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "acfe_field_group_condition": 0
-        },
-        {
             "key": "field_6369c84dfdcbe",
             "label": "(Column 6\/12)",
             "name": "",
@@ -325,6 +303,28 @@
             "border_endpoint": [
                 "endpoint"
             ]
+        },
+        {
+            "key": "field_64e5f769b66cf",
+            "label": "CADENAS link",
+            "name": "cadenas_link",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "acfe_field_group_condition": 0
         },
         {
             "key": "field_63686ae73efab",
@@ -863,5 +863,5 @@
     "graphql_field_name": "AcfCptProduct",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1692792825
+    "modified": 1692865038
 }

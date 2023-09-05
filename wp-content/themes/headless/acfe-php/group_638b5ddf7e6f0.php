@@ -650,6 +650,9 @@ acf_add_local_field_group(array(
 			'acfe_seamless_style' => 0,
 			'acfe_group_modal' => 0,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_6477139d08892',
@@ -681,9 +684,6 @@ acf_add_local_field_group(array(
 					'acfe_clone_modal_size' => 'large',
 				),
 			),
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 		array(
 			'key' => 'field_645dd32cd1b49',
@@ -939,7 +939,7 @@ acf_add_local_field_group(array(
 		0 => 'Page',
 		1 => 'Template_Sustainability',
 	),
-	'modified' => 1685525757,
+	'modified' => 1693584440,
 ));
 
 endif;

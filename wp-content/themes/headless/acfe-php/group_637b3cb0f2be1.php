@@ -43,6 +43,9 @@ acf_add_local_field_group(array(
 			'acfe_seamless_style' => 0,
 			'acfe_group_modal' => 0,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_637f7d5685428',
@@ -73,9 +76,6 @@ acf_add_local_field_group(array(
 					'acfe_clone_modal_size' => 'large',
 				),
 			),
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 		array(
 			'key' => 'field_637bad04216d3',
@@ -162,6 +162,10 @@ acf_add_local_field_group(array(
 			'layout' => 'block',
 			'acfe_seamless_style' => 1,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_63a32acc0f5c6',
@@ -443,10 +447,6 @@ acf_add_local_field_group(array(
 					),
 				),
 			),
-			'acfe_group_modal' => 0,
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 		array(
 			'key' => 'field_639dd1b9d89cc',
@@ -584,6 +584,7 @@ acf_add_local_field_group(array(
 					'button_label' => 'Aggiungi Riga',
 					'acfe_field_group_condition' => 0,
 					'rows_per_page' => 20,
+					'parent_repeater' => 'field_639dd33ad89cd',
 					'sub_fields' => array(
 						array(
 							'key' => 'field_639dd45dd89d0',
@@ -771,7 +772,6 @@ acf_add_local_field_group(array(
 							'parent_repeater' => 'field_639dd34bd89ce',
 						),
 					),
-					'parent_repeater' => 'field_639dd33ad89cd',
 				),
 			),
 		),
@@ -813,6 +813,9 @@ acf_add_local_field_group(array(
 			'acfe_seamless_style' => 0,
 			'acfe_group_modal' => 0,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_637f837a646b0',
@@ -844,9 +847,6 @@ acf_add_local_field_group(array(
 					'acfe_clone_modal_size' => 'large',
 				),
 			),
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 		array(
 			'key' => 'field_637bb0f5be2aa',
@@ -959,7 +959,7 @@ acf_add_local_field_group(array(
 		0 => 'Page',
 		1 => 'Template_Group',
 	),
-	'modified' => 1679907481,
+	'modified' => 1693584438,
 ));
 
 endif;

@@ -354,6 +354,10 @@ acf_add_local_field_group(array(
 			'layout' => 'block',
 			'acfe_seamless_style' => 1,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_63886b7cc1ac2',
@@ -407,10 +411,6 @@ acf_add_local_field_group(array(
 					'acfe_clone_modal_size' => 'large',
 				),
 			),
-			'acfe_group_modal' => 0,
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 	),
 	'location' => array(
@@ -443,7 +443,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'Comp_Hero',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1679906719,
+	'modified' => 1693584436,
 ));
 
 endif;

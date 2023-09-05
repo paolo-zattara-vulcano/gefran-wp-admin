@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $overstrap_includes = array(
 	//'/hooks.php',                           // Custom hooks.
 	'/rest.php',                           	// Custom REST APIs
+	'/rest-new.php',                           	// Custom REST APIs
 	'/setup.php',                           // Theme setup and custom theme supports.
 	'/widgets.php',                         // Register widget area.
 	'/enqueue.php',                         // Enqueue scripts and styles.

@@ -151,6 +151,7 @@ acf_add_local_field_group(array(
 					'button_label' => 'Aggiungi Riga',
 					'acfe_field_group_condition' => 0,
 					'rows_per_page' => 20,
+					'parent_repeater' => 'field_638b2acac8691',
 					'sub_fields' => array(
 						array(
 							'key' => 'field_638b3727f4d56',
@@ -183,7 +184,6 @@ acf_add_local_field_group(array(
 							'parent_repeater' => 'field_638b2b3ba073b',
 						),
 					),
-					'parent_repeater' => 'field_638b2acac8691',
 				),
 			),
 		),
@@ -359,7 +359,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'Comp_Hero',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1683955391,
+	'modified' => 1693584436,
 ));
 
 endif;

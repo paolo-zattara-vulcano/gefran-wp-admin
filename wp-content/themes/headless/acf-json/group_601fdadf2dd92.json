@@ -47,7 +47,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": true,
+    "active": false,
     "description": "",
     "show_in_rest": 0,
     "acfe_autosync": [
@@ -57,9 +57,9 @@
     "acfe_display_title": "",
     "acfe_meta": "",
     "acfe_note": "",
-    "show_in_graphql": 1,
+    "show_in_graphql": 0,
     "graphql_field_name": "acfPages_all",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1684134881
+    "modified": 1693584620
 }

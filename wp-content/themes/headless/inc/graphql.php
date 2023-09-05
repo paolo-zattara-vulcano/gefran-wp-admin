@@ -57,7 +57,8 @@ add_action('graphql_register_types', function () {
 	register_graphql_field('Page', 'translations', [
 		'type' => ['list_of' => 'Translation'],
 		'resolve' => function ($post) {
-			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', 1);
+			$blog = get_current_blog_id();
+			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', $blog);
 			if ($translations) {
 				foreach ($translations as $siteId => $postId) {
 					switch_to_blog($siteId);
@@ -80,7 +81,8 @@ add_action('graphql_register_types', function () {
 	register_graphql_field('Product', 'translations', [
 		'type' => ['list_of' => 'Translation'],
 		'resolve' => function ($post) {
-			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', 1);
+			$blog = get_current_blog_id();
+			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', $blog);
 			if ($translations) {
 				foreach ($translations as $siteId => $postId) {
 					switch_to_blog($siteId);
@@ -103,7 +105,8 @@ add_action('graphql_register_types', function () {
 	register_graphql_field('Application', 'translations', [
 			'type' => ['list_of' => 'Translation'],
 			'resolve' => function ($post) {
-				$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', 1);
+				$blog = get_current_blog_id();
+				$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', $blog);
 				if ($translations) {
 					foreach ($translations as $siteId => $postId) {
 						switch_to_blog($siteId);
@@ -126,7 +129,8 @@ add_action('graphql_register_types', function () {
 	register_graphql_field('Post', 'translations', [
 		'type' => ['list_of' => 'Translation'],
 		'resolve' => function ($post) {
-			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', 1);
+			$blog = get_current_blog_id();
+			$translations = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', $blog);
 			if ($translations) {
 				foreach ($translations as $siteId => $postId) {
 					switch_to_blog($siteId);
@@ -149,7 +153,8 @@ add_action('graphql_register_types', function () {
 	register_graphql_field('ProductCategory', 'translations', [
 		'type' => ['list_of' => 'Translation'],
 		'resolve' => function ($post) {
-			$translations = \Inpsyde\MultilingualPress\translationIds($post->databaseId, 'Term', 1);
+			$blog = get_current_blog_id();
+			$translations = \Inpsyde\MultilingualPress\translationIds($post->databaseId, 'Term', $blog);
 			if (count($translations)) {
 				foreach ($translations as $siteId => $postId) {
 					switch_to_blog($siteId);

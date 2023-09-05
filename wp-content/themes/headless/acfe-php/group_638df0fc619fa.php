@@ -116,6 +116,7 @@ acf_add_local_field_group(array(
 					'button_label' => 'Aggiungi Persons Group',
 					'acfe_field_group_condition' => 0,
 					'rows_per_page' => 20,
+					'parent_repeater' => 'field_638df0fc69587',
 					'sub_fields' => array(
 						array(
 							'key' => 'field_638df1c8997bc',
@@ -163,6 +164,7 @@ acf_add_local_field_group(array(
 							'collapsed' => 'field_638df0fc6aaed',
 							'button_label' => 'Aggiungi Riga',
 							'rows_per_page' => 20,
+							'parent_repeater' => 'field_638dfb193c8aa',
 							'sub_fields' => array(
 								array(
 									'key' => 'field_638df0fc6aaed',
@@ -194,7 +196,6 @@ acf_add_local_field_group(array(
 									'parent_repeater' => 'field_638df18d997ba',
 								),
 							),
-							'parent_repeater' => 'field_638dfb193c8aa',
 						),
 						array(
 							'key' => 'field_638df1dc997bd',
@@ -250,7 +251,6 @@ acf_add_local_field_group(array(
 							'parent_repeater' => 'field_638dfb193c8aa',
 						),
 					),
-					'parent_repeater' => 'field_638df0fc69587',
 				),
 			),
 		),
@@ -290,7 +290,7 @@ acf_add_local_field_group(array(
 		0 => 'Page',
 		1 => 'Template_GovernanceCorporate',
 	),
-	'modified' => 1679906267,
+	'modified' => 1693584438,
 ));
 
 endif;

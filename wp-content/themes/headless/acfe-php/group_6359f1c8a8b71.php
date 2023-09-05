@@ -273,12 +273,12 @@ acf_add_local_field_group(array(
 					),
 					'show_in_graphql' => 1,
 					'endpoint' => 1,
-					'border_endpoint' => array(
-						0 => 'endpoint',
-					),
 					'acfe_field_group_condition' => 0,
 					'columns' => '6/12',
 					'border' => '',
+					'border_endpoint' => array(
+						0 => 'endpoint',
+					),
 					'parent_repeater' => 'field_6359f1c8ae56f',
 				),
 			),
@@ -314,7 +314,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'Comp_Hero',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1679906772,
+	'modified' => 1693584437,
 ));
 
 endif;

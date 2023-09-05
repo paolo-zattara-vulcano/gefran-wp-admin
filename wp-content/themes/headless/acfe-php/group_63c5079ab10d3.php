@@ -25,6 +25,9 @@ acf_add_local_field_group(array(
 			'acfe_seamless_style' => 0,
 			'acfe_group_modal' => 0,
 			'acfe_field_group_condition' => 0,
+			'acfe_group_modal_close' => 0,
+			'acfe_group_modal_button' => '',
+			'acfe_group_modal_size' => 'large',
 			'sub_fields' => array(
 				array(
 					'key' => 'field_63c507f67876d',
@@ -101,9 +104,6 @@ acf_add_local_field_group(array(
 					'library' => 'all',
 				),
 			),
-			'acfe_group_modal_close' => 0,
-			'acfe_group_modal_button' => '',
-			'acfe_group_modal_size' => 'large',
 		),
 		array(
 			'key' => 'field_63c50ff7a5399',
@@ -266,7 +266,7 @@ acf_add_local_field_group(array(
 		0 => 'Page',
 		1 => 'Template_SupportTechnicalSupport',
 	),
-	'modified' => 1679907636,
+	'modified' => 1693584439,
 ));
 
 endif;

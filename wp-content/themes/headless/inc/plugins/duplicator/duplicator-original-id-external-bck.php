@@ -58,7 +58,7 @@ function clone_posts_across_blogs($relations) {
 	    // Switch to the destination blog
 	    switch_to_blog($destination_blog_id);
 
-			// NEW POST: If the post ID is not given, insert a new post
+	    // If the post ID is not given, insert a new post
 	    if (!$destination_post_id || $destination_post_id === 0) {
 
 	        $post_data[0]['ID'] = '';
@@ -88,45 +88,56 @@ function clone_posts_across_blogs($relations) {
 	        }
 	    }
 
-			// Set the featured image
-			if ($featured_image_url) {
-					// Get attachements from image url
-					$attachment = attachment_url_to_postid($featured_image_url);
-					update_post_meta($destination_post_id, '_thumbnail_id', $attachment);
-			}
-
 			// Update ACF fields
 			foreach ($fields as $name => $value) {
-				$field_object = get_field_object($name, $destination_post_id, false, true);
 
-				error_log('--------------- $field_object');
-				error_log(print_r($field_object, true));
 
-				// fields that need to be cloned by the raw content
-				if ($field_object && $field_object['type'] == 'textarea') {
-						$textarea_field_name = custom_acf_get_field_name_by_key( $field_object['key'] );
-						switch_to_blog($source_blog_id);
-						$original_textarea_content = get_field(	$textarea_field_name, $source_post_id, false);
-						restore_current_blog();
+				error_log('post type ---------');
+				error_log($source_post_type);
 
-						error_log('--------------- textarea');
-						error_log(print_r($textarea_field_name, true));
-						error_log(print_r($original_textarea_content, true));
 
-						update_post_meta($destination_post_id, $name, $original_textarea_content);
-				}
+					// original_id handler -- Check if the field is "original_id"
+					if ($source_post_type == 'product' && $name == 'original_id') {
 
-				// all the other fields
-				else {
 
-					// WARNING
-					// The field "original_id" is always copied from the main
-					// whenever will be needed to clone from different source, need to add logic to exclude the field
+							if(empty(get_field('original_id', $destination_post_id))){
+
+								error_log('updating origial_id ---------');
+
+								// Check if we are on blog 1
+								if ($source_blog_id == 1) {
+								    // We are on blog 1, so we can use the current $source_post_id
+								    $value = '01' . $source_post_id;
+										error_log('We are on blog 1, so we can use the current $source_post_id ---------');
+
+								} else {
+								    // We are not on blog 1, so we need to find the related post on blog 1
+								    // Using the MultilingualPress API to get the related post ID on blog 1
+								    $mlp_relationships = apply_filters('multilingualpress.relationships', null);
+								    $related_post_id = $mlp_relationships->get_related_post_id($source_post_id, 1);
+
+								    // Use the related post ID from blog 1 as the $source_post_id
+								    $value = '01' . str_pad($related_post_id, 6, '0', STR_PAD_LEFT);
+								}
+							}
+
+
+							// Update the "original_id" field with the new value
+							update_post_meta($destination_post_id, 'original_id', $value);
+					}
+
 
 					// Update the ACF image fields with the correct attachment IDs
 					$value = update_acf_image_field($value, $source_blog_id, $destination_blog_id, $source_post_id);
+
 					update_field($name, $value, $destination_post_id);
-				}
+			}
+
+			// Set the featured image
+			if ($featured_image_url) {
+					// Get attachements from image url
+					$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $featured_image_url ));
+					update_post_meta($destination_post_id, '_thumbnail_id', $attachment[0]);
 			}
 
 
@@ -135,24 +146,6 @@ function clone_posts_across_blogs($relations) {
 
 		}
 }
-
-// UTILITY: get acf name by key
-function custom_acf_get_field_name_by_key( $key ) {
-    $field = acf_maybe_get_field( $key );
-    if ( empty( $field ) || ! isset( $field['parent'], $field['name'] ) ) {
-        return $field;
-    }
-    $ancestors = array();
-    while ( ! empty( $field['parent'] ) && ! in_array( $field['name'], $ancestors ) ) {
-        $parent = acf_get_field( $field['parent'] );
-        $ancestors[] = $field['name'];
-        $field = $parent;
-    }
-    $formatted_key = array_reverse( $ancestors );
-    $formatted_key = implode( '_', $formatted_key );
-    return $formatted_key;
-}
-
 
 
 // -----------------------------------------------------
@@ -178,15 +171,6 @@ function update_acf_image_field($field_value, $source_blog_id, $destination_blog
                     // Update the file value
                     $field_value['file'] = update_acf_file($original_value, $source_blog_id, $destination_blog_id);
                 }
-								if ($key === 'type') {
-
-									error_log('--------------- type');
-									error_log(print_r($value, true));
-
-										// Single attachment (image, video, file, etc.)
-										return update_acf_image($field_value, $source_blog_id, $destination_blog_id);
-								}
-
             }
         }
     }

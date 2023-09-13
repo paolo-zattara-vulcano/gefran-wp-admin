@@ -14,6 +14,7 @@ class Product_Sync
         //$currentSitePost = get_post($_POST['post_id']);
         //$menu_order = $currentSitePost->menu_order;
 
+        $currentSiteOriginalId = get_field('original_id', $_POST['post_id']);
         $currentSiteBadge = get_field('badge', $_POST['post_id']);
         $currentSiteGallery = get_field('gallery', $_POST['post_id']);
         $currentSiteIoLink = get_field('io-link', $_POST['post_id']);
@@ -58,6 +59,7 @@ class Product_Sync
                     if ($post != null) {
                         //$post->menu_order = $menu_order;
 
+                        update_field('original_id', $currentSiteOriginalId, $post->ID);
                         update_field('badge', $currentSiteBadge, $post->ID);
                         update_field('gallery', $currentSiteGallery, $post->ID);
                         update_field('io-link', $currentSiteIoLink, $post->ID);
@@ -149,29 +151,30 @@ class Product_Sync
             //$prod_category_tax_terms = wp_get_object_terms($orig_prod->ID, $tax);
             if (count($translations)) {
                 foreach ($translations as $siteId => $postId) {
-                    //if ($siteId == 2) {
-                    switch_to_blog($siteId);
-                    $post = get_post($postId);
-                    if ($post != null) {
+                    // skip english master blog
+                    if ($siteId != 1) {
+                      switch_to_blog($siteId);
+                      $post = get_post($postId);
+                      if ($post != null) {
 
-                        foreach ($source_taxonimies_terms as $tax => $terms) {
-                            $slugs_to_add = array();
-                            foreach ($terms as $term) {
-                                $translated_term_ids = \Inpsyde\MultilingualPress\translationIds($term->term_id, 'term', 1);
-                                $trans_term = get_term_by('id', $translated_term_ids[$siteId], $tax);
-                                //error_log(print_r($term, true));
-                                if ($trans_term) {
-                                    array_push($slugs_to_add, $trans_term->slug);
-                                }
-                            }
-                            if (!empty($slugs_to_add)) {
-                                wp_delete_object_term_relationships($postId, $tax);
-                                wp_set_object_terms($postId, $slugs_to_add, $tax, true);
-                            }
-                        }
+                          foreach ($source_taxonimies_terms as $tax => $terms) {
+                              $slugs_to_add = array();
+                              foreach ($terms as $term) {
+                                  $translated_term_ids = \Inpsyde\MultilingualPress\translationIds($term->term_id, 'term', 1);
+                                  $trans_term = get_term_by('id', $translated_term_ids[$siteId], $tax);
+                                  //error_log(print_r($term, true));
+                                  if ($trans_term) {
+                                      array_push($slugs_to_add, $trans_term->slug);
+                                  }
+                              }
+                              if (!empty($slugs_to_add)) {
+                                  wp_delete_object_term_relationships($postId, $tax);
+                                  wp_set_object_terms($postId, $slugs_to_add, $tax, true);
+                              }
+                          }
+                      }
+                      restore_current_blog();
                     }
-                    restore_current_blog();
-                    //}
                 }
             }
         }

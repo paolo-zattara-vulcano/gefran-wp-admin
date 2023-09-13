@@ -30,6 +30,7 @@ $overstrap_includes = array(
 	'/cptui/ctx.php',
 
 	// PLUGINS
+	'/plugins/duplicator/original-id-handler.php',
 	'/plugins/duplicator/duplicator.php',
 	'/plugins/multisite-global-sync/multisite-global-sync.php',
 	'/plugins/gatsby-builder-and-notifier/gatsby-builder-and-notifier.php',

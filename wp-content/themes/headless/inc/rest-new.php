@@ -106,10 +106,20 @@ function gfrnGetProductsWithCats($request){
 
 
 function _getProductFields($prodID){
+	$siteUrl = home_url();
 	$prodTitle = get_the_title($prodID);
 	$prodOriginalID = get_post_meta($prodID,'original_id',true);
 	$configuratore = get_field('configurator_link', $prodID);
 	$source_cats = get_the_terms($prodID, 'product_category');
+	$sub_title = " ";
+	if(get_field('sub_title',$prodID)){
+		$sub_title =  get_field('sub_title',$prodID);
+	}
+	$overview = get_field('overview',$prodID);
+	$description = get_field('description_accordion_tab',$prodID);
+	$badge = get_field('badge', $prodID);
+	$permalink = str_replace(home_url(), 'https://www.gefran.com', get_permalink($prodID)); 
+	$image = get_the_post_thumbnail_url($prodID,"full");
 	$parent_cat = array();
 	if(! empty($source_cats) && ! is_wp_error($source_cats) ){
 		foreach($source_cats as $cat ){
@@ -130,7 +140,13 @@ function _getProductFields($prodID){
 		"title" => $prodTitle,
 		"original_id" => $prodOriginalID,
 		"configuratore"=> $configuratore,
-		"parent_cat" => $parent_cat
+		"sub_title"=> $sub_title,
+		"description" => wp_strip_all_tags($description),
+		"overview" => wp_strip_all_tags($overview),
+		"image" => $image,
+		"badge" => $badge,
+		"permalink" => $permalink,
+		"parent_cat" => $parent_cat,
 	);
 
 	return $productFields;

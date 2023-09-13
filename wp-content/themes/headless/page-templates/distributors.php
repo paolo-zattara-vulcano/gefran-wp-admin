@@ -1,9 +1,8 @@
 <?php
 /**
  * Template Name: Distributors
- * Template Post Type: Distributors
  *
- * Template for displaying a blank page.
+ * Template for displaying distributors.
  *
  * @package overstrap
  */

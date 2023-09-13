@@ -9,6 +9,14 @@
  * @package         Algolia_Custom_Integration
  */
 
+// Check if WP_LOCAL_DEV is defined and set to true - in this case prevent executing
+if (defined('WP_LOCAL_DEV') && WP_LOCAL_DEV === true) {
+    return;
+}
+
+error_log('running algolia plugin');
+
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/wp-cli.php';
 require_once __DIR__ . '/algolia.php';
@@ -71,7 +79,7 @@ if (is_multisite()) {
         }
 
         add_action('admin_init', 'algolia_register_settings');
-        add_action('admin_menu', 'algolia_add_settings_page');
+        add_action('admin_menu', 'algolia_add_settings_page', 10); // Change the priority to 10
         add_action('update_option_algolia_custom_integration_plugin_options', 'hook_options_page_after_save', 10, 2);
     }
 }

@@ -12,6 +12,7 @@ class Application_Sync
         $source_page_template_name = get_post_meta($source_post_id, '_wp_page_template', true);
         $source_parent_post_id = wp_get_post_parent_id($source_post_id);
         $translations_parent_post = \Inpsyde\MultilingualPress\translationIds($source_parent_post_id, 'Post', 1);
+        $sourceClientLogoGallery = get_field('client_logo', $_POST['post_id']);
         //if (str_contains($page_template_name, 'application.php')) {
 
         // Taxonomies
@@ -50,6 +51,9 @@ class Application_Sync
 
                     // update template
                     update_post_meta($post->ID, '_wp_page_template', $source_page_template_name);
+
+                    // update fields
+                    update_field('client_logo', $sourceClientLogoGallery, $post->ID);
 
                     foreach ($source_taxonimies_terms as $tax => $terms) {
                         $slugs_to_add = array();

@@ -112,7 +112,7 @@
             "pagination": 0,
             "min": 0,
             "max": 0,
-            "collapsed": "field_638736611363b",
+            "collapsed": "",
             "button_label": "Aggiungi Text Module",
             "acfe_field_group_condition": 0,
             "rows_per_page": 20,
@@ -249,6 +249,120 @@
             "prepend": "",
             "append": "",
             "acfe_field_group_condition": 0
+        },
+        {
+            "key": "field_6501d745b9f7a",
+            "label": "Related products",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "placement": "top",
+            "endpoint": 0,
+            "no_preference": 0,
+            "acfe_field_group_condition": 0
+        },
+        {
+            "key": "field_6501d76db9f7c",
+            "label": "Related products",
+            "name": "related_products",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "post_type": [
+                "product"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "acfe_add_post": 0,
+            "acfe_edit_post": 1,
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "min": "",
+            "max": "",
+            "elements": "",
+            "acfe_field_group_condition": 0
+        },
+        {
+            "key": "field_6501d751b9f7b",
+            "label": "Related applications",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "placement": "top",
+            "endpoint": 0,
+            "no_preference": 0,
+            "acfe_field_group_condition": 0
+        },
+        {
+            "key": "field_6501d7bfb9f7d",
+            "label": "Related applications",
+            "name": "related_applications",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "post_type": [
+                "application"
+            ],
+            "taxonomy": [
+                "application_content:case-history",
+                "application_content:news",
+                "application_content:note-applicative"
+            ],
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "acfe_add_post": 0,
+            "acfe_edit_post": 1,
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "min": "",
+            "max": "",
+            "elements": "",
+            "acfe_field_group_condition": 0
         }
     ],
     "location": [
@@ -281,5 +395,5 @@
     "graphql_field_name": "acfPosts",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1679907275
+    "modified": 1694619698
 }

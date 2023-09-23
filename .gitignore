@@ -17,3 +17,4 @@ sincronizzazione.php
 
 # Ignore nested .git directory in the theme
 /wp-content/themes/headless/.nogit/
+/wp-content/themes/headless/.bck/

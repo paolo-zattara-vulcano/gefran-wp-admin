@@ -16,6 +16,7 @@ require_once __DIR__ . '/sync_application.php';
 require_once __DIR__ . '/sync_products_order.php';
 require_once __DIR__ . '/edit_products_order.php';
 require_once __DIR__ . '/sync_product_category.php';
+require_once __DIR__ . '/sync_blog_media.php';
 
 new Global_Sync();
 new Product_Order();

@@ -855,71 +855,71 @@ function cptui_register_my_taxes() {
 	 * Taxonomy: Categoria Investor Doc.
 	 */
 
-	$labels = [
-		"name" => esc_html__( "Categoria Investor Doc", "overstrap" ),
-		"singular_name" => esc_html__( "Categorie Investor Doc", "overstrap" ),
-	];
-
-
-	$args = [
-		"label" => esc_html__( "Categoria Investor Doc", "overstrap" ),
-		"labels" => $labels,
-		"public" => true,
-		"publicly_queryable" => true,
-		"hierarchical" => true,
-		"show_ui" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"query_var" => true,
-		"rewrite" => [ 'slug' => 'investor_doc_category', 'with_front' => true, ],
-		"show_admin_column" => true,
-		"show_in_rest" => true,
-		"show_tagcloud" => false,
-		"rest_base" => "investor_doc_category",
-		"rest_controller_class" => "WP_REST_Terms_Controller",
-		"rest_namespace" => "wp/v2",
-		"show_in_quick_edit" => true,
-		"sort" => false,
-		"show_in_graphql" => true,
-		"graphql_single_name" => "InvestorDocCategory",
-		"graphql_plural_name" => "InvestorDocCategories",
-	];
-	register_taxonomy( "investor_doc_category", [ "investor_doc" ], $args );
+	// $labels = [
+	// 	"name" => esc_html__( "Categoria Investor Doc", "overstrap" ),
+	// 	"singular_name" => esc_html__( "Categorie Investor Doc", "overstrap" ),
+	// ];
+	//
+	//
+	// $args = [
+	// 	"label" => esc_html__( "Categoria Investor Doc", "overstrap" ),
+	// 	"labels" => $labels,
+	// 	"public" => true,
+	// 	"publicly_queryable" => true,
+	// 	"hierarchical" => true,
+	// 	"show_ui" => true,
+	// 	"show_in_menu" => true,
+	// 	"show_in_nav_menus" => true,
+	// 	"query_var" => true,
+	// 	"rewrite" => [ 'slug' => 'investor_doc_category', 'with_front' => true, ],
+	// 	"show_admin_column" => true,
+	// 	"show_in_rest" => true,
+	// 	"show_tagcloud" => false,
+	// 	"rest_base" => "investor_doc_category",
+	// 	"rest_controller_class" => "WP_REST_Terms_Controller",
+	// 	"rest_namespace" => "wp/v2",
+	// 	"show_in_quick_edit" => true,
+	// 	"sort" => false,
+	// 	"show_in_graphql" => true,
+	// 	"graphql_single_name" => "InvestorDocCategory",
+	// 	"graphql_plural_name" => "InvestorDocCategories",
+	// ];
+	// register_taxonomy( "investor_doc_category", [ "investor_doc" ], $args );
 
 	/**
 	 * Taxonomy: Anni Investor Doc.
 	 */
 
-	$labels = [
-		"name" => esc_html__( "Anni Investor Doc", "overstrap" ),
-		"singular_name" => esc_html__( "Anno Investor Doc", "overstrap" ),
-	];
-
-
-	$args = [
-		"label" => esc_html__( "Anni Investor Doc", "overstrap" ),
-		"labels" => $labels,
-		"public" => true,
-		"publicly_queryable" => true,
-		"hierarchical" => true,
-		"show_ui" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"query_var" => true,
-		"rewrite" => [ 'slug' => 'investor_doc_year', 'with_front' => true, ],
-		"show_admin_column" => true,
-		"show_in_rest" => true,
-		"show_tagcloud" => false,
-		"rest_base" => "investor_doc_year",
-		"rest_controller_class" => "WP_REST_Terms_Controller",
-		"rest_namespace" => "wp/v2",
-		"show_in_quick_edit" => true,
-		"sort" => false,
-		"show_in_graphql" => true,
-		"graphql_single_name" => "InvestorDocYear",
-		"graphql_plural_name" => "InvestorDocYears",
-	];
-	register_taxonomy( "investor_doc_year", [ "investor_doc" ], $args );
+	// $labels = [
+	// 	"name" => esc_html__( "Anni Investor Doc", "overstrap" ),
+	// 	"singular_name" => esc_html__( "Anno Investor Doc", "overstrap" ),
+	// ];
+	//
+	//
+	// $args = [
+	// 	"label" => esc_html__( "Anni Investor Doc", "overstrap" ),
+	// 	"labels" => $labels,
+	// 	"public" => true,
+	// 	"publicly_queryable" => true,
+	// 	"hierarchical" => true,
+	// 	"show_ui" => true,
+	// 	"show_in_menu" => true,
+	// 	"show_in_nav_menus" => true,
+	// 	"query_var" => true,
+	// 	"rewrite" => [ 'slug' => 'investor_doc_year', 'with_front' => true, ],
+	// 	"show_admin_column" => true,
+	// 	"show_in_rest" => true,
+	// 	"show_tagcloud" => false,
+	// 	"rest_base" => "investor_doc_year",
+	// 	"rest_controller_class" => "WP_REST_Terms_Controller",
+	// 	"rest_namespace" => "wp/v2",
+	// 	"show_in_quick_edit" => true,
+	// 	"sort" => false,
+	// 	"show_in_graphql" => true,
+	// 	"graphql_single_name" => "InvestorDocYear",
+	// 	"graphql_plural_name" => "InvestorDocYears",
+	// ];
+	// register_taxonomy( "investor_doc_year", [ "investor_doc" ], $args );
 
 	/**
 	 * Taxonomy: Brands.

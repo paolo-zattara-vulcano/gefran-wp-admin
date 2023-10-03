@@ -22,12 +22,19 @@ class Product_Sync
         $currentSiteEnableC = get_field('enable_configurator', $_POST['post_id']);
         $currentSiteConfLink = get_field('configurator_link', $_POST['post_id']);
         $currentSiteCadenasLink = get_field('cadenas_link', $_POST['post_id']);
-        $currentSiteReplProd = get_field('replacement_product', $_POST['post_id']);
         $currentSiteAppAvail = get_field('apps_available_on', $_POST['post_id']);
         $currentSiteMainVimeo = get_field('main_vimeo_video_url', $_POST['post_id']);
         $currentSiteVideo = get_field('video', $_POST['post_id']);
+
         $currentSiteRelProds = get_field('related_products', $_POST['post_id']);
         $currentSiteRelApps = get_field('related_applications', $_POST['post_id']);
+        $currentSiteReplProd = get_field('replacement_product', $_POST['post_id']);
+
+        function processID($post, $siteId) {
+          $post->ID = \Inpsyde\MultilingualPress\translationIds($post->ID, 'Post', 1)[$siteId];
+          return $post;
+        }
+
 
         $source_post_id = $_POST['post_id'];
         $taxonomies = [
@@ -52,7 +59,7 @@ class Product_Sync
         try {
             if (count($translations)) {
                 foreach ($translations as $siteId => $postId) {
-                    error_log('siteId:' . $siteId . ' postId:' . $postId);
+                    // error_log('siteId:' . $siteId . ' postId:' . $postId);
                     switch_to_blog($siteId);
 
                     $post = get_post($postId);
@@ -67,15 +74,37 @@ class Product_Sync
                         update_field('enable_configurator', $currentSiteEnableC, $post->ID);
                         update_field('configurator_link', $currentSiteConfLink, $post->ID);
                         update_field('cadenas_link', $currentSiteCadenasLink, $post->ID);
-                        update_field('replacement_product', $currentSiteReplProd, $post->ID);
                         update_field('apps_available_on', $currentSiteAppAvail, $post->ID);
                         update_field('main_vimeo_video_url', $currentSiteMainVimeo, $post->ID);
                         update_field('video', $currentSiteVideo, $post->ID);
+
+
+                        // RELATIONSHIP FIELDS
+                        // Loop through each WP_Post object in $currentSiteReplProd and modify the ID
+                        foreach ($currentSiteReplProd as $relation) {
+                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
+                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
+                        }
+                        update_field('replacement_product', $currentSiteReplProd, $post->ID);
+
+                        // Loop through each WP_Post object in $currentSiteRelProds and modify the ID
+                        foreach ($currentSiteRelProds as $relation) {
+                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
+                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
+                        }
                         update_field('related_products', $currentSiteRelProds, $post->ID);
+
+                        // Loop through each WP_Post object in $currentSiteRelApps and modify the ID
+                        foreach ($currentSiteRelApps as $relation) {
+                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
+                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
+                        }
                         update_field('related_applications', $currentSiteRelApps, $post->ID);
 
-                        foreach ($source_taxonimies_terms as $tax => $terms) {
 
+
+                        // TAXONOMIES
+                        foreach ($source_taxonimies_terms as $tax => $terms) {
                             $slugs_to_add = array();
                             foreach ($terms as $term) {
                                 $translated_term_ids = \Inpsyde\MultilingualPress\translationIds($term->term_id, 'term', 1);

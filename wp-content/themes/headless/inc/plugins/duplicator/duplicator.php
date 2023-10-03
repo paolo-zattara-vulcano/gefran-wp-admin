@@ -99,21 +99,38 @@ function clone_posts_across_blogs($relations) {
 			foreach ($fields as $name => $value) {
 				$field_object = get_field_object($name, $destination_post_id, false, true);
 
-				error_log('--------------- $field_object');
-				error_log(print_r($field_object, true));
-
 				// fields that need to be cloned by the raw content
 				if ($field_object && $field_object['type'] == 'textarea') {
 						$textarea_field_name = custom_acf_get_field_name_by_key( $field_object['key'] );
 						switch_to_blog($source_blog_id);
-						$original_textarea_content = get_field(	$textarea_field_name, $source_post_id, false);
+							$original_textarea_content = get_field(	$textarea_field_name, $source_post_id, false);
 						restore_current_blog();
-
-						error_log('--------------- textarea');
-						error_log(print_r($textarea_field_name, true));
-						error_log(print_r($original_textarea_content, true));
-
 						update_post_meta($destination_post_id, $name, $original_textarea_content);
+				}
+
+				// RELATIONSHIP TYPE
+				elseif ($field_object && $field_object['type'] == 'relationship') {
+
+					// get the name
+					$relationship_field_name = custom_acf_get_field_name_by_key( $field_object['key'] );
+
+					// get original field value
+					switch_to_blog($source_blog_id);
+						$original_relationship_content = get_field(	$relationship_field_name, $source_post_id, false);
+					restore_current_blog();
+
+					// Check if $original_relationship_content is an array
+					if (is_array($original_relationship_content)) {
+						// Loop through each element in $original_relationship_content and modify the ID
+						foreach ($original_relationship_content as $key => $relation) {
+							$translations = \Inpsyde\MultilingualPress\translationIds($relation, 'Post', 1);
+							// Update the original array
+							$original_relationship_content[$key] = isset($translations[$destination_blog_id]) ? $translations[$destination_blog_id] : '0';
+						}
+					}
+
+					// update field
+					update_field($name, $original_relationship_content, $destination_post_id);
 				}
 
 				// all the other fields
@@ -180,8 +197,8 @@ function update_acf_image_field($field_value, $source_blog_id, $destination_blog
                 }
 								if ($key === 'type') {
 
-									error_log('--------------- type');
-									error_log(print_r($value, true));
+									// error_log('--------------- type');
+									// error_log(print_r($value, true));
 
 										// Single attachment (image, video, file, etc.)
 										return update_acf_image($field_value, $source_blog_id, $destination_blog_id);

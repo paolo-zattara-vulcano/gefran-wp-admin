@@ -146,12 +146,65 @@ function clone_posts_across_blogs($relations) {
 				}
 			}
 
+			clone_taxonomy_terms_across_blogs($source_blog_id, $source_post_id, $destination_blog_id, $destination_post_id);
 
 	    // Switch back to the original blog
 	    restore_current_blog();
 
 		}
 }
+
+
+
+function clone_taxonomy_terms_across_blogs($source_blog_id, $source_post_id, $destination_blog_id, $destination_post_id) {
+
+    // Switch to the source blog
+    switch_to_blog($source_blog_id);
+
+	    // Get all taxonomies for the post
+	    $taxonomies = get_object_taxonomies(get_post_type($source_post_id));
+
+	    // Switch to the destination blog
+
+	    foreach ($taxonomies as $taxonomy) {
+	        // Get all terms for this taxonomy and post
+	        $terms = wp_get_post_terms($source_post_id, $taxonomy, ['fields' => 'ids']);
+
+	        $translated_terms = [];
+
+	        foreach ($terms as $term_id) {
+	            // Use the provided function to find the translated term
+	            $translated_term_ids = \Inpsyde\MultilingualPress\translationIds($term_id, 'term', $source_blog_id);
+
+							error_log('--------------- translated_term_ids');
+							error_log(print_r($translated_term_ids, true));
+
+	            if (isset($translated_term_ids[$destination_blog_id])) {
+	                $translated_terms[] = $translated_term_ids[$destination_blog_id];
+	            }
+	        }
+
+
+	        // Set the terms to the post in the destination blog
+					switch_to_blog($destination_blog_id);
+						// Overwrite terms on the destination post
+			       if (!empty($translated_terms)) {
+							 	// false flag to completely override
+			           wp_set_object_terms($destination_post_id, $translated_terms, $taxonomy, false);
+			       } else {
+			           // If there are no translated terms, make sure to remove any existing terms
+			           wp_delete_object_term_relationships($destination_post_id, $taxonomy);
+			       }
+					restore_current_blog();
+
+	    }
+
+    // Switch back to the original blog
+    restore_current_blog();
+}
+
+
+
 
 // UTILITY: get acf name by key
 function custom_acf_get_field_name_by_key( $key ) {

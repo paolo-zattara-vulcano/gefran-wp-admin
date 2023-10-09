@@ -20,7 +20,7 @@ class Product_Sync
         $currentSiteIoLink = get_field('io-link', $_POST['post_id']);
         $currentSiteAlgoliaEx = get_field('algolia_exluded', $_POST['post_id']);
         $currentSiteEnableC = get_field('enable_configurator', $_POST['post_id']);
-        $currentSiteConfLink = get_field('configurator_link', $_POST['post_id']);
+        // $currentSiteConfLink = get_field('configurator_link', $_POST['post_id']);
         // $currentSiteCadenasLink = get_field('cadenas_link', $_POST['post_id']);
         $currentSiteAppAvail = get_field('apps_available_on', $_POST['post_id']);
         $currentSiteMainVimeo = get_field('main_vimeo_video_url', $_POST['post_id']);
@@ -72,7 +72,7 @@ class Product_Sync
                         update_field('io-link', $currentSiteIoLink, $post->ID);
                         update_field('algolia_exluded', $currentSiteAlgoliaEx, $post->ID);
                         update_field('enable_configurator', $currentSiteEnableC, $post->ID);
-                        update_field('configurator_link', $currentSiteConfLink, $post->ID);
+                        // update_field('configurator_link', $currentSiteConfLink, $post->ID);
                         // update_field('cadenas_link', $currentSiteCadenasLink, $post->ID);
                         update_field('apps_available_on', $currentSiteAppAvail, $post->ID);
                         update_field('main_vimeo_video_url', $currentSiteMainVimeo, $post->ID);

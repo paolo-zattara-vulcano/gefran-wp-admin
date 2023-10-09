@@ -13,6 +13,9 @@ class Product_Sync
         //menu order
         //$currentSitePost = get_post($_POST['post_id']);
         //$menu_order = $currentSitePost->menu_order;
+        $currentSitePostStatus = get_post_status($_POST['post_id']);
+        // error_log('currentSitePostStatus');
+        // error_log(print_r($currentSitePostStatus, true));
 
         $currentSiteOriginalId = get_field('original_id', $_POST['post_id']);
         $currentSiteBadge = get_field('badge', $_POST['post_id']);
@@ -133,6 +136,12 @@ class Product_Sync
                         }
                         //error_log(print_r($gallery_images, true));
                         update_field('gallery', $gallery_images, $post->ID);
+
+                        // Update post status
+                        wp_update_post([
+                            'ID' => $post->ID,
+                            'post_status' => $currentSitePostStatus
+                        ]);
                     }
                     restore_current_blog();
                 }

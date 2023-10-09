@@ -89,24 +89,29 @@ class Product_Order
             'fields' => 'all',
         ));
 
-        $site_ids = get_sites(array('fields' => 'ids'));
-        foreach ($site_ids as $site_id) {
-            if ($site_id != $current_site_id) {
-                switch_to_blog($site_id);
 
-                foreach ($products as $prod) {
-                    $orig_menu_order = $prod->menu_order;
-                    $site_prod = get_post($prod->ID);
-                    if ($site_prod != null && $site_prod->menu_order != $orig_menu_order) {
-                        wp_update_post(array(
-                            'ID'           => $site_prod->ID,
-                            'menu_order'   => $orig_menu_order,
-                        ));
-                    }
-                }
+        foreach ($products as $prod) {
+          // Get an array of all site IDs in the network
+          $translations = \Inpsyde\MultilingualPress\translationIds($prod->ID, 'Post', 1);
 
-                restore_current_blog();
+          $orig_menu_order = $prod->menu_order;
+
+          if (count($translations)) {
+            foreach ($translations as $siteId => $postId) {
+              switch_to_blog($siteId);
+
+              $site_prod = get_post($postId);
+              if ($site_prod !== null && $site_prod->menu_order !== $orig_menu_order) {
+
+                  wp_update_post(array(
+                      'ID'           => $site_prod->ID,
+                      'menu_order'   => $orig_menu_order,
+                  ));
+              }
+
+              restore_current_blog();
             }
+          }
         }
     }
 }

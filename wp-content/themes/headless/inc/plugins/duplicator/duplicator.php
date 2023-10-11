@@ -100,12 +100,16 @@ function clone_posts_across_blogs($relations) {
 				$field_object = get_field_object($name, $destination_post_id, false, true);
 
 				// fields that need to be cloned by the raw content
-				if ($field_object && $field_object['type'] == 'textarea') {
-						$textarea_field_name = custom_acf_get_field_name_by_key( $field_object['key'] );
+				if (
+					$field_object && $field_object['type'] == 'textarea' ||
+					$field_object && $field_object['type'] == 'acfe_date_range_picker' ||
+					$field_object && $field_object['type'] == 'acfe_advanced_link'
+				) {
+						$raw_field_name = custom_acf_get_field_name_by_key( $field_object['key'] );
 						switch_to_blog($source_blog_id);
-							$original_textarea_content = get_field(	$textarea_field_name, $source_post_id, false);
+							$original_raw_content = get_field(	$raw_field_name, $source_post_id, false);
 						restore_current_blog();
-						update_post_meta($destination_post_id, $name, $original_textarea_content);
+						update_post_meta($destination_post_id, $name, $original_raw_content);
 				}
 
 				// RELATIONSHIP TYPE

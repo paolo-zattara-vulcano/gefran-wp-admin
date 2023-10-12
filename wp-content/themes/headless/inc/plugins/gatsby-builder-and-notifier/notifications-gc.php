@@ -24,14 +24,14 @@ function display_gatsby_notifications_page() {
 
 
 add_action('admin_post_nopriv_gatsby_build_success', 'gatsby_build_success_callback');
-add_action('admin_post_nopriv_gatsby_locked', 'gatsby_locked_callback');
+add_action('admin_post_nopriv_gatsby_build_time_out', 'gatsby_build_time_out_callback');
 add_action('admin_post_nopriv_gatsby_build_fail', 'gatsby_build_fail_callback');
 
 function gatsby_build_success_callback() {
     process_gatsby_notification('notice-success');
 }
 
-function gatsby_locked_callback() {
+function gatsby_build_time_out_callback() {
     process_gatsby_notification('notice-warning');
 }
 

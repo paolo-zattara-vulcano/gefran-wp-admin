@@ -8,14 +8,16 @@ function get_current_url_description() {
     $current_url = home_url( add_query_arg( NULL, NULL ) );
 
     if (strpos($current_url, 'gefran.kinsta.cloud') !== false) {
-        return 'Main';
+        return 'Production';
     } elseif (strpos($current_url, 'gefranstg.kinsta.cloud') !== false) {
         return 'Staging';
     } elseif (strpos($current_url, 'contacti.kinsta.cloud') !== false) {
         return 'Contacts';
-    } elseif (strpos($current_url, 'doc.gefran.com') !== false) {
-        return 'Documents';
-    } else {
+		} elseif (strpos($current_url, 'doc.gefran.com') !== false) {
+	      return 'Documents';
+	  } elseif (strpos($current_url, 'gefran-admin.dvl') !== false) {
+				return 'Local Dev';
+		} else {
         return 'Unknown Site';
     }
 }
@@ -34,7 +36,7 @@ add_action('admin_bar_menu', 'custom_admin_bar_menu', 100);
 
     $link1 = array(
         'id' => 'link_1',
-        'title' => 'Main Site Admin',
+        'title' => 'Production Site Admin',
         'href' => 'https://gefran.kinsta.cloud/wp-admin/',
         'parent' => 'switch_area',
         'meta' => array('class' => 'switch-area-link1')

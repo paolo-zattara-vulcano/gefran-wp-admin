@@ -1,5 +1,4 @@
 jQuery(document).ready(function ($) {
-  console.log('heu3hiuh4r iwuehruerh');
     var postTable = $('.wp-list-table.posts tbody');
 
     // Create the HTML for the overlay and spinner

@@ -11,11 +11,15 @@ function gatsby_admin_bar_menu($wp_admin_bar) {
     );
     $wp_admin_bar->add_node($args);
 
+    // POINT ALWAYS TO MAIN BLOG OPTION PAGE
+    // Get the admin URL of the blog with ID 1
+    $blog1_admin_url = get_admin_url(1);
+
     // Add the "Builds monitor" link in the admin bar menu
     $builds_monitor_link = array(
         'id'     => 'gatsby_link_monitor',
         'title'  => 'Builds monitor',
-        'href'   => admin_url('admin.php?page=gatsby_notifications'),
+        'href'   => $blog1_admin_url . 'admin.php?page=gatsby_notifications',
         'parent' => 'gatsby_amb',
         'meta'   => array('class' => 'switch-area-link1'),
         'target' => '_blank', // Add this line to open the link in a new tab
@@ -26,7 +30,7 @@ function gatsby_admin_bar_menu($wp_admin_bar) {
     $frontend_builder_link = array(
         'id'     => 'frontend_builder_link',
         'title'  => 'Frontend Builder',
-        'href'   => admin_url('admin.php?page=frontend_builder'),
+        'href'   => $blog1_admin_url . 'admin.php?page=frontend_builder',
         'parent' => 'gatsby_amb',
         'meta'   => array('class' => 'switch-area-link2'),
         'target' => '_blank', // Add this line to open the link in a new tab

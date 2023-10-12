@@ -2,57 +2,63 @@ jQuery(document).ready(function($) {
 
   var backendBaseUrl = window.location.host
 
+  if(document.body.classList.contains('it_IT')){
+    var backendUrl = backendBaseUrl + '/it';
+  } else if(document.body.classList.contains('de_DE')){
+    var backendUrl = backendBaseUrl + '/de';
+  } else if(document.body.classList.contains('fr_FR')){
+    var backendUrl = backendBaseUrl + '/fr';
+  } else if(document.body.classList.contains('es_ES')){
+    var backendUrl = backendBaseUrl + '/es';
+  } else if(document.body.classList.contains('pt_PT')){
+    var backendUrl = backendBaseUrl + '/pt';
+  } else if(document.body.classList.contains('zh_CN')){
+    var backendUrl = backendBaseUrl + '/ch';
+  } else {
+    var backendUrl = backendBaseUrl;
+  }
+
   // STAGING ------------
   if(backendBaseUrl === 'gefranstg.kinsta.cloud'){
     if(document.body.classList.contains('it_IT')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/it';
+      var frontendUrl = 'stg--gefran-it.netlify.app';
     } else if(document.body.classList.contains('de_DE')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/de';
+      var frontendUrl = 'stg--gefran-de.netlify.app';
     } else if(document.body.classList.contains('fr_FR')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/fr';
+      var frontendUrl = 'stg--gefran-fr.netlify.app';
     } else if(document.body.classList.contains('es_ES')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/es';
+      var frontendUrl = 'stg--gefran-es.netlify.app';
     } else if(document.body.classList.contains('pt_PT')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/pt';
+      var frontendUrl = 'stg--gefran-pt.netlify.app';
     } else if(document.body.classList.contains('zh_CN')){
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl + '/ch';
+      var frontendUrl = 'stg--gefran-cn.netlify.app';
     } else {
-      var frontendUrl = 'stg.gefran.com';
-      var backendUrl = backendBaseUrl;
+      var frontendUrl = 'stg--gefran.netlify.app';
     }
-    // const backendUrl = 'gefran-admin.dvl';
+  }
 
-    // PRODUCTION ------------
-  } else {
+  // PRODUCTION ------------
+  else if(backendBaseUrl === 'gefran.kinsta.cloud'){
     if(document.body.classList.contains('it_IT')){
       var frontendUrl = 'gefran.it';
-      var backendUrl = backendBaseUrl + '/it';
     } else if(document.body.classList.contains('de_DE')){
       var frontendUrl = 'gefran.de';
-      var backendUrl = backendBaseUrl + '/de';
     } else if(document.body.classList.contains('fr_FR')){
       var frontendUrl = 'gefran.fr';
-      var backendUrl = backendBaseUrl + '/fr';
     } else if(document.body.classList.contains('es_ES')){
       var frontendUrl = 'gefran.es';
-      var backendUrl = backendBaseUrl + '/es';
     } else if(document.body.classList.contains('pt_PT')){
       var frontendUrl = 'gefran.com.br';
-      var backendUrl = backendBaseUrl + '/pt';
     } else if(document.body.classList.contains('zh_CN')){
       var frontendUrl = 'gefran.cn';
-      var backendUrl = backendBaseUrl + '/ch';
     } else {
       var frontendUrl = 'gefran.com';
-      var backendUrl = backendBaseUrl;
     }
-    // const backendUrl = 'gefran-admin.dvl';
+  }
+
+  // LOCAL DEV ------------
+  else{
+    var frontendUrl = 'localhost:8000';
   }
 
 
@@ -88,24 +94,5 @@ jQuery(document).ready(function($) {
     });
 
   }
-
-	// //By Enrico
-	// var timer;
-  //
-	// //Esegue sincronizzazione quando viene fatta una modifica all'albero delle cartelle
-	// jQuery(document).on('DOMSubtreeModified','#fbj', function(){
-	// 	if (timer) clearTimeout(timer);
-	// 	timer = setTimeout(function() {
-	// 		var id_blog=jQuery("input[name=id_blog]").val();
-	// 		jQuery.ajax({
-	// 			url: "/sincronizzazione.php",
-	// 			type: 'post',
-	// 			data: {id_blog: id_blog},
-	// 			dataType: "json",
-	// 			success: function(response){
-	// 			}
-	// 		});
-	// 	},1000); //Cambiare tempo con un tempo minore (1 o 2 secondi) se sito molto veloce (ora sono 10 secondi)
-	// });
 
 });

@@ -180,8 +180,8 @@ function clone_taxonomy_terms_across_blogs($source_blog_id, $source_post_id, $de
 	            // Use the provided function to find the translated term
 	            $translated_term_ids = \Inpsyde\MultilingualPress\translationIds($term_id, 'term', $source_blog_id);
 
-							error_log('--------------- translated_term_ids');
-							error_log(print_r($translated_term_ids, true));
+							// error_log('--------------- translated_term_ids');
+							// error_log(print_r($translated_term_ids, true));
 
 	            if (isset($translated_term_ids[$destination_blog_id])) {
 	                $translated_terms[] = $translated_term_ids[$destination_blog_id];

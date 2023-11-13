@@ -3,6 +3,29 @@
 
 class Product_Sync
 {
+
+    private static function update_relationship_field($source_post_id, $fieldName, $translations) {
+        $fieldArray = get_field($fieldName, $source_post_id);
+
+        if ($fieldArray) {
+            foreach ($translations as $siteId => $postId) {
+                if ($siteId != 1) { // Skip the source site
+                    switch_to_blog($siteId);
+
+                    $updatedArray = [];
+                    foreach ($fieldArray as $relation) {
+                        $relationTranslations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
+                        $updatedArray[] = isset($relationTranslations[$siteId]) ? $relationTranslations[$siteId] : '0';
+                    }
+
+                    update_field($fieldName, $updatedArray, $postId);
+                    restore_current_blog();
+                }
+            }
+        }
+    }
+
+
     // AJAX handler function. This function will receive the data from the AJAX call and process it
     static function acf_ajax_product_handler()
     {
@@ -19,10 +42,9 @@ class Product_Sync
 
         $currentSiteOriginalId = get_field('original_id', $_POST['post_id']);
         $currentSiteBadge = get_field('badge', $_POST['post_id']);
-        $currentSiteGallery = get_field('gallery', $_POST['post_id']);
         $currentSiteIoLink = get_field('io-link', $_POST['post_id']);
         $currentSiteAlgoliaEx = get_field('algolia_exluded', $_POST['post_id']);
-        $currentSiteEnableC = get_field('enable_configurator', $_POST['post_id']);
+        // $currentSiteEnableC = get_field('enable_configurator', $_POST['post_id']);
         // $currentSiteConfLink = get_field('configurator_link', $_POST['post_id']);
         // $currentSiteCadenasLink = get_field('cadenas_link', $_POST['post_id']);
         $currentSiteAppAvail = get_field('apps_available_on', $_POST['post_id']);
@@ -62,8 +84,17 @@ class Product_Sync
         try {
             if (count($translations)) {
                 foreach ($translations as $siteId => $postId) {
+
+                    // Skip the first blog as it's the source
+                    if ($siteId == 1) {
+                        continue;
+                    }
+
                     // error_log('siteId:' . $siteId . ' postId:' . $postId);
                     switch_to_blog($siteId);
+
+                    error_log('$siteId');
+                    error_log(print_r($siteId, true));
 
                     $post = get_post($postId);
                     if ($post != null) {
@@ -71,10 +102,9 @@ class Product_Sync
 
                         update_field('original_id', $currentSiteOriginalId, $post->ID);
                         update_field('badge', $currentSiteBadge, $post->ID);
-                        update_field('gallery', $currentSiteGallery, $post->ID);
                         update_field('io-link', $currentSiteIoLink, $post->ID);
                         update_field('algolia_exluded', $currentSiteAlgoliaEx, $post->ID);
-                        update_field('enable_configurator', $currentSiteEnableC, $post->ID);
+                        // update_field('enable_configurator', $currentSiteEnableC, $post->ID);
                         // update_field('configurator_link', $currentSiteConfLink, $post->ID);
                         // update_field('cadenas_link', $currentSiteCadenasLink, $post->ID);
                         update_field('apps_available_on', $currentSiteAppAvail, $post->ID);
@@ -82,28 +112,14 @@ class Product_Sync
                         update_field('video', $currentSiteVideo, $post->ID);
 
 
-                        // RELATIONSHIP FIELDS
-                        // Loop through each WP_Post object in $currentSiteReplProd and modify the ID
-                        foreach ($currentSiteReplProd as $relation) {
-                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
-                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
-                        }
-                        update_field('replacement_product', $currentSiteReplProd, $post->ID);
 
-                        // Loop through each WP_Post object in $currentSiteRelProds and modify the ID
-                        foreach ($currentSiteRelProds as $relation) {
-                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
-                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
+                        //RELATIONAL FIELDS
+                        // Only for site 2 becouse the function already loop across all network
+                        if ($siteId == 2) {
+                          self::update_relationship_field($source_post_id, 'replacement_product', $translations);
+                          self::update_relationship_field($source_post_id, 'related_products', $translations);
+                          self::update_relationship_field($source_post_id, 'related_applications', $translations);
                         }
-                        update_field('related_products', $currentSiteRelProds, $post->ID);
-
-                        // Loop through each WP_Post object in $currentSiteRelApps and modify the ID
-                        foreach ($currentSiteRelApps as $relation) {
-                            $translations = \Inpsyde\MultilingualPress\translationIds($relation->ID, 'Post', 1);
-                            $relation->ID = isset($translations[$siteId]) ?$translations[$siteId] : '0';
-                        }
-                        update_field('related_applications', $currentSiteRelApps, $post->ID);
-
 
 
                         // TAXONOMIES
@@ -129,13 +145,15 @@ class Product_Sync
                         set_post_thumbnail($post->ID, $thumbnail_id);
 
                         $gallery_images = [];
-                        foreach ($source_gallery_images as $source_image) {
-                            $new_id = attachment_url_to_postid($source_image['url']);
-                            $new_image = get_post($new_id);
-                            $gallery_images[] = acf_get_attachment($new_image);
+                        if($source_gallery_images){
+                          foreach ($source_gallery_images as $source_image) {
+                              $new_id = attachment_url_to_postid($source_image['url']);
+                              $new_image = get_post($new_id);
+                              $gallery_images[] = acf_get_attachment($new_image);
+                          }
+                          //error_log(print_r($gallery_images, true));
+                          update_field('gallery', $gallery_images, $post->ID);
                         }
-                        //error_log(print_r($gallery_images, true));
-                        update_field('gallery', $gallery_images, $post->ID);
 
                         // Update post status
                         wp_update_post([

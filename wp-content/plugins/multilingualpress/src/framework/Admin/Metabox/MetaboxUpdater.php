@@ -21,8 +21,7 @@ use Inpsyde\MultilingualPress\Framework\Auth\AuthFactoryException;
 use Inpsyde\MultilingualPress\Framework\Entity;
 use Inpsyde\MultilingualPress\Framework\Http\Request;
 use Inpsyde\MultilingualPress\Framework\SwitchSiteTrait;
-use WP_Post;
-use WP_Term;
+use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Metabox;
 
 use function Inpsyde\MultilingualPress\isWpDebugMode;
 
@@ -143,7 +142,7 @@ class MetaboxUpdater
      * Create instance of Action by the given metabox for the given Entity
      *
      * @param Entity $entity
-     * @param Metabox|PostMetabox|TermMetabox $metabox
+     * @param Metabox $metabox
      * @return Action
      * @throws DomainException
      */
@@ -155,15 +154,6 @@ class MetaboxUpdater
             );
         }
 
-        switch ($entity->type()) {
-            case WP_Post::class:
-                $action = $metabox->actionForPost($entity->expose());
-                break;
-            case WP_Term::class:
-                $action = $metabox->actionForTerm($entity->expose());
-                break;
-        }
-
-        return $action;
+        return $metabox->action($entity);
     }
 }

@@ -84,7 +84,7 @@ class RegularPrice
         }
 
         if (method_exists($product, 'get_regular_price')) {
-            $value = $product->get_regular_price();
+            $value = (string)$product->get_regular_price();
         }
 
         switch_to_blog($relationshipContext->sourceSiteId());

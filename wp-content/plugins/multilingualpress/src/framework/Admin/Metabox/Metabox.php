@@ -35,4 +35,28 @@ interface Metabox
      * @return int
      */
     public function siteId(): int;
+
+    /**
+     * Create an instance of Action for the given entity.
+     *
+     * @param Entity $entity
+     * @return Action
+     */
+    public function action(Entity $entity): Action;
+
+    /**
+     * Check if the given entity is a valid one to be in the metabox.
+     *
+     * @param Entity $entity
+     * @return bool true if is valid, otherwise false.
+     */
+    public function isValid(Entity $entity): bool;
+
+    /**
+     * Create the metabox view for a given entity.
+     *
+     * @param Entity $entity
+     * @return View
+     */
+    public function view(Entity $entity): View;
 }

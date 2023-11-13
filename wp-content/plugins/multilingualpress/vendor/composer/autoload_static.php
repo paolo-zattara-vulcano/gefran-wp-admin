@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
+class ComposerStaticInitb603c7cde6132a3e5dd5e275ee64f6fd
 {
     public static $prefixLengthsPsr4 = array (
         'I' => 
@@ -228,6 +228,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Customizer\\ServiceProvider' => __DIR__ . '/../..' . '/src/multilingualpress/Customizer/ServiceProvider.php',
         'Inpsyde\\MultilingualPress\\Database\\ServiceProvider' => __DIR__ . '/../..' . '/src/multilingualpress/Database/ServiceProvider.php',
         'Inpsyde\\MultilingualPress\\Database\\Table\\ContentRelationsTable' => __DIR__ . '/../..' . '/src/multilingualpress/Database/Table/ContentRelationsTable.php',
+        'Inpsyde\\MultilingualPress\\Database\\Table\\ExternalSitesTable' => __DIR__ . '/../..' . '/src/multilingualpress/Database/Table/ExternalSitesTable.php',
         'Inpsyde\\MultilingualPress\\Database\\Table\\LanguagesTable' => __DIR__ . '/../..' . '/src/multilingualpress/Database/Table/LanguagesTable.php',
         'Inpsyde\\MultilingualPress\\Database\\Table\\RelationshipMetaTable' => __DIR__ . '/../..' . '/src/multilingualpress/Database/Table/RelationshipMetaTable.php',
         'Inpsyde\\MultilingualPress\\Database\\Table\\RelationshipsTable' => __DIR__ . '/../..' . '/src/multilingualpress/Database/Table/RelationshipsTable.php',
@@ -244,9 +245,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\Metaboxes' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/Metaboxes.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\NoopAction' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/NoopAction.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\NoopView' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/NoopView.php',
-        'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\PostMetabox' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/PostMetabox.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\PostMetaboxRendererInterface' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/PostMetaboxRendererInterface.php',
-        'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\TermMetabox' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/TermMetabox.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\Metabox\\View' => __DIR__ . '/../..' . '/src/framework/Admin/Metabox/View.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\PersistentAdminNotices' => __DIR__ . '/../..' . '/src/framework/Admin/PersistentAdminNotices.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\SettingsPage' => __DIR__ . '/../..' . '/src/framework/Admin/SettingsPage.php',
@@ -255,6 +254,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\SettingsPageTabDataAccess' => __DIR__ . '/../..' . '/src/framework/Admin/SettingsPageTabDataAccess.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\SettingsPageView' => __DIR__ . '/../..' . '/src/framework/Admin/SettingsPageView.php',
         'Inpsyde\\MultilingualPress\\Framework\\Admin\\SitesListTableColumn' => __DIR__ . '/../..' . '/src/framework/Admin/SitesListTableColumn.php',
+        'Inpsyde\\MultilingualPress\\Framework\\Admin\\TranslationColumnInterface' => __DIR__ . '/../..' . '/src/framework/Admin/TranslationColumnInterface.php',
         'Inpsyde\\MultilingualPress\\Framework\\Api\\ContentRelations' => __DIR__ . '/../..' . '/src/framework/Api/ContentRelations.php',
         'Inpsyde\\MultilingualPress\\Framework\\Api\\ContentRelationshipMetaInterface' => __DIR__ . '/../..' . '/src/framework/Api/ContentRelationshipMetaInterface.php',
         'Inpsyde\\MultilingualPress\\Framework\\Api\\Languages' => __DIR__ . '/../..' . '/src/framework/Api/Languages.php',
@@ -274,6 +274,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\AuthFactory' => __DIR__ . '/../..' . '/src/framework/Auth/AuthFactory.php',
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\AuthFactoryException' => __DIR__ . '/../..' . '/src/framework/Auth/AuthFactoryException.php',
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\Capability' => __DIR__ . '/../..' . '/src/framework/Auth/Capability.php',
+        'Inpsyde\\MultilingualPress\\Framework\\Auth\\CommentAuth' => __DIR__ . '/../..' . '/src/framework/Auth/CommentAuth.php',
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\EntityAuthFactory' => __DIR__ . '/../..' . '/src/framework/Auth/EntityAuthFactory.php',
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\PostAuth' => __DIR__ . '/../..' . '/src/framework/Auth/PostAuth.php',
         'Inpsyde\\MultilingualPress\\Framework\\Auth\\RequestAuth' => __DIR__ . '/../..' . '/src/framework/Auth/RequestAuth.php',
@@ -430,7 +431,62 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Module\\Blocks\\ServiceProvider' => __DIR__ . '/../..' . '/src/modules/Blocks/ServiceProvider.php',
         'Inpsyde\\MultilingualPress\\Module\\Blocks\\TemplateRenderer\\BlockTypeTemplateRenderer' => __DIR__ . '/../..' . '/src/modules/Blocks/TemplateRenderer/BlockTypeTemplateRenderer.php',
         'Inpsyde\\MultilingualPress\\Module\\Blocks\\TemplateRenderer\\TemplateRendererInterface' => __DIR__ . '/../..' . '/src/modules/Blocks/TemplateRenderer/TemplateRendererInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\CommentsCopy\\CommentsCopier' => __DIR__ . '/../..' . '/src/modules/Comments/CommentsCopy/CommentsCopier.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\CommentsCopy\\CommentsCopierInterface' => __DIR__ . '/../..' . '/src/modules/Comments/CommentsCopy/CommentsCopierInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentRelationSaveHelper' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentRelationSaveHelper.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentRelationSaveHelperInterface' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentRelationSaveHelperInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentsRelationshipContext' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentsRelationshipContext.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentsRelationshipContextFactory' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentsRelationshipContextFactory.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentsRelationshipContextFactoryInterface' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentsRelationshipContextFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\RelationshipContext\\CommentsRelationshipContextInterface' => __DIR__ . '/../..' . '/src/modules/Comments/RelationshipContext/CommentsRelationshipContextInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\ServiceProvider' => __DIR__ . '/../..' . '/src/modules/Comments/ServiceProvider.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentSettingViewModel' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentSettingViewModel.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentSettingsPageView' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentSettingsPageView.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentSettingsUpdater' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentSettingsUpdater.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentSettingsView' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentSettingsView.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentsSettingsRepository' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentsSettingsRepository.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\SiteSettings\\CommentsSettingsRepositoryInterface' => __DIR__ . '/../..' . '/src/modules/Comments/SiteSettings/CommentsSettingsRepositoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Ajax\\AjaxSearchCommentRequestHandler' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Ajax/AjaxSearchCommentRequestHandler.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Ajax\\AjaxUpdateCommentsRelationshipRequestHandler' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Ajax/AjaxUpdateCommentsRelationshipRequestHandler.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\CommentMetabox' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/CommentMetabox.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\CommentMetaboxTab' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/CommentMetaboxTab.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\CommentMetaboxTabInterface' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/CommentMetaboxTabInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\CommentMetaboxView' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/CommentMetaboxView.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\CommentsListViewTranslationColumn' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/CommentsListViewTranslationColumn.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxCopyContent' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxCopyContent.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxField' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxField.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxFieldAuthorEmail' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxFieldAuthorEmail.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxFieldAuthorName' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxFieldAuthorName.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxFieldAuthorUrl' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxFieldAuthorUrl.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxRelation' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\Field\\CommentMetaboxStatus' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/Field/CommentMetaboxStatus.php',
+        'Inpsyde\\MultilingualPress\\Module\\Comments\\TranslationUi\\MetaboxAction' => __DIR__ . '/../..' . '/src/modules/Comments/TranslationUi/MetaboxAction.php',
         'Inpsyde\\MultilingualPress\\Module\\Elementor\\ServiceProvider' => __DIR__ . '/../..' . '/src/modules/Elementor/ServiceProvider.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSite\\ExternalSite' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSite/ExternalSite.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSite\\ExternalSiteFactory' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSite/ExternalSiteFactory.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSite\\ExternalSiteFactoryInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSite/ExternalSiteFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSite\\ExternalSiteInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSite/ExternalSiteInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSitesMetaBox\\ExternalSitesMetaBoxView' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSitesMetaBox/ExternalSitesMetaBoxView.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSitesMetaBox\\ExternalSitesMetaBoxViewInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSitesMetaBox/ExternalSitesMetaBoxViewInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSitesRepository\\ExternalSitesRepository' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSitesRepository/ExternalSitesRepository.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ExternalSitesRepository\\ExternalSitesRepositoryInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ExternalSitesRepository/ExternalSitesRepositoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Flags\\ExternalSiteFlagFactory' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Flags/ExternalSiteFlagFactory.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Flags\\ExternalSiteFlagFactoryInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Flags/ExternalSiteFlagFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\HreflangIntegration' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/HreflangIntegration.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\LanguageSwitcherWidgetIntegration' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/LanguageSwitcherWidgetIntegration.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\QuickLinksIntegration' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/QuickLinksIntegration.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Redirect\\ExternalSiteRedirectTargetFactory' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Redirect/ExternalSiteRedirectTargetFactory.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Redirect\\ExternalSiteRedirectTargetFactoryInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Redirect/ExternalSiteRedirectTargetFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Redirect\\Fallback\\ExternalRedirectFallbackViewRenderer' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Redirect/Fallback/ExternalRedirectFallbackViewRenderer.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Integrations\\Redirect\\RedirectIntegration' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Integrations/Redirect/RedirectIntegration.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\NavMenu\\AjaxHandler' => __DIR__ . '/../..' . '/src/modules/ExternalSites/NavMenu/AjaxHandler.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\NavMenu\\ExternalSiteMenuItemFactory' => __DIR__ . '/../..' . '/src/modules/ExternalSites/NavMenu/ExternalSiteMenuItemFactory.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\NavMenu\\ExternalSiteMenuItemFactoryInterface' => __DIR__ . '/../..' . '/src/modules/ExternalSites/NavMenu/ExternalSiteMenuItemFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\NavMenu\\MetaBoxView' => __DIR__ . '/../..' . '/src/modules/ExternalSites/NavMenu/MetaBoxView.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\ServiceProvider' => __DIR__ . '/../..' . '/src/modules/ExternalSites/ServiceProvider.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Settings\\PageView' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Settings/PageView.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Settings\\RequestHandler' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Settings/RequestHandler.php',
+        'Inpsyde\\MultilingualPress\\Module\\ExternalSites\\Settings\\TableFormView' => __DIR__ . '/../..' . '/src/modules/ExternalSites/Settings/TableFormView.php',
         'Inpsyde\\MultilingualPress\\Module\\LanguageManager\\Db' => __DIR__ . '/../..' . '/src/modules/LanguageManager/Db.php',
         'Inpsyde\\MultilingualPress\\Module\\LanguageManager\\LanguageInstaller' => __DIR__ . '/../..' . '/src/modules/LanguageManager/LanguageInstaller.php',
         'Inpsyde\\MultilingualPress\\Module\\LanguageManager\\PageView' => __DIR__ . '/../..' . '/src/modules/LanguageManager/PageView.php',
@@ -535,6 +591,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\Module\\WooCommerce\\TranslationUi\\Product\\SettingView' => __DIR__ . '/../..' . '/src/modules/WooCommerce/TranslationUi/Product/SettingView.php',
         'Inpsyde\\MultilingualPress\\Module\\WooCommerce\\TranslationUi\\Product\\WooCommerceMetaboxField' => __DIR__ . '/../..' . '/src/modules/WooCommerce/TranslationUi/Product/WooCommerceMetaboxField.php',
         'Inpsyde\\MultilingualPress\\Module\\WooCommerce\\TranslationUi\\Product\\WooCommerceMetaboxFields' => __DIR__ . '/../..' . '/src/modules/WooCommerce/TranslationUi/Product/WooCommerceMetaboxFields.php',
+        'Inpsyde\\MultilingualPress\\Module\\WooCommerce\\TranslationUi\\Review\\Field\\CommentMetaboxReviewRating' => __DIR__ . '/../..' . '/src/modules/WooCommerce/TranslationUi/Review/Field/CommentMetaboxReviewRating.php',
         'Inpsyde\\MultilingualPress\\MultilingualPress' => __DIR__ . '/../..' . '/src/multilingualpress/MultilingualPress.php',
         'Inpsyde\\MultilingualPress\\NavMenu\\AjaxHandler' => __DIR__ . '/../..' . '/src/multilingualpress/NavMenu/AjaxHandler.php',
         'Inpsyde\\MultilingualPress\\NavMenu\\BlockTypes\\LanguageMenuContextFactory' => __DIR__ . '/../..' . '/src/multilingualpress/NavMenu/BlockTypes/LanguageMenuContextFactory.php',
@@ -577,6 +634,7 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\SiteDuplication\\ServiceProvider' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/ServiceProvider.php',
         'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\ActivatePluginsSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/ActivatePluginsSetting.php',
         'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\BasedOnSiteSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/BasedOnSiteSetting.php',
+        'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\ConnectCommentsSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/ConnectCommentsSetting.php',
         'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\ConnectContentSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/ConnectContentSetting.php',
         'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\CopyAttachmentsSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/CopyAttachmentsSetting.php',
         'Inpsyde\\MultilingualPress\\SiteDuplication\\Settings\\CopyUsersSetting' => __DIR__ . '/../..' . '/src/multilingualpress/SiteDuplication/Settings/CopyUsersSetting.php',
@@ -593,6 +651,9 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
         'Inpsyde\\MultilingualPress\\SiteFlags\\Flag\\Svg' => __DIR__ . '/..' . '/inpsyde/multilingualpress-site-flags/src/Flag/Svg.php',
         'Inpsyde\\MultilingualPress\\SiteFlags\\ServiceProvider' => __DIR__ . '/..' . '/inpsyde/multilingualpress-site-flags/src/ServiceProvider.php',
         'Inpsyde\\MultilingualPress\\TranslationUi\\MetaboxFieldsHelper' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/MetaboxFieldsHelper.php',
+        'Inpsyde\\MultilingualPress\\TranslationUi\\MetaboxFieldsHelperFactory' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/MetaboxFieldsHelperFactory.php',
+        'Inpsyde\\MultilingualPress\\TranslationUi\\MetaboxFieldsHelperFactoryInterface' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/MetaboxFieldsHelperFactoryInterface.php',
+        'Inpsyde\\MultilingualPress\\TranslationUi\\MetaboxFieldsHelperInterface' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/MetaboxFieldsHelperInterface.php',
         'Inpsyde\\MultilingualPress\\TranslationUi\\Post\\Ajax\\ContextBuilder' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/Post/Ajax/ContextBuilder.php',
         'Inpsyde\\MultilingualPress\\TranslationUi\\Post\\Ajax\\RelationshipUpdater' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/Post/Ajax/RelationshipUpdater.php',
         'Inpsyde\\MultilingualPress\\TranslationUi\\Post\\Ajax\\Search' => __DIR__ . '/../..' . '/src/multilingualpress/TranslationUi/Post/Ajax/Search.php',
@@ -659,9 +720,9 @@ class ComposerStaticInitde279712e1691d559ee3312099f4d6b8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitde279712e1691d559ee3312099f4d6b8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitde279712e1691d559ee3312099f4d6b8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitde279712e1691d559ee3312099f4d6b8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb603c7cde6132a3e5dd5e275ee64f6fd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb603c7cde6132a3e5dd5e275ee64f6fd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb603c7cde6132a3e5dd5e275ee64f6fd::$classMap;
 
         }, null, ClassLoader::class);
     }

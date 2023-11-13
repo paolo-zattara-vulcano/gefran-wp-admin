@@ -50,6 +50,7 @@ class ModuleLocator implements IteratorAggregate
      *
      * @throws Throwable If problem locating modules.
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->locate());

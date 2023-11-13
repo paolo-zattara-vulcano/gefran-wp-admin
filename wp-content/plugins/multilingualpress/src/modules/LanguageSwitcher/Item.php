@@ -47,20 +47,24 @@ class Item
     private $siteId;
 
     /**
-     * @param string $languageName
-     * @param string $locale
-     * @param string $isoCode
-     * @param string $flag
-     * @param string $url
-     * @param int $siteId
+     * @var string
      */
+    private $hreflangDisplayCode;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
     public function __construct(
         string $languageName,
         string $locale,
         string $isoCode,
         string $flag,
         string $url,
-        int $siteId
+        int $siteId,
+        string $hreflangDisplayCode,
+        string $type = ''
     ) {
 
         $this->languageName = $languageName;
@@ -69,6 +73,8 @@ class Item
         $this->flag = $flag;
         $this->url = $url;
         $this->siteId = $siteId;
+        $this->hreflangDisplayCode = $hreflangDisplayCode;
+        $this->type = $type;
     }
 
     /**
@@ -117,5 +123,25 @@ class Item
     public function locale(): string
     {
         return $this->locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function hreflangDisplayCode(): string
+    {
+        return $this->hreflangDisplayCode;
+    }
+
+    /**
+     * The item type.
+     *
+     * Can be used to specify the special item types like for external sites.
+     *
+     * @return string
+     */
+    public function type(): string
+    {
+        return $this->type;
     }
 }

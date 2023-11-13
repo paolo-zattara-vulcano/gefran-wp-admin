@@ -137,7 +137,7 @@ class CopyNavMenu
         return $this->request->bodyValue(
             $requestParamName,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
     }
 

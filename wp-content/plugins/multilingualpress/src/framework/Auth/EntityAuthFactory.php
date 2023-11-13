@@ -44,6 +44,9 @@ class EntityAuthFactory
             case 'WP_Term':
                 $auth = new TermAuth($entity->expose(), $nonce);
                 break;
+            case 'WP_Comment':
+                $auth = new CommentAuth($entity->expose(), $nonce);
+                break;
         }
 
         return $auth;

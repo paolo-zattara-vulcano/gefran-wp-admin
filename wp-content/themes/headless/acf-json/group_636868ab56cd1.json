@@ -78,6 +78,28 @@
             "acfe_field_group_condition": 0
         },
         {
+            "key": "field_64e5f769b66cf",
+            "label": "CADENAS link",
+            "name": "cadenas_link",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "acfe_field_group_condition": 0
+        },
+        {
             "key": "field_6369c84dfdcbe",
             "label": "(Column 6\/12)",
             "name": "",
@@ -204,31 +226,8 @@
             "acfe_field_group_condition": 0
         },
         {
-            "key": "field_63c29f62a409b",
-            "label": "Enable Configurator",
-            "name": "enable_configurator",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "25",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "message": "",
-            "default_value": 0,
-            "ui_on_text": "Yes",
-            "ui_off_text": "No",
-            "ui": 1,
-            "style": "",
-            "acfe_field_group_condition": 0
-        },
-        {
             "key": "field_636cb5bdc11b4",
-            "label": "Configurator link (override)",
+            "label": "Configurator link",
             "name": "configurator_link",
             "aria-label": "",
             "type": "text",
@@ -236,7 +235,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "75",
+                "width": "100",
                 "class": "",
                 "id": ""
             },
@@ -303,28 +302,6 @@
             "border_endpoint": [
                 "endpoint"
             ]
-        },
-        {
-            "key": "field_64e5f769b66cf",
-            "label": "CADENAS link",
-            "name": "cadenas_link",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "100",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "acfe_field_group_condition": 0
         },
         {
             "key": "field_63686ae73efab",
@@ -771,7 +748,7 @@
         },
         {
             "key": "field_63a3336821c00",
-            "label": "Other",
+            "label": "Original ID",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -809,28 +786,6 @@
             "prepend": "",
             "append": "",
             "acfe_field_group_condition": 0
-        },
-        {
-            "key": "field_638b499d5d3da",
-            "label": "test JSON",
-            "name": "test_json",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "acfe_field_group_condition": 0,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
@@ -863,5 +818,5 @@
     "graphql_field_name": "AcfCptProduct",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1692865038
+    "modified": 1699244326
 }

@@ -35,7 +35,7 @@ class TaxonomySlugs
             return [];
         }
 
-        $value = filter_var($value, FILTER_SANITIZE_STRING, ['flags' => FILTER_FORCE_ARRAY]);
+        $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS, ['flags' => FILTER_FORCE_ARRAY]);
 
         return array_filter($value);
     }

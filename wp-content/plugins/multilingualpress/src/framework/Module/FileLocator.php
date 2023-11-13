@@ -64,6 +64,7 @@ class FileLocator implements IteratorAggregate
      * @throws Exception If problem retrieving internal iterator.
      * {@see https://youtrack.jetbrains.com/issue/WI-44884}.
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return $this->getPaths();

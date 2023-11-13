@@ -101,14 +101,7 @@ class AlternateLanguages implements \IteratorAggregate
                  */
                 $url = apply_filters(self::FILTER_HREFLANG_URL, $url, $translation);
 
-                $hreflangDisplayType = $this->siteSettingsRepository->hreflangSettingForSite(
-                    $translation->remoteSiteId(),
-                    SiteSettingsRepository::NAME_HREFLANG_DISPLAY_TYPE
-                );
-                $hreflangDisplayTypeIsCountry = $hreflangDisplayType && $hreflangDisplayType === 'country';
-                $language = $translation->language();
-
-                $code = $hreflangDisplayTypeIsCountry ? $language->isoCode() : $language->bcp47tag();
+                $code = $this->getHreflangCode($translation);
 
                 $urls[$code] = (string)$url;
             }
@@ -120,5 +113,21 @@ class AlternateLanguages implements \IteratorAggregate
          * @param string[] $translations
          */
         $this->urls = (array)apply_filters(self::FILTER_HREFLANG_TRANSLATIONS, $urls);
+    }
+
+    /**
+     * @param Translation $translation
+     * @return string
+     */
+    public function getHreflangCode(Translation $translation): string
+    {
+        $hreflangDisplayType = $this->siteSettingsRepository->hreflangSettingForSite(
+            $translation->remoteSiteId(),
+            SiteSettingsRepository::NAME_HREFLANG_DISPLAY_TYPE
+        );
+        $hreflangDisplayTypeIsCountry = $hreflangDisplayType && $hreflangDisplayType === 'country';
+        $language = $translation->language();
+
+        return $hreflangDisplayTypeIsCountry ? $language->isoCode() : $language->bcp47tag();
     }
 }

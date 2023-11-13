@@ -117,6 +117,7 @@ final class Info implements \ArrayAccess
     /**
      * @inheritdoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset) ? $this->meta[$offset] : null;
@@ -125,6 +126,7 @@ final class Info implements \ArrayAccess
     /**
      * @inheritdoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->meta[$offset] = $value;
@@ -133,6 +135,7 @@ final class Info implements \ArrayAccess
     /**
      * @inheritdoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->meta[$offset]);

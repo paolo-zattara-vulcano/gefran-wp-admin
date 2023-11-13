@@ -237,7 +237,7 @@ final class ServiceProvider implements ModuleServiceProvider
      */
     private function isMultilingualPressSettingsPage(string $currentPage): bool
     {
-        $adminPage = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+        $adminPage = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
         $isAdminPage = 'admin.php' === $currentPage;
         $isAllowedPage = $adminPage === self::MODULE_ID;
 

@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
 
 
   // Single post link
-  let frontendLink = document.querySelector('#sample-permalink');
+  let frontendLink = document.querySelector('#edit-slug-box');
   if(frontendLink){
 
     if(frontendLink.querySelector('a')){
@@ -94,5 +94,21 @@ jQuery(document).ready(function($) {
     });
 
   }
+
+  // Taxonomy term link
+  // let frontendTaxLink = document.querySelector('#edit-slug-box');
+  // if(frontendTaxLink){
+  //
+  //   if(frontendTaxLink.querySelector('a')){
+  //     var theTaxUrlElem = frontendTaxLink.querySelector('a');
+  //   } else if(frontendTaxLink.href){
+  //     var theTaxUrlElem = frontendTaxLink;
+  //   }
+  //
+  //   let theTaxHref = theTaxUrlElem.href.replace(backendUrl, frontendUrl);
+  //
+  //   var newButton = '<a href="' + theTaxHref + '" target="_blank" class="button button-small hide-if-no-js" aria-label="Visualizza Frontend">Visualizza</button>';
+  //   $('#edit-slug-box').append(newButton);
+  // }
 
 });

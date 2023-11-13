@@ -72,7 +72,7 @@ final class PostTypeSlugsSettingsTabView implements SettingsPageView
      */
     public function render()
     {
-        $siteId = (int)$this->request->bodyValue('id', INPUT_REQUEST, FILTER_SANITIZE_NUMBER_INT);
+        $siteId = (int)$this->request->bodyValue('id', INPUT_GET, FILTER_SANITIZE_NUMBER_INT);
         if (!$siteId) {
             wp_die(esc_html__('Invalid site ID.', 'multilingualpress'));
         }

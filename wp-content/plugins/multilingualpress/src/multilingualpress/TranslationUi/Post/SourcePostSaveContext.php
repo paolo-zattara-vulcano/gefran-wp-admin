@@ -88,7 +88,7 @@ class SourcePostSaveContext
         $type = (string)$this->request->bodyValue(
             'post_type',
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         $type or $type = $this->sourcePost->post_type;
@@ -115,7 +115,7 @@ class SourcePostSaveContext
         $status = (string)$this->request->bodyValue(
             'original_post_status',
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!$status) {

@@ -19,10 +19,10 @@ use Inpsyde\MultilingualPress\Framework\Database\TableDuplicator;
 use Inpsyde\MultilingualPress\Framework\Database\TableList;
 use Inpsyde\MultilingualPress\Framework\Database\TableReplacer;
 use Inpsyde\MultilingualPress\Framework\Http\Request;
+use Inpsyde\MultilingualPress\Framework\Module\ModuleManager;
 use Inpsyde\MultilingualPress\Framework\NetworkState;
 use Inpsyde\MultilingualPress\Framework\Nonce\Nonce;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
+use Inpsyde\MultilingualPress\Module\Comments\ServiceProvider as CommentsModule;
 use Throwable;
 
 /**
@@ -37,6 +37,7 @@ class SiteDuplicator
     const NAME_CONNECT_CONTENT = 'mlp_connect_content';
     const NAME_COPY_ATTACHMENTS = 'mlp_copy_attachments';
     const NAME_COPY_USERS = 'mlp_copy_users';
+    public const NAME_CONNECT_COMMENTS = 'mlp_connect_comments';
     const DUPLICATE_ACTION_KEY = 'multilingualpress.duplicated_site';
     const FILTER_SITE_TABLES = 'multilingualpress.duplicate_site_tables';
     const FILTER_EXCLUDED_TABLES = 'multilingualpress.filter_excluded_tables';
@@ -82,15 +83,10 @@ class SiteDuplicator
     private $tableReplacer;
 
     /**
-     * @param \wpdb $wpdb
-     * @param TableList $tableList
-     * @param TableDuplicator $tableDuplicator
-     * @param TableReplacer $tableReplacer
-     * @param ActivePlugins $activePlugins
-     * @param ContentRelations $contentRelations
-     * @param Request $request
-     * @param Nonce $nonce
+     * @var ModuleManager
      */
+    protected $moduleManager;
+
     public function __construct(
         \wpdb $wpdb,
         TableList $tableList,
@@ -99,7 +95,8 @@ class SiteDuplicator
         ActivePlugins $activePlugins,
         ContentRelations $contentRelations,
         Request $request,
-        Nonce $nonce
+        Nonce $nonce,
+        ModuleManager $moduleManager
     ) {
 
         $this->wpdb = $wpdb;
@@ -110,6 +107,7 @@ class SiteDuplicator
         $this->contentRelations = $contentRelations;
         $this->request = $request;
         $this->nonce = $nonce;
+        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -169,7 +167,7 @@ class SiteDuplicator
         $languageData = (string)$this->request->bodyValue(
             static::NAME_OPTION_SITE_LANGUAGE,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
         $this->updateSiteLanguage($languageData);
 
@@ -406,6 +404,18 @@ class SiteDuplicator
         if ($connectContent) {
             $this->contentRelations->relateAllPosts($sourceSiteId, $destinationSiteId);
             $this->contentRelations->relateAllTerms($sourceSiteId, $destinationSiteId);
+        }
+
+        if ($this->moduleManager->isModuleActive(CommentsModule::MODULE_ID)) {
+            $connectComments = $this->request->bodyValue(
+                static::NAME_CONNECT_COMMENTS,
+                INPUT_POST,
+                FILTER_VALIDATE_BOOLEAN
+            );
+
+            if ($connectComments) {
+                $this->contentRelations->relateAllComments($sourceSiteId, $destinationSiteId);
+            }
         }
     }
 

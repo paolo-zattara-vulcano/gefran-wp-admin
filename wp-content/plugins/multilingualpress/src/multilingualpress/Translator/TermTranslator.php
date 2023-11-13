@@ -242,9 +242,6 @@ class TermTranslator implements Translator
 
         $this->fixTermBase($taxonomySlug);
 
-        $term = get_term_by('term_taxonomy_id', $termId, $taxonomySlug);
-        $termId = $term->term_id ?? $termId;
-
         $url = get_term_link($termId, $taxonomySlug);
         if (is_wp_error($url)) {
             $url = '';
@@ -302,6 +299,7 @@ class TermTranslator implements Translator
         }
 
         $option = (string)get_option($this->taxonomy($taxonomySlug), '');
+        $taxonomy = false;
         if (!$option) {
             $taxonomy = get_taxonomy($taxonomySlug);
             $slug = $taxonomy->rewrite['slug'] ?? $taxonomySlug;
@@ -317,8 +315,11 @@ class TermTranslator implements Translator
         }
 
         $remotePermalinkStructure = (string)get_option('permalink_structure');
-        $hasBlogPrefix = !$taxonomy->rewrite['slug'] &&
-            strpos($remotePermalinkStructure, '/blog/') !== false;
+        $hasBlogPrefix = false;
+        if (is_object($taxonomy) && isset($taxonomy->rewrite['slug'])) {
+            $hasBlogPrefix = !$taxonomy->rewrite['slug'] &&
+                strpos($remotePermalinkStructure, '/blog/') !== false;
+        }
 
         $base = $this->composeBase($option, $taxonomySlug);
 

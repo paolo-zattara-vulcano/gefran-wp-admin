@@ -167,7 +167,7 @@ class ProductRelationSaveHelper
         $productType = (string)$this->request->bodyValue(
             MetaboxAction::PRODUCT_TYPE_FIELD_NAME,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         $productType = $productType && $overrideProductType

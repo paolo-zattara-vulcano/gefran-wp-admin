@@ -131,7 +131,7 @@ class RemoveActionTask implements ActionTask
         return (string)$this->request->bodyValue(
             $this->scheduleIdName,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
     }
 

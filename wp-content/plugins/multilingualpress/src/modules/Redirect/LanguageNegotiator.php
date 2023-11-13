@@ -17,11 +17,13 @@ namespace Inpsyde\MultilingualPress\Module\Redirect;
 use Inpsyde\MultilingualPress\Framework\Api\Translation;
 use Inpsyde\MultilingualPress\Framework\Api\Translations;
 use Inpsyde\MultilingualPress\Framework\Api\TranslationSearchArgs;
-use Inpsyde\MultilingualPress\Framework\Http\Request;
 use Inpsyde\MultilingualPress\Framework\Language\Language;
 use Inpsyde\MultilingualPress\Framework\WordpressContext;
 use Inpsyde\MultilingualPress\Module\Redirect\Settings\Repository;
 
+/**
+ * @psalm-type languageCode = string
+ */
 class LanguageNegotiator
 {
     const FILTER_REDIRECT_URL = 'multilingualpress.redirect_url';
@@ -35,16 +37,6 @@ class LanguageNegotiator
     private $languageOnlyPriorityFactor;
 
     /**
-     * @var AcceptLanguageParser
-     */
-    private $parser;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
      * @var Translations
      */
     private $translations;
@@ -55,22 +47,22 @@ class LanguageNegotiator
     private $repository;
 
     /**
-     * @param Translations $translations
-     * @param Request $request
-     * @param AcceptLanguageParser $parser
-     * @param Repository $repository
+     * A map of language codes to priorities.
+     *
+     * @var array<string, float>
+     * @psalm-var array<languageCode, float>
      */
+    protected $userLanguages;
+
     public function __construct(
         Translations $translations,
-        Request $request,
-        AcceptLanguageParser $parser,
-        Repository $repository
+        Repository $repository,
+        array $userLanguages
     ) {
 
         $this->translations = $translations;
-        $this->request = $request;
-        $this->parser = $parser;
         $this->repository = $repository;
+        $this->userLanguages = $userLanguages;
 
         /**
          * Filters the factor used to compute the priority of language-only matches.
@@ -133,7 +125,6 @@ class LanguageNegotiator
         $currentSiteId = get_current_blog_id();
         $translations = $this->searchTranslations($args ?: new TranslationSearchArgs());
         $targets = [];
-        $userLanguages = $this->userLanguages();
 
         foreach ($translations as $siteId => $translation) {
             $language = $translation->language();
@@ -155,7 +146,7 @@ class LanguageNegotiator
                 $currentSiteId
             );
 
-            $userPriority = $this->languagePriority($language, $userLanguages);
+            $userPriority = $this->languagePriority($this->languageTag($language));
             $languageFallbackPriority = $this->languageFallbackPriority($siteId);
 
             $targets[] = new RedirectTarget(
@@ -255,53 +246,21 @@ class LanguageNegotiator
     }
 
     /**
-     * Returns the user languages included in the Accept-Language header as an array with language
-     * codes as keys, and priorities as values.
-     *
-     * @return float[]
-     */
-    private function userLanguages(): array
-    {
-        $fields = $this->parser->parseHeader($this->request->header('Accept-Language'));
-
-        if (!$fields) {
-            return [];
-        }
-
-        $userLanguages = [];
-        foreach ($fields as $code => $priority) {
-            $userLanguages[strtolower($code)] = $priority;
-            if (!strpos($code, '-')) {
-                continue;
-            }
-            $code = strtolower(strtok($code, '-'));
-            if (!isset($userLanguages[$code])) {
-                $userLanguages[$code] = $priority;
-            }
-        }
-
-        return $userLanguages;
-    }
-
-    /**
      * Returns the priority of the given language.
      *
-     * @param Language $language
-     * @param float[] $languages
-     * @return float
+     * @param string $languageTag The language tag.
+     * @return float The priority.
      */
-    private function languagePriority(Language $language, array $languages): float
+    public function languagePriority(string $languageTag): float
     {
-        $tag = $this->languageTag($language);
-
-        if (isset($languages[$tag])) {
-            return (float)$languages[$tag];
+        if (isset($this->userLanguages[$languageTag])) {
+            return (float)$this->userLanguages[$languageTag];
         }
 
-        if (substr_count($tag, '-')) {
-            $tag = strtok($tag, '-');
-            if (isset($languages[$tag])) {
-                return $this->languageOnlyPriorityFactor * $languages[$tag];
+        if (substr_count($languageTag, '-')) {
+            $languageTag = strtok($languageTag, '-');
+            if (isset($this->userLanguages[$languageTag])) {
+                return $this->languageOnlyPriorityFactor * $this->userLanguages[$languageTag];
             }
         }
 
@@ -333,12 +292,12 @@ class LanguageNegotiator
      * Calculate the redirect language fallback priority
      *
      * @param int $siteId
-     * @return int The redirect language fallback priority
+     * @return float The redirect language fallback priority
      */
-    protected function languageFallbackPriority(int $siteId): int
+    protected function languageFallbackPriority(int $siteId): float
     {
         $redirectFallback = $this->repository->isRedirectSettingEnabledForSite($siteId, $this->repository::OPTION_SITE_ENABLE_REDIRECT_FALLBACK);
 
-        return $redirectFallback ? 2 : 1;
+        return $redirectFallback ? 1.5 : 1;
     }
 }

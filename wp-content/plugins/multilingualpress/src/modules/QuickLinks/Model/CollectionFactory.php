@@ -171,10 +171,36 @@ class CollectionFactory
         }
 
         $remoteContentUrl = new SimpleUrl($translation->remoteUrl());
-        $language = new Bcp47Tag($this->siteSettingsRepository->siteLanguageTag($remoteSiteId));
+        $language = $this->createBcp47Tag($remoteSiteId);
         $label = siteLocaleName($remoteSiteId);
 
-        return new Model($remoteContentUrl, $language, $label);
+        return new Model($remoteContentUrl, $language, $label, $this->hreflangDisplayCode($remoteSiteId));
+    }
+
+    /**
+     * Gets the hreflang display code of the given site.
+     *
+     * @param int $siteId The site ID.
+     * @return string The hreflang display code
+     */
+    protected function hreflangDisplayCode(int $siteId): string
+    {
+        $hreflangDisplayType = $this->siteSettingsRepository->hreflangSettingForSite(
+            $siteId,
+            SiteSettingsRepository::NAME_HREFLANG_DISPLAY_TYPE
+        );
+        $hreflangDisplayTypeIsCountry = $hreflangDisplayType === 'country';
+        $context = new WordpressContext();
+        $args = TranslationSearchArgs::forContext($context)
+            ->forSiteId(get_current_blog_id())
+            ->includeBase();
+
+        $translations = $this->translations->searchTranslations($args);
+        if (!isset($translations[$siteId])) {
+            return (string) $this->createBcp47Tag($siteId);
+        }
+        $language = $translations[$siteId]->language();
+        return $hreflangDisplayTypeIsCountry ? $language->isoCode() : $language->bcp47tag();
     }
 
     /**
@@ -203,5 +229,16 @@ class CollectionFactory
             ->forContentId($remoteContentId);
 
         return $this->translations->searchTranslations($args);
+    }
+
+    /**
+     * Creates Bcp47Tag for given site ID.
+     *
+     * @param int $siteId The site ID.
+     * @return Bcp47Tag The Bcp47Tag tag
+     */
+    protected function createBcp47Tag(int $siteId): Bcp47Tag
+    {
+        return new Bcp47Tag($this->siteSettingsRepository->siteLanguageTag($siteId));
     }
 }

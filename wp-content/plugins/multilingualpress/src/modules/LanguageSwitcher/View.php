@@ -20,8 +20,9 @@ use function Inpsyde\MultilingualPress\sanitizeHtmlClass;
 
 class View
 {
-    const FILTER_ITEM_LANGUAGE_NAME = 'multilingualpress.language_switcher_item_language_name';
-    const FILTER_LANGUAGE_SWITCHER_ITEM_FLAG_URL = 'multilingualpress.languageSwitcher.ItemFlagUrl';
+    public const FILTER_ITEM_LANGUAGE_NAME = 'multilingualpress.language_switcher_item_language_name';
+    public const FILTER_LANGUAGE_SWITCHER_ITEM_FLAG_URL = 'multilingualpress.languageSwitcher.ItemFlagUrl';
+    public const FILTER_LANGUAGE_SWITCHER_ITEMS = 'multilingualpress.languageSwitcher.Items';
 
     /**
      * Displays widget view in frontend
@@ -48,25 +49,29 @@ class View
             echo wp_kses_post($title);
         }
 
-        if (empty($model['items'])) {
+        $languageSwitcherItems = apply_filters(self::FILTER_LANGUAGE_SWITCHER_ITEMS, $model['items'], $model);
+
+        if (empty($languageSwitcherItems)) {
             return;
         }
 
         ?>
-            <nav class="mlp-language-switcher-nav">
+            <nav class="mlp-language-switcher-nav" aria-label="<?= esc_attr__('Language menu', 'multilingualpress') ?>">
                 <ul>
-                    <?php foreach ($model['items'] as $item) :
+                    <?php foreach ($languageSwitcherItems as $item) :
+                        assert($item instanceof Item);
+
                         $itemClasses = $this->itemClass($item->siteId());
                         $languageName = (string)apply_filters(self::FILTER_ITEM_LANGUAGE_NAME, $item->languageName());
                         $locale = EmbeddedLanguage::changeLanguageVariantLocale($item->locale());
-                        $flagUrl = (string)apply_filters(self::FILTER_LANGUAGE_SWITCHER_ITEM_FLAG_URL, $item->flag(), $item->siteId());
+                        $flagUrl = (string)apply_filters(self::FILTER_LANGUAGE_SWITCHER_ITEM_FLAG_URL, $item->flag(), $item->siteId(), $item->type());
                         ?>
                         <li class="<?= sanitizeHtmlClass($itemClasses) // phpcs:ignore
                         // WordPress.XSS.EscapeOutput.OutputNotEscaped ?>">
                             <a href="<?= esc_url($item->url()) ?>"
                                class="mlp-language-switcher-item__link"
                                lang="<?= esc_attr($locale) ?>"
-                               hreflang="<?= esc_attr($locale) ?>">
+                               hreflang="<?= esc_attr($item->hreflangDisplayCode()) ?>">
                                 <?php if (!empty($model['show_flags']) && $flagUrl) {?>
                                     <img alt="<?= esc_attr($languageName) ?>"
                                          src="<?= esc_url($flagUrl) ?>"

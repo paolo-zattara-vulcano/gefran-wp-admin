@@ -148,7 +148,7 @@ class ServiceProvider implements ModuleServiceProvider
          * @return bool false if post is edited with Elementor
          */
         add_filter(RedirectRequestChecker::FILTER_REDIRECT, static function (bool $isRedirectRequest): bool {
-            $isElementorPreview = filter_input(INPUT_GET, 'elementor-preview', FILTER_SANITIZE_STRING);
+            $isElementorPreview = filter_input(INPUT_GET, 'elementor-preview', FILTER_SANITIZE_SPECIAL_CHARS);
             if ($isElementorPreview) {
                 return false;
             }

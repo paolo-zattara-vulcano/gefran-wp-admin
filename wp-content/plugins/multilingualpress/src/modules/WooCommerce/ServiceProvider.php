@@ -27,19 +27,33 @@ use Inpsyde\MultilingualPress\Framework\Api\SiteRelations;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetException;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Factory\UrlFactory;
+use Inpsyde\MultilingualPress\Framework\Http\Request;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
 use Inpsyde\MultilingualPress\Framework\Module\Module;
 use Inpsyde\MultilingualPress\Framework\Module\ModuleManager;
 use Inpsyde\MultilingualPress\Framework\Module\ModuleServiceProvider;
 use Inpsyde\MultilingualPress\Framework\PluginProperties;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
+use Inpsyde\MultilingualPress\Framework\Service\Exception\LateAccessToNotSharedService;
+use Inpsyde\MultilingualPress\Framework\Service\Exception\NameNotFound;
 use Inpsyde\MultilingualPress\Framework\Service\Exception\NameOverwriteNotAllowed;
 use Inpsyde\MultilingualPress\Framework\Service\Exception\WriteAccessOnLockedContainer;
+use Inpsyde\MultilingualPress\Module\Comments\CommentsCopy\CommentsCopier;
+use Inpsyde\MultilingualPress\Module\Comments\RelationshipContext\CommentsRelationshipContextInterface;
+use Inpsyde\MultilingualPress\Module\Comments\SiteSettings\CommentsSettingsRepository;
+use Inpsyde\MultilingualPress\Module\Comments\TranslationUi\CommentsListViewTranslationColumn;
+use Inpsyde\MultilingualPress\Module\Comments\TranslationUi\MetaboxAction;
+use Inpsyde\MultilingualPress\Module\Comments\TranslationUi\CommentMetaboxTab;
 use Inpsyde\MultilingualPress\Module\WooCommerce\TranslationUi\Product;
+use Inpsyde\MultilingualPress\Module\WooCommerce\TranslationUi\Review\Field\CommentMetaboxReviewRating;
+use Inpsyde\MultilingualPress\TranslationUi\MetaboxFieldsHelperFactory;
 use Inpsyde\MultilingualPress\TranslationUi\Post;
 use Inpsyde\MultilingualPress\Translator\PostTranslator;
 use Inpsyde\MultilingualPress\Translator\PostTypeTranslator;
 use Inpsyde\MultilingualPress\Translator\TermTranslator;
+use RuntimeException;
+use Inpsyde\MultilingualPress\Module\Comments\ServiceProvider as CommentsModule;
+use WP_Comment;
 use wpdb;
 
 use function Inpsyde\MultilingualPress\isWpDebugMode;
@@ -200,6 +214,11 @@ class ServiceProvider implements ModuleServiceProvider
         $this->addProductSearchHandler($container);
         $this->postTypeActions($container);
         $this->taxonomyActions($container);
+
+        $moduleManager = $container->get(ModuleManager::class);
+        if ($moduleManager->isModuleActive(CommentsModule::MODULE_ID)) {
+            $this->handleSupportForReviews($container);
+        }
     }
 
     /**
@@ -394,7 +413,7 @@ class ServiceProvider implements ModuleServiceProvider
         $postId = (int)filter_input(INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT);
         $isAllowedPage = \in_array($currentPage, ['post.php', 'post-new.php'], true);
 
-        $requestPostType = (string)filter_input(INPUT_GET, 'post_type', FILTER_SANITIZE_STRING);
+        $requestPostType = (string)filter_input(INPUT_GET, 'post_type', FILTER_SANITIZE_SPECIAL_CHARS);
         $requestPostType = $requestPostType ?: get_post_type($postId);
 
         return $isAllowedPage && 'product' === $requestPostType;
@@ -483,6 +502,127 @@ class ServiceProvider implements ModuleServiceProvider
         array_walk($attributesHookNames, static function (string $hookName) use ($attributesRelationship) {
             add_action($hookName, [$attributesRelationship, 'addSupportForAttribute'], 10, 2);
         });
+    }
+
+    /**
+     * Handle the WooCommerce reviews support.
+     *
+     * @param Container $container
+     * @throws LateAccessToNotSharedService|NameNotFound
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
+     */
+    protected function handleSupportForReviews(Container $container): void
+    {
+        // phpcs:enable
+
+        $helperFactory = $container->get(MetaboxFieldsHelperFactory::class);
+
+        add_filter(
+            CommentMetaboxTab::FILTER_COMMENT_METABOX_TAB . "_tab-base_fields",
+            static function (array $fields, CommentsRelationshipContextInterface $context) use ($helperFactory): array {
+                $sourceComment = $context->sourceComment();
+                if ($sourceComment->comment_type !== 'review') {
+                    return $fields;
+                }
+                $fields[] = new CommentMetaboxReviewRating('rating', __('Rating', 'multilingualpress'), $helperFactory);
+
+                return $fields;
+            },
+            10,
+            2
+        );
+
+        add_action(
+            MetaboxAction::ACTION_METABOX_AFTER_RELATE_COMMENTS,
+            static function (
+                CommentsRelationshipContextInterface $context,
+                Request $request
+            ) use ($helperFactory): void {
+                $sourceComment = $context->sourceComment();
+                if ($sourceComment->comment_type !== 'review') {
+                    return;
+                }
+
+                $remoteSiteId = $context->remoteSiteId();
+
+                $helper = $helperFactory->createMetaboxFieldsHelper($remoteSiteId);
+                $relationType = $helper->fieldRequestValue($request, 'relationship');
+
+                $changedFields = $helper->fieldRequestValue($request, 'changed_fields') ?? '';
+                $changedFieldNames = explode(',', $changedFields);
+
+                if ($relationType !== 'new' &&  !in_array('rating', $changedFieldNames, true)) {
+                    return;
+                }
+
+                $reviewRatingValue = $helper->fieldRequestValue($request, 'rating') ?? 0;
+                if ($reviewRatingValue === 0) {
+                    return;
+                }
+
+                switch_to_blog($remoteSiteId);
+                update_comment_meta($context->remoteCommentId(), 'rating', $reviewRatingValue);
+                restore_current_blog();
+            },
+            10,
+            2
+        );
+
+        add_filter(
+            CommentsSettingsRepository::FILTER_COMMENTS_ENABLED_FOR_POST_TYPE,
+            static function (bool $areReviewsEnabled, string $postType): bool {
+                if ($postType !== 'product') {
+                    return $areReviewsEnabled;
+                }
+
+                return wc_review_ratings_enabled();
+            },
+            10,
+            2
+        );
+
+        add_action(
+            CommentsCopier::ACTION_AFTER_REMOTE_COMMENT_IS_INSERTED,
+            static function (CommentsRelationshipContextInterface $context): void {
+                $sourceComment = $context->sourceComment();
+                if ($sourceComment->comment_type !== 'review') {
+                    return;
+                }
+
+                $remoteSiteId = $context->remoteSiteId();
+                switch_to_blog($context->sourceSiteId());
+                $sourceRatingMetaValue = (int)get_comment_meta($context->sourceCommentId(), 'rating', true) ?: 0;
+                restore_current_blog();
+
+                if (!$sourceRatingMetaValue) {
+                    return;
+                }
+
+                switch_to_blog($remoteSiteId);
+                update_comment_meta($context->remoteCommentId(), 'rating', $sourceRatingMetaValue);
+                restore_current_blog();
+            }
+        );
+
+        $translationColumn = $container->get(CommentsListViewTranslationColumn::class);
+
+        add_filter(
+            'woocommerce_product_reviews_table_columns',
+            static function (array $columns) use ($translationColumn): array {
+                $columns[$translationColumn->name()] = $translationColumn->title();
+                return $columns;
+            }
+        );
+
+        add_action(
+            'woocommerce_product_reviews_table_column_' . $translationColumn->name(),
+            static function (WP_Comment $review) use ($translationColumn): void {
+                echo wp_kses_post($translationColumn->value((int)$review->comment_ID));
+            },
+            10,
+            2
+        );
     }
 
     /**

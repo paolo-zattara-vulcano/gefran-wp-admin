@@ -16,6 +16,7 @@ namespace Inpsyde\MultilingualPress\Installation;
 
 use Inpsyde\MultilingualPress\Core\TaxonomyRepository;
 use Inpsyde\MultilingualPress\Database\Table\RelationshipMetaTable;
+use Inpsyde\MultilingualPress\Database\Table\ExternalSitesTable;
 use Inpsyde\MultilingualPress\Framework\Api\SiteRelations;
 use Inpsyde\MultilingualPress\Framework\Database\Exception\InvalidTable;
 use Inpsyde\MultilingualPress\Framework\Database\Table;
@@ -61,6 +62,7 @@ final class ServiceProvider implements IntegrationServiceProvider
                     $this->runTableMigration(
                         [
                             $container->get(RelationshipMetaTable::class),
+                            $container->get(ExternalSitesTable::class),
                         ],
                         $container->get(TableInstaller::class)
                     );
@@ -170,6 +172,7 @@ final class ServiceProvider implements IntegrationServiceProvider
                     $container[ContentRelationsTable::class],
                     $container[LanguagesTable::class],
                     $container[RelationshipsTable::class],
+                    $container[ExternalSitesTable::class],
                     $container[SiteRelationsTable::class],
                     $container->get(RelationshipMetaTable::class)
                 );

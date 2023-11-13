@@ -8,9 +8,9 @@ function get_current_url_description() {
     $current_url = home_url( add_query_arg( NULL, NULL ) );
 
     if (strpos($current_url, 'gefran.kinsta.cloud') !== false) {
-        return 'Production';
+        return 'SITE - Production';
     } elseif (strpos($current_url, 'gefranstg.kinsta.cloud') !== false) {
-        return 'Staging';
+        return 'SITE - Staging';
     } elseif (strpos($current_url, 'contacti.kinsta.cloud') !== false) {
         return 'Contacts';
 		} elseif (strpos($current_url, 'doc.gefran.com') !== false) {
@@ -29,14 +29,14 @@ add_action('admin_bar_menu', 'custom_admin_bar_menu', 100);
 
 		$args = array(
 				'id' => 'switch_area',
-				'title' => '<img src="' . $favicon_url . '" style="width: 18px; height: 18px; vertical-align: middle; margin: 0 3px 3px 0;"> Admin Sites - ' . $current_url_description,
+				'title' => '<img src="' . $favicon_url . '" style="width: 18px; height: 18px; vertical-align: middle; margin: 0 3px 3px 0;"> ' . $current_url_description,
 				'meta' => array('class' => 'switch-area-dropdown')
 		);
 		$wp_admin_bar->add_node($args);
 
     $link1 = array(
         'id' => 'link_1',
-        'title' => 'Production Site Admin',
+        'title' => 'Production',
         'href' => 'https://gefran.kinsta.cloud/wp-admin/',
         'parent' => 'switch_area',
         'meta' => array('class' => 'switch-area-link1')
@@ -45,7 +45,7 @@ add_action('admin_bar_menu', 'custom_admin_bar_menu', 100);
 
 		$link2 = array(
         'id' => 'link_2',
-				'title' => 'Staging Site Admin',
+				'title' => 'Staging',
 				'href' => 'https://gefranstg.kinsta.cloud/wp-admin/',
         'parent' => 'switch_area',
         'meta' => array('class' => 'switch-area-link2')

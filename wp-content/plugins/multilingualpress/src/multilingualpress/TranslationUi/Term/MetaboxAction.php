@@ -158,7 +158,7 @@ final class MetaboxAction implements Metabox\Action
             $requestSourceParent = (int)$request->bodyValue(
                 'parent',
                 INPUT_POST,
-                FILTER_SANITIZE_STRING
+                FILTER_SANITIZE_SPECIAL_CHARS
             );
             $term['parent'] = $relationshipHelper->relatedTermParent($this->relationshipContext, $requestSourceParent);
         }

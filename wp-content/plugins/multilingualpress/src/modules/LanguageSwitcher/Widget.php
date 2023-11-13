@@ -36,12 +36,19 @@ class Widget extends \WP_Widget
     private $moduleManager;
 
     /**
-     * @param Model $model
-     * @param View $view
-     * @param ModuleManager $moduleManager
+     * Whether the ExternalSites module is active.
+     *
+     * @var bool
      */
-    public function __construct(Model $model, View $view, ModuleManager $moduleManager)
-    {
+    protected $isExternalSitesModuleActive;
+
+    public function __construct(
+        Model $model,
+        View $view,
+        ModuleManager $moduleManager,
+        bool $isExternalSitesModuleActive
+    ) {
+
         $widgetOptions = [
             'classname' => 'multilingualpress_language_switcher',
             'description' => esc_html__('Language Switcher', 'multilingualpress'),
@@ -56,6 +63,7 @@ class Widget extends \WP_Widget
         $this->model = $model;
         $this->view = $view;
         $this->moduleManager = $moduleManager;
+        $this->isExternalSitesModuleActive = $isExternalSitesModuleActive;
     }
 
     /**
@@ -181,6 +189,24 @@ class Widget extends \WP_Widget
                 </label>
             </p>
         <?php }
+
+        if ($this->isExternalSitesModuleActive) {
+            $showExternalSites = !empty($instance['show_external_sites']); ?>
+            <p>
+                <?php
+                $id = $this->get_field_id('show_external_sites');
+                $name = $this->get_field_name('show_external_sites');
+                ?>
+                <label for="<?php echo esc_attr($id); ?>">
+                    <input type="checkbox" name="<?php echo esc_attr($name); ?>" value="1"
+                           id="<?php echo esc_attr($id); ?>"<?php checked($showExternalSites); ?>>
+                    <?php esc_html_e(
+                        'Show External Sites',
+                        'multilingualpress'
+                    ); ?>
+                </label>
+            </p>
+        <?php }
     }
 
     /**
@@ -211,6 +237,10 @@ class Widget extends \WP_Widget
         if ($this->isShowFlagOption()) {
             $showFlagsVal = $newInstance['show_flags'] ?? 0;
             $instance['show_flags'] = (int)$showFlagsVal;
+        }
+
+        if ($this->isExternalSitesModuleActive) {
+            $instance['show_external_sites'] = (int) ($newInstance['show_external_sites'] ?? 0);
         }
 
         return $instance;

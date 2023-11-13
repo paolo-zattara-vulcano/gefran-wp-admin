@@ -489,6 +489,29 @@ final class WpdbContentRelations implements ContentRelations
     /**
      * @inheritdoc
      */
+    public function relateAllComments(int $sourceSite, int $targetSite): bool
+    {
+        $commentIds = $this->commentIdsToRelate($sourceSite);
+
+        $errors = 0;
+
+        foreach ($commentIds as $commentId) {
+            $relId = $this->relationshipId(
+                [$sourceSite => $commentId, $targetSite => $commentId],
+                ContentRelations::CONTENT_TYPE_COMMENT,
+                true
+            );
+
+            $this->saveRelation($relId, $sourceSite, $commentId) or $errors++;
+            $this->saveRelation($relId, $targetSite, $commentId) or $errors++;
+        }
+
+        return $errors === 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function saveRelation(int $relationshipId, int $siteId, int $contentId): bool
     {
         if (0 === $contentId) {
@@ -691,6 +714,24 @@ final class WpdbContentRelations implements ContentRelations
             $typesString = implode("','", $types);
             $query .= " AND post_type IN ('{$typesString}')";
         }
+
+        //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+        return array_map('intval', $this->wpdb->get_col($query));
+        // phpcs:enable
+    }
+
+    /**
+     * Returns the IDs of the comments to relate for the given site.
+     *
+     * @param int $siteId The site ID for which to get the comments.
+     * @return int[] A list of comment IDs.
+     */
+    protected function commentIdsToRelate(int $siteId): array
+    {
+        $prefix = $this->wpdb->get_blog_prefix($siteId);
+        $commentsTable = "{$prefix}comments";
+
+        $query = "SELECT comment_ID FROM {$commentsTable} WHERE 1 = 1";
 
         //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
         return array_map('intval', $this->wpdb->get_col($query));

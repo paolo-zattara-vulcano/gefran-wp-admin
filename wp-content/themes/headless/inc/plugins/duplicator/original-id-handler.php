@@ -30,10 +30,13 @@ function set_original_id_on_post_save($post_id, $post, $update) {
                 $original_id_value = '01' . $post_id;
                 update_field('original_id', $original_id_value, $post_id);
             }
-        } else {
-            // If the blog ID is not 01 (e.g., the Italian blog), display an alert box
-            echo "<script type='text/javascript'>alert('You must always create a post in English and then clone it to the other language.');</script>";
-        }
+				}
+
+				// Commented becouse fire also in product sync
+        // } else {
+        //     // If the blog ID is not 01 (e.g., the Italian blog), display an alert box
+        //     echo "<script type='text/javascript'>alert('You must always create a post in English and then clone it to the other language.');</script>";
+        // }
     }
 }
 

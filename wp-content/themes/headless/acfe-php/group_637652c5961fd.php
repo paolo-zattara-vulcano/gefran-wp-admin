@@ -155,7 +155,7 @@ acf_add_local_field_group(array(
 			'pagination' => 0,
 			'min' => 0,
 			'max' => 0,
-			'collapsed' => 'field_637665703ce27',
+			'collapsed' => '',
 			'button_label' => 'Aggiungi Text Module',
 			'acfe_field_group_condition' => 0,
 			'rows_per_page' => 20,
@@ -280,7 +280,7 @@ acf_add_local_field_group(array(
 		0 => 'Application',
 		1 => 'Template_Application',
 	),
-	'modified' => 1693584435,
+	'modified' => 1699243685,
 ));
 
 endif;

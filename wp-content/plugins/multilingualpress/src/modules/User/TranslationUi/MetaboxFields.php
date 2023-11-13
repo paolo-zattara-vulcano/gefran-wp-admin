@@ -17,6 +17,7 @@ namespace Inpsyde\MultilingualPress\Module\User\TranslationUi;
 class MetaboxFields
 {
     const FIELD_BIOGRAPHY = 'description';
+    public const TRANSLATABLE_USER_META_FIELDS = 'multilingualpress.translatable_user_meta_fields';
 
     /**
      * Will return array of all user translatable fields
@@ -25,8 +26,11 @@ class MetaboxFields
      */
     public function allFields(): array
     {
-        return [
-            self::FIELD_BIOGRAPHY => new Field\Biography(self::FIELD_BIOGRAPHY),
-        ];
+        return apply_filters(
+            self::TRANSLATABLE_USER_META_FIELDS,
+            [
+                self::FIELD_BIOGRAPHY => new Field\Biography(self::FIELD_BIOGRAPHY),
+            ]
+        );
     }
 }

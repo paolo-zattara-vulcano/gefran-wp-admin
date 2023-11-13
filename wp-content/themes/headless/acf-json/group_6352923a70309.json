@@ -73,78 +73,12 @@
             "library": "all"
         },
         {
-            "key": "field_63529eb5a70df",
-            "label": "Category cover image",
-            "name": "category_cover_image",
-            "aria-label": "",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "uploader": "",
-            "acfe_thumbnail": 0,
-            "return_format": "array",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "preview_size": "medium",
-            "acfe_field_group_condition": 0,
-            "library": "all"
-        },
-        {
-            "key": "field_63833dc710c4c",
-            "label": "Category cover image mob",
-            "name": "category_cover_image_mob",
-            "aria-label": "",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "hide_field": "",
-            "hide_label": "",
-            "hide_instructions": "",
-            "hide_required": "",
-            "show_in_graphql": 1,
-            "uploader": "",
-            "acfe_thumbnail": 0,
-            "return_format": "array",
-            "acfe_settings": "",
-            "acfe_validate": "",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "instruction_placement": "",
-            "acfe_permissions": "",
-            "preview_size": "medium",
-            "acfe_field_group_condition": 0,
-            "library": "all"
-        },
-        {
             "key": "field_63975c30aab50",
-            "label": "Features",
+            "label": "Features ( sub category only )",
             "name": "features",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "",
+            "instructions": "Showed in the subcategory list of the main category page. \r\nUse pipe \"|\" as a separator to create lists of features.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -171,11 +105,11 @@
         },
         {
             "key": "field_63975c5faab51",
-            "label": "Selector",
+            "label": "Selector Link ( sub category only )",
             "name": "selector",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "CTA to open selector iframe link Modal in the subcategory list of the main category page",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -219,6 +153,7 @@
     "description": "",
     "show_in_rest": 0,
     "acfe_autosync": [
+        "php",
         "json"
     ],
     "acfe_form": 1,
@@ -230,5 +165,5 @@
     "graphql_field_name": "ctxProductCategory",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1670863997
+    "modified": 1699280115
 }

@@ -22,10 +22,14 @@ function display_gatsby_notifications_page() {
   <?php
 }
 
-
+add_action('admin_post_nopriv_gatsby_build_started', 'gatsby_build_started_callback');
 add_action('admin_post_nopriv_gatsby_build_success', 'gatsby_build_success_callback');
 add_action('admin_post_nopriv_gatsby_locked', 'gatsby_locked_callback');
 add_action('admin_post_nopriv_gatsby_build_fail', 'gatsby_build_fail_callback');
+
+function gatsby_build_started_callback() {
+    process_gatsby_notification('notice-started');
+}
 
 function gatsby_build_success_callback() {
     process_gatsby_notification('notice-success');
@@ -92,19 +96,31 @@ function gatsby_admin_notice_script() {
                                 // Convert the notification.message JSON to an object
                                 var messageObj = JSON.parse(notification.message);
 
+                                // console.log('messageObj', messageObj);
+
+
                                 // Create an HTML template to display the notification details
 
                                 // <p>Deploy Preview URL: <a href="${messageObj.deployPreviewUrl}">${messageObj.deployPreviewUrl}</a></p>
                                 // <p>Build Logs URL: <a href="${messageObj.logsUrl}">${messageObj.logsUrl}</a></p>
                                 // <p>Workspace Name: ${messageObj.workspaceName}</p>
 
+                                const buildDurationInSeconds = messageObj.deploy_time;
+                                const minutes = Math.floor(buildDurationInSeconds / 60);
+                                const seconds = buildDurationInSeconds % 60;
+                                const buildDurationInMinutesAndSeconds = `${minutes} minutes ${seconds} seconds`;
+
                                 var notificationHTML = `
                                     <div class="notice ${notification.class} is-dismissible">
-                                        <h3>Site Name: ${messageObj.siteName}</h3>
+                                        <h3>Site Name: ${messageObj.name}</h3>
+                                        <h5 style="margin-top:0; margin-bottom:0;">${messageObj.title}</h5>
                                         <p style="margin-top:0">
-                                          Build Status: ${messageObj.event}<br/>
-                                          Build ID: ${messageObj.buildId}<br/>
-                                          Build Duration: ${messageObj.duration} seconds
+                                          Build Status: ${messageObj.state}<br/>
+                                          ${messageObj.error_message ? `Build Error: ${messageObj.error_message}<br/>` : ''}
+                                          Build Branch: <strong>${messageObj.branch}</strong><br/>
+                                          Build ID: ${messageObj.build_id}<br/>
+                                          ${buildDurationInSeconds ? `Build Duration: ${buildDurationInMinutesAndSeconds}<br/>` : ''}
+                                          Build Link: <a href="${messageObj.url}" style="display: inline-block" target="_blank">${messageObj.url}</a>
                                         </p>
                                         <button type="button" class="notice-dismiss">
                                           <span class="screen-reader-text">Dismiss this notice.</span>

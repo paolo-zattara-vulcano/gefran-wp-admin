@@ -94,6 +94,6 @@ trait ActionsProcessorTrait
      */
     protected function actionNameFrom(ServerRequest $request): string
     {
-        return (string)$request->bodyValue($this->actionNameKey, INPUT_POST, FILTER_SANITIZE_STRING);
+        return (string)$request->bodyValue($this->actionNameKey, INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 }

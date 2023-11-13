@@ -67,7 +67,7 @@ class PostTypeSlugsSettingsUpdateRequestHandler
             wp_die('Invalid', 'Invalid', 403);
         }
 
-        $siteId = (int)$this->request->bodyValue('id', INPUT_REQUEST, FILTER_SANITIZE_NUMBER_INT);
+        $siteId = (int)$this->request->bodyValue('id', INPUT_POST, FILTER_SANITIZE_NUMBER_INT);
         if (!$siteId) {
             wp_die('Invalid site', 'Invalid site', 403);
         }

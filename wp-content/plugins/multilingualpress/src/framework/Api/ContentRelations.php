@@ -13,6 +13,7 @@
 namespace Inpsyde\MultilingualPress\Framework\Api;
 
 use Inpsyde\MultilingualPress\Framework\Database\Exception\NonexistentTable;
+use RuntimeException;
 
 /**
  * Interface for all content relations API implementations.
@@ -25,6 +26,7 @@ interface ContentRelations
 
     const CONTENT_TYPE_POST = 'post';
     const CONTENT_TYPE_TERM = 'term';
+    public const CONTENT_TYPE_COMMENT = 'comment';
     const FILTER_POST_TYPE = 'multilingualpress.content_relations_post_type';
     const FILTER_POST_STATUS = 'multilingualpress.content_relations_post_status';
     const FILTER_TAXONOMY = 'multilingualpress.content_relations_taxonomy';
@@ -196,4 +198,14 @@ interface ContentRelations
      * @throws NonexistentTable
      */
     public function saveRelation(int $relationshipId, int $siteId, int $contentId): bool;
+
+    /**
+     * Relates all comments between the given source site and the given destination site.
+     *
+     * @param int $sourceSite The source site ID.
+     * @param int $targetSite The Target site ID.
+     * @return bool true if the comments are related, false if not.
+     * @throws RuntimeException if problem relating.
+     */
+    public function relateAllComments(int $sourceSite, int $targetSite): bool;
 }

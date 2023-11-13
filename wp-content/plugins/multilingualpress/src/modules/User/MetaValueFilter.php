@@ -45,11 +45,13 @@ class MetaValueFilter
             return $authorMeta;
         }
 
-        foreach ($userTranslationMetaForSite as $translationMeta) {
-            if (empty($translationMeta)) {
+        $field = str_replace(['get_the_author_', 'the_author_'], '', current_filter());
+
+        if (array_key_exists($field, $userTranslationMetaForSite)) {
+            if (empty($userTranslationMetaForSite[$field])) {
                 return $authorMeta;
             }
-            $authorMeta = $translationMeta;
+            $authorMeta = $userTranslationMetaForSite[$field];
         }
         return $authorMeta;
     }

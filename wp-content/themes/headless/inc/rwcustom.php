@@ -10,10 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_filter( 'xmlrpc_enabled', '__return_false' );
 add_filter( 'automatic_updater_disabled', '__return_true' );
-/*
-define( 'DISALLOW_FILE_EDIT', true );
-define( 'DISALLOW_FILE_MODS', true );
-*/
+
 // error_reporting(0);
 // @ini_set(‘display_errors’, 0);
 
@@ -159,7 +156,7 @@ function remove_admin_pages() {
 		remove_menu_page('options-general.php');
 		remove_menu_page('edit-comments.php');
 		remove_menu_page('cptui_main_menu');
-		
+
 		//Hide "CPT UI → Add/Edit Post Types".
 		remove_submenu_page('cptui_main_menu', 'cptui_manage_post_types');
 		//Hide "CPT UI → Add/Edit Taxonomies".

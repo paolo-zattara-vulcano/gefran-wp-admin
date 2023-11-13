@@ -51,6 +51,7 @@ class Collection implements IteratorAggregate, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->collection);
@@ -59,6 +60,7 @@ class Collection implements IteratorAggregate, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->collection);

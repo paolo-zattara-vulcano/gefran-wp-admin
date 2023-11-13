@@ -151,7 +151,7 @@
             "pagination": 0,
             "min": 0,
             "max": 0,
-            "collapsed": "field_637665703ce27",
+            "collapsed": "",
             "button_label": "Aggiungi Text Module",
             "acfe_field_group_condition": 0,
             "rows_per_page": 20,
@@ -276,5 +276,5 @@
         "Application",
         "Template_Application"
     ],
-    "modified": 1679906819
+    "modified": 1699243685
 }

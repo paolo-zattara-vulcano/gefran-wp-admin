@@ -86,10 +86,10 @@ class LicenseSettingsUpdater
             [
                 'license_product_id' => [
                     'options' => ['default' => ''],
-                    'filter' => FILTER_SANITIZE_STRING,
+                    'filter' => FILTER_SANITIZE_SPECIAL_CHARS,
                 ],
-                'api_key' => FILTER_SANITIZE_STRING,
-                'instance_key' => FILTER_SANITIZE_STRING,
+                'api_key' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'instance_key' => FILTER_SANITIZE_SPECIAL_CHARS,
                 'deactivate' => [
                     'options' => ['default' => ''],
                     'filter' => FILTER_VALIDATE_BOOLEAN,

@@ -110,7 +110,7 @@ class RelationshipUpdater
         $task = (string)$this->request->bodyValue(
             self::TASK_PARAM,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         $methodName = $task ? self::TASK_METHOD_MAP[$task] ?? '' : '';
@@ -132,11 +132,12 @@ class RelationshipUpdater
                 $this->relationshipPermission
             );
 
-            $info = $metabox->createInfo(FrameworkMetabox::SHOW, new Entity($post));
+            $entity = new Entity($post);
+            $info = $metabox->createInfo(FrameworkMetabox::SHOW, $entity);
 
             switch_to_blog($remoteSiteId);
             ob_start();
-            $metabox->viewForPost($post)->render($info);
+            $metabox->view($entity)->render($info);
             $rendered = ob_get_clean();
             restore_current_blog();
 

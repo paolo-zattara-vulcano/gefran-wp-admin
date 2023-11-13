@@ -568,7 +568,7 @@ final class MetaboxAction implements Metabox\Action
         $productAttachmentIds = (string)$request->bodyValue(
             self::PRODUCT_GALLERY_META_KEY,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!$productAttachmentIds) {

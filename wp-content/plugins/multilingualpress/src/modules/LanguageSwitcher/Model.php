@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Module\LanguageSwitcher;
 
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository;
 use Inpsyde\MultilingualPress\Flags\Flag\Flag;
 use Inpsyde\MultilingualPress\Framework\Api\Translation;
 use Inpsyde\MultilingualPress\Framework\Api\Translations;
@@ -33,13 +34,32 @@ class Model
     private $itemFactory;
 
     /**
+     * @var SiteSettingsRepository
+     */
+    protected $siteSettingsRepository;
+
+    /**
+     * Whether the ExternalSites module is active.
+     *
+     * @var bool
+     */
+    protected $isExternalSitesModuleActive;
+
+    /**
      * @param Translations $translations
      * @param ItemFactory $itemFactory
      */
-    public function __construct(Translations $translations, ItemFactory $itemFactory)
-    {
+    public function __construct(
+        Translations $translations,
+        ItemFactory $itemFactory,
+        SiteSettingsRepository $siteSettingsRepository,
+        bool $isExternalSitesModuleActive
+    ) {
+
         $this->translations = $translations;
         $this->itemFactory = $itemFactory;
+        $this->siteSettingsRepository = $siteSettingsRepository;
+        $this->isExternalSitesModuleActive = $isExternalSitesModuleActive;
     }
 
     /**
@@ -64,6 +84,10 @@ class Model
         $model['language_name'] = $instance['language_name'] ?? 'isoName';
         $model['items'] = [];
 
+        if ($this->isExternalSitesModuleActive) {
+            $model['show_external_sites'] = $instance['show_external_sites'] ?? 0;
+        }
+
         foreach ($translations as $translation) {
             if ($translation->remoteSiteId() === get_current_blog_id() && $model['show_current_site'] !== 1) {
                 continue;
@@ -85,7 +109,8 @@ class Model
                 $language->isoCode(),
                 $this->languageFlag($model, $language->isoCode()),
                 $url,
-                $translation->remoteSiteId()
+                $translation->remoteSiteId(),
+                $this->hreflangDisplayCode($translation->remoteSiteId())
             );
         }
 
@@ -109,6 +134,8 @@ class Model
     /**
      * Returns flag image url from multilingualpress-site-flags plugin
      *
+     * This is neeeded for old site-flags plugin to work.
+     *
      * @param array $model
      * @param string $isoCode
      * @return string
@@ -121,5 +148,18 @@ class Model
         }
 
         return '';
+    }
+
+    public function hreflangDisplayCode($siteId): string
+    {
+        $hreflangDisplayType = $this->siteSettingsRepository->hreflangSettingForSite(
+            $siteId,
+            SiteSettingsRepository::NAME_HREFLANG_DISPLAY_TYPE
+        );
+        $hreflangDisplayTypeIsCountry = $hreflangDisplayType === 'country';
+
+        $translations = $this->translations();
+        $language = $translations[$siteId]->language();
+        return $hreflangDisplayTypeIsCountry ? $language->isoCode() : $language->bcp47tag();
     }
 }

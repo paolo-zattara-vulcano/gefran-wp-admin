@@ -15,12 +15,13 @@ declare(strict_types=1);
 namespace Inpsyde\MultilingualPress\Framework\Http;
 
 /**
- * Interface RequestHandler
- * @package Inpsyde\MultilingualPress\Framework\Http
+ * Something able to handle the server request.
  */
 interface RequestHandler
 {
     /**
+     * Handles the given server request.
+     *
      * @param ServerRequest $request
      */
     public function handle(ServerRequest $request);

@@ -105,7 +105,7 @@ class SiteSettingsUpdater implements SiteSettingsUpdatable
         $language = $this->request->bodyValue(
             SiteSettingsRepository::NAME_LANGUAGE,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!is_string($language) || self::VALUE_LANGUAGE_NONE === $language) {
@@ -152,7 +152,7 @@ class SiteSettingsUpdater implements SiteSettingsUpdatable
         $hreflangSettings = (array)$this->request->bodyValue(
             SiteSettingsRepository::NAME_HREFLANG,
             INPUT_POST,
-            FILTER_SANITIZE_STRING,
+            FILTER_SANITIZE_SPECIAL_CHARS,
             FILTER_FORCE_ARRAY
         );
 
@@ -169,7 +169,7 @@ class SiteSettingsUpdater implements SiteSettingsUpdatable
         $wplang = (string)$this->request->bodyValue(
             'WPLANG',
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!in_array($wplang, get_available_languages(), true)) {

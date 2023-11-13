@@ -16,6 +16,7 @@ namespace Inpsyde\MultilingualPress\NavMenu;
 
 use Inpsyde\MultilingualPress\Core\Admin\Settings\Cache\CacheSettingsOptions;
 use Inpsyde\MultilingualPress\Core\Admin\Settings\Cache\CacheSettingsRepository;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository;
 use Inpsyde\MultilingualPress\Framework\Cache\Exception;
 use Inpsyde\MultilingualPress\Cache\NavMenuItemsSerializer;
 use Inpsyde\MultilingualPress\Framework\Api\Translations;
@@ -59,6 +60,11 @@ class ItemFilter
     private $cacheSettingsRepository;
 
     /**
+     * @var SiteSettingsRepository
+     */
+    private $siteSettingsRepository;
+
+    /**
      * @param Translations $translations
      * @param ItemRepository $repository
      * @param Facade $cache
@@ -68,13 +74,15 @@ class ItemFilter
         Translations $translations,
         ItemRepository $repository,
         Facade $cache,
-        CacheSettingsRepository $cacheSettingsRepository
+        CacheSettingsRepository $cacheSettingsRepository,
+        SiteSettingsRepository $siteSettingsRepository
     ) {
 
         $this->translations = $translations;
         $this->repository = $repository;
         $this->cache = $cache;
         $this->cacheSettingsRepository = $cacheSettingsRepository;
+        $this->siteSettingsRepository = $siteSettingsRepository;
     }
 
     /**
@@ -129,29 +137,8 @@ class ItemFilter
          * Which will let to comply with the WCAG 2.1 AA accessibility guidelines: https://www.w3.org/TR/WCAG21/
          */
         $repository = $this->repository;
-        add_filter(
-            'nav_menu_link_attributes',
-            wpHookProxy(static function (array $attributes, WP_Post $item) use ($translations, $repository): array {
-                if ($item->type !== 'mlp_language' || empty($translations)) {
-                    return $attributes;
-                }
-                $siteId = $repository->siteIdOfMenuItem((int)$item->ID);
-
-                if (!$siteId || !isset($translations[$siteId])) {
-                    return $attributes;
-                }
-
-                $locale = $translations[$siteId]->language()->bcp47tag() ?? '';
-                $attrValue = EmbeddedLanguage::changeLanguageVariantLocale($locale) ?? '';
-
-                $attributes['lang'] = $attrValue;
-                $attributes['hreflang'] = $attrValue;
-
-                return $attributes;
-            }),
-            10,
-            2
-        );
+        $settingsRepository = $this->siteSettingsRepository;
+        $this->hookToMenuLink($translations, $repository, $settingsRepository);
 
         return $filtered;
     }
@@ -292,5 +279,45 @@ class ItemFilter
         }
 
         return true;
+    }
+
+    /**
+     * @param array $translations
+     * @param ItemRepository $repository
+     * @param SiteSettingsRepository $settingsRepository
+     * @return void
+     * @throws Throwable
+     */
+    public function hookToMenuLink(array $translations, ItemRepository $repository, SiteSettingsRepository $settingsRepository): void
+    {
+        add_filter(
+            'nav_menu_link_attributes',
+            wpHookProxy(static function (array $attributes, WP_Post $item) use ($translations, $repository, $settingsRepository): array {
+                if ($item->type !== 'mlp_language' || empty($translations)) {
+                    return $attributes;
+                }
+                $siteId = $repository->siteIdOfMenuItem((int)$item->ID);
+
+                if (!$siteId || !isset($translations[$siteId])) {
+                    return $attributes;
+                }
+                $hreflangDisplayType = $settingsRepository->hreflangSettingForSite(
+                    $siteId,
+                    SiteSettingsRepository::NAME_HREFLANG_DISPLAY_TYPE
+                );
+                $hreflangDisplayTypeIsCountry = $hreflangDisplayType === 'country';
+
+                $language = $translations[$siteId]->language();
+                $locale = $hreflangDisplayTypeIsCountry ? $language->isoCode() : $language->bcp47tag();
+                $attrValue = EmbeddedLanguage::changeLanguageVariantLocale($locale) ?? '';
+
+                $attributes['lang'] = $attrValue;
+                $attributes['hreflang'] = $attrValue;
+
+                return $attributes;
+            }),
+            10,
+            2
+        );
     }
 }

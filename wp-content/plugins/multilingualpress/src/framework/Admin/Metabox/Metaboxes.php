@@ -20,7 +20,12 @@ use Inpsyde\MultilingualPress\Framework\Admin\PersistentAdminNotices;
 use Inpsyde\MultilingualPress\Framework\Auth\AuthFactoryException;
 use Inpsyde\MultilingualPress\Framework\Entity;
 use Inpsyde\MultilingualPress\Framework\Http\RequestGlobalsManipulator;
+use Inpsyde\MultilingualPress\Framework\Module\ModuleManager;
 use Inpsyde\MultilingualPress\Framework\Nonce\WpNonce;
+use Inpsyde\MultilingualPress\Module\Comments\ServiceProvider as CommentsModule;
+use WP_Comment;
+use WP_Post;
+use WP_Term;
 
 use function Inpsyde\MultilingualPress\printNonceField;
 use function Inpsyde\MultilingualPress\siteExists;
@@ -84,17 +89,24 @@ class Metaboxes
      */
     protected $postTypeRepository;
 
+    /**
+     * @var ModuleManager
+     */
+    protected $moduleManager;
+
     public function __construct(
         RequestGlobalsManipulator $globalsManipulator,
         PersistentAdminNotices $notices,
         MetaboxUpdater $metaboxUpdater,
-        PostTypeRepository $postTypeRepository
+        PostTypeRepository $postTypeRepository,
+        ModuleManager $moduleManager
     ) {
 
         $this->globalsManipulator = $globalsManipulator;
         $this->notices = $notices;
         $this->metaboxUpdater = $metaboxUpdater;
         $this->postTypeRepository = $postTypeRepository;
+        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -115,6 +127,10 @@ class Metaboxes
             }
             if (!empty($screen->post_type) && in_array($screen->post_type, $this->postTypeRepository->supportedPostTypes(), true)) {
                 $this->initForPost();
+            }
+
+            if ($this->moduleManager->isModuleActive(CommentsModule::MODULE_ID) && $screen->base === 'comment') {
+                $this->initForComment();
             }
         }, PHP_INT_MAX);
     }
@@ -141,16 +157,8 @@ class Metaboxes
             return $this;
         }
 
-        $isPost = $this->entity->is(\WP_Post::class);
-        $isTerm = $this->entity->is(\WP_Term::class);
-
         foreach ($boxes as $box) {
-            if (
-                ($isPost && $box instanceof PostMetabox)
-                || ($isTerm && $box instanceof TermMetabox)
-            ) {
-                $this->boxes[$box->createInfo($this->registeringFor, $this->entity)->id()] = $box;
-            }
+            $this->boxes[$box->createInfo($this->registeringFor, $this->entity)->id()] = $box;
         }
 
         return $this;
@@ -159,9 +167,9 @@ class Metaboxes
     /**
      * WordPress does not print metaboxes for terms, let's fix this.
      *
-     * @param \WP_Term $term
+     * @param WP_Term $term
      */
-    public function printTermBoxes(\WP_Term $term)
+    public function printTermBoxes(WP_Term $term)
     {
         if (!is_admin() || current_filter() !== "{$term->taxonomy}_edit_form") {
             return;
@@ -201,13 +209,9 @@ class Metaboxes
         add_action(
             'add_meta_boxes',
             function ($postType, $post) {
-                if ($post instanceof \WP_Post) {
+                if ($post instanceof WP_Post) {
                     $entity = new Entity($post);
-                    $this->prepareTarget(new Entity($post), Metabox::SHOW);
-                    do_action(self::ACTION_SHOW_METABOXES, $entity);
-                    array_walk($this->boxes, [$this, 'addMetabox']);
-                    $this->releaseTarget();
-                    do_action(self::ACTION_SHOWED_METABOXES, $entity);
+                    $this->addMetaBoxes($entity);
                 }
             },
             100,
@@ -220,7 +224,7 @@ class Metaboxes
             wpHookProxy(
                 function (bool $empty, array $data): bool {
                     global $post;
-                    if (!$empty || !$post instanceof \WP_Post || !$post->ID) {
+                    if (!$empty || !$post instanceof WP_Post || !$post->ID) {
                         return $empty;
                     }
 
@@ -245,7 +249,7 @@ class Metaboxes
         // Save Boxes
         add_action(
             'wp_insert_post',
-            function ($postId, \WP_Post $post) {
+            function ($postId, WP_Post $post) {
                 if ($post->post_status === 'trash') {
                     return;
                 }
@@ -259,6 +263,41 @@ class Metaboxes
     }
 
     /**
+     * @return void
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     */
+    private function initForComment(): void
+    {
+        // phpcs:enable
+
+        // Show Boxes
+        add_action(
+            'add_meta_boxes',
+            function (string $name, WP_Comment $comment) {
+                $entity = new Entity($comment);
+                $this->addMetaBoxes($entity);
+            },
+            100,
+            2
+        );
+
+        // Save Boxes
+        add_action(
+            'edit_comment',
+            function (int $commentId) {
+                $comment = get_comment($commentId);
+                if (!$comment || is_wp_error($comment)) {
+                    return;
+                }
+
+                $this->onCommentSave($comment);
+            },
+            100,
+            2
+        );
+    }
+
+    /**
      * @param string $taxonomy
      *
      * @return bool
@@ -268,13 +307,9 @@ class Metaboxes
         // Show Boxes
         add_action(
             "{$taxonomy}_pre_edit_form",
-            function (\WP_Term $term) {
+            function (WP_Term $term) {
                 $entity = new Entity($term);
-                $this->prepareTarget($entity, Metabox::SHOW);
-                do_action(self::ACTION_SHOW_METABOXES, $entity);
-                array_walk($this->boxes, [$this, 'addMetabox']);
-                $this->releaseTarget();
-                do_action(self::ACTION_SHOWED_METABOXES, $entity);
+                $this->addMetaBoxes($entity);
             },
             1
         );
@@ -285,14 +320,14 @@ class Metaboxes
             wpHookProxy(
                 function (int $termId, int $termTaxonomyId, string $termTaxonomy) use ($taxonomy) {
                     // This check allows to edit term object inside BoxAction::save() without recursion.
-                    if ($this->saving === 'term') {
+                    if ($this->saving === 'WP_Term') {
                         return;
                     }
 
                     $term = get_term_by('term_taxonomy_id', $termTaxonomyId);
 
                     if (
-                        !$term instanceof \WP_Term
+                        !$term instanceof WP_Term
                         || (int)$term->term_id !== $termId
                         || $term->taxonomy !== $termTaxonomy
                         || $term->taxonomy !== $taxonomy
@@ -300,14 +335,8 @@ class Metaboxes
                         return;
                     }
 
-                    $this->saving = 'term';
                     $entity = new Entity($term);
-                    $this->prepareTarget($entity, Metabox::SAVE);
-                    do_action(self::ACTION_SAVE_METABOXES, $entity);
-                    $this->saveMetaBoxes();
-                    do_action(self::ACTION_SAVED_METABOXES, $entity);
-                    $this->releaseTarget();
-                    $this->saving = '';
+                    $this->saveMetaboxesActions($entity);
                 }
             ),
             100,
@@ -334,55 +363,50 @@ class Metaboxes
     }
 
     /**
-     * @param Metabox|PostMetabox|TermMetabox $box
-     * @param string $type
+     * @param Metabox $box
      * @return bool
      */
-    private function isBoxEnabled(Metabox $box, string $type): bool
+    private function isBoxEnabled(Metabox $box): bool
     {
         if (!$this->entity->isValid()) {
             return false;
         }
 
-        $accept = false;
-        /** @var \WP_Post|\WP_Term $object */
         $object = $this->entity->expose();
-        switch (true) {
-            case $this->entity->is(\WP_Post::class) && $box instanceof PostMetabox:
-                $accept = $box->acceptPost($object, $type);
-                break;
-            case $this->entity->is(\WP_Term::class) && $box instanceof TermMetabox:
-                $accept = $box->acceptTerm($object, $type);
-                break;
-        }
+        $accept = $box->isValid($this->entity);
 
         return (bool)apply_filters(self::FILTER_METABOX_ENABLED, $accept, $box, $object);
     }
 
     /**
-     * @param Metabox|PostMetabox|TermMetabox $box
+     * @param Metabox $box
      * @param string $boxId
      */
     private function addMetabox(Metabox $box, string $boxId)
     {
-        if (!$this->isBoxEnabled($box, Metabox::SHOW)) {
+        if (!$this->isBoxEnabled($box)) {
             return;
         }
 
-        $isPost = $this->entity->is(\WP_Post::class);
-        /** @var \WP_Post|\WP_Term $object */
-        $object = $this->entity->expose();
-        $info = $box->createInfo(Metabox::SHOW, $this->entity);
+        $entity = $this->entity;
 
-        $boxSuffix = $isPost ? '-postbox' : '-termbox';
+        $isPost = $entity->is(WP_Post::class);
+        $isComment = $entity->is(WP_Comment::class);
+        /** @var WP_Post|WP_Term|WP_Comment $object */
+        $object = $entity->expose();
+        $info = $box->createInfo(Metabox::SHOW, $entity);
+
+        $type = strtolower(str_replace("WP_", '', $this->entity->type()));
+        $boxSuffix = "-{$type}box";
+
         $context = $info->context();
-        $screen = $isPost ? null : "edit-{$object->taxonomy}";
+        $screen = $isPost ? null : ($isComment ? 'comment' : "edit-{$object->taxonomy}");
         ($context === Info::CONTEXT_SIDE && $isPost) and $screen = $object->post_type;
 
         add_meta_box(
             $boxId . $boxSuffix,
             $info->title(),
-            static function ($object) use ($boxId, $box, $info, $isPost) { // phpcs:ignore
+            static function ($object) use ($boxId, $box, $info, $entity) { // phpcs:ignore
                 $siteId = $box->siteId();
                 if (!siteExists($siteId)) {
                     // translators: %s is the site ID.
@@ -390,12 +414,13 @@ class Metaboxes
                     print esc_html(sprintf($message, $siteId));
                     return;
                 }
-                /** @var \WP_Post|\WP_Term $object */
-                $objectId = $object instanceof \WP_Post ? $object->ID : $object->term_id;
+
+                $objectId = $entity->id();
+
                 printNonceField((new WpNonce($boxId . "-{$objectId}"))->withSite($siteId));
                 switch_to_blog($siteId);
                 do_action(self::ACTION_INSIDE_METABOX_BEFORE, $box, $object, $info);
-                $view = $isPost ? $box->viewForPost($object) : $box->viewForTerm($object);
+                $view = $box->view($entity);
                 $view->render($info);
                 do_action(self::ACTION_INSIDE_METABOX_AFTER, $box, $object, $info);
                 restore_current_blog();
@@ -407,12 +432,12 @@ class Metaboxes
     }
 
     /**
-     * @param \WP_Post $post
+     * @param WP_Post $post
      */
-    private function onPostSave(\WP_Post $post)
+    private function onPostSave(WP_Post $post)
     {
         // This check allows to edit post object inside BoxAction::save() without recursion.
-        if ($this->saving === 'post') {
+        if ($this->saving === 'WP_Post') {
             return;
         }
 
@@ -421,13 +446,21 @@ class Metaboxes
         }
 
         $entity = new Entity($post);
-        $this->saving = 'post';
-        $this->prepareTarget($entity, Metabox::SAVE);
-        do_action(self::ACTION_SAVE_METABOXES, $entity);
-        $this->saveMetaBoxes();
-        do_action(self::ACTION_SAVED_METABOXES, $entity);
-        $this->releaseTarget();
-        $this->saving = '';
+        $this->saveMetaboxesActions($entity);
+    }
+
+    /**
+     * @param WP_Comment $comment
+     */
+    protected function onCommentSave(WP_Comment $comment)
+    {
+        // This check allows to edit post object inside BoxAction::save() without recursion.
+        if ($this->saving === 'WP_Comment') {
+            return;
+        }
+
+        $entity = new Entity($comment);
+        $this->saveMetaboxesActions($entity);
     }
 
     /**
@@ -439,7 +472,7 @@ class Metaboxes
         $globalsCleared = $this->globalsManipulator->clear();
 
         foreach ($this->boxes as $boxId => $box) {
-            if (!$this->isBoxEnabled($box, Metabox::SAVE)) {
+            if (!$this->isBoxEnabled($box)) {
                 continue;
             }
 
@@ -458,7 +491,6 @@ class Metaboxes
 
                 continue;
             }
-
             $this->metaboxUpdater->saveMetaBox($box, $boxId, $this->entity);
         }
 
@@ -474,5 +506,35 @@ class Metaboxes
         $this->registeringFor = '';
         $this->boxes = [];
         $this->locked = false;
+    }
+
+    /**
+     * Add the metaboxes for given entity.
+     *
+     * @param Entity $entity
+     */
+    protected function addMetaBoxes(Entity $entity): void
+    {
+        $this->prepareTarget($entity, Metabox::SHOW);
+        do_action(self::ACTION_SHOW_METABOXES, $entity);
+        array_walk($this->boxes, [$this, 'addMetabox']);
+        $this->releaseTarget();
+        do_action(self::ACTION_SHOWED_METABOXES, $entity);
+    }
+
+    /**
+     * Perform metabox saving actions for given entity.
+     *
+     * @param Entity $entity
+     */
+    protected function saveMetaboxesActions(Entity $entity): void
+    {
+        $this->saving = $entity->type();
+        $this->prepareTarget($entity, Metabox::SAVE);
+        do_action(self::ACTION_SAVE_METABOXES, $entity);
+        $this->saveMetaBoxes();
+        do_action(self::ACTION_SAVED_METABOXES, $entity);
+        $this->releaseTarget();
+        $this->saving = '';
     }
 }

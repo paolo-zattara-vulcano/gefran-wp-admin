@@ -50,6 +50,9 @@ use Inpsyde\MultilingualPress\Module\Redirect\Settings\TabView;
 
 use function Inpsyde\MultilingualPress\wpHookProxy;
 
+/**
+ * @psalm-type languageCode = string
+ */
 final class ServiceProvider implements ModuleServiceProvider
 {
     const MODULE_ID = 'redirect';
@@ -76,14 +79,47 @@ final class ServiceProvider implements ModuleServiceProvider
             }
         );
 
-        $container->addService(
+        /**
+         * Configuration for the user languages included in the Accept-Language header as
+         * a map of language codes to priorities.
+         *
+         * @return array<string, float> A map of language codes to priorities.
+         * @psalm-return array<languageCode, float>
+         */
+        $container->share(
+            'redirect.userLanguages',
+            static function (Container $container): array {
+                $parser = $container->get(AcceptLanguageParser::class);
+                $request = $container->get(ServerRequest::class);
+                $fields = $parser->parseHeader($request->header('Accept-Language'));
+
+                if (!$fields) {
+                    return [];
+                }
+
+                $userLanguages = [];
+                foreach ($fields as $code => $priority) {
+                    $userLanguages[strtolower($code)] = $priority;
+                    if (!strpos($code, '-')) {
+                        continue;
+                    }
+                    $code = strtolower(strtok($code, '-'));
+                    if (!isset($userLanguages[$code])) {
+                        $userLanguages[$code] = $priority;
+                    }
+                }
+
+                return $userLanguages;
+            }
+        );
+
+        $container->share(
             LanguageNegotiator::class,
             static function (Container $container): LanguageNegotiator {
                 return new LanguageNegotiator(
-                    $container[Translations::class],
-                    $container[ServerRequest::class],
-                    $container[AcceptLanguageParser::class],
-                    $container[Repository::class]
+                    $container->get(Translations::class),
+                    $container->get(Repository::class),
+                    $container->get('redirect.userLanguages')
                 );
             }
         );

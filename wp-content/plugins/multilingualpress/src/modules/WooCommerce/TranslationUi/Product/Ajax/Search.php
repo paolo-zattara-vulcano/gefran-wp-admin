@@ -63,7 +63,7 @@ class Search
         $searchQuery = (string)$request->bodyValue(
             self::SEARCH_PARAM,
             INPUT_POST,
-            FILTER_SANITIZE_STRING,
+            FILTER_SANITIZE_SPECIAL_CHARS,
             FILTER_FLAG_NO_ENCODE_QUOTES
         );
 

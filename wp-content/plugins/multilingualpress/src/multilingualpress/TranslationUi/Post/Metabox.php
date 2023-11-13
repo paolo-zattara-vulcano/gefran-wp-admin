@@ -19,14 +19,14 @@ use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Action;
 use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Info;
 use Inpsyde\MultilingualPress\Framework\Admin\Metabox\View;
 use Inpsyde\MultilingualPress\Framework\Entity;
-use Inpsyde\MultilingualPress\Framework\Admin\Metabox\PostMetabox;
+use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Metabox as MetaboxInterface;
 use Inpsyde\MultilingualPress\Framework\Api\ContentRelations;
 use Inpsyde\MultilingualPress\TranslationUi\MetaboxFieldsHelper;
 use Inpsyde\MultilingualPress\TranslationUi\Post\Field\ChangedFields;
 
 use function Inpsyde\MultilingualPress\siteNameWithLanguage;
 
-final class Metabox implements PostMetabox
+final class Metabox implements MetaboxInterface
 {
     const RELATIONSHIP_TYPE = 'post';
     const ID_PREFIX = 'multilingualpress_post_translation_metabox_';
@@ -101,22 +101,18 @@ final class Metabox implements PostMetabox
     }
 
     /**
-     * Know if the given post is a valid one to be in the metabox
-     *
-     * @param \WP_Post $post
-     * @param string $saveOrShow
-     * @return bool
+     * @inheritDoc
      */
-    public function acceptPost(\WP_Post $post, string $saveOrShow): bool
+    public function isValid(Entity $entity): bool
     {
-        $postType = $post->post_type ? get_post_type_object($post->post_type) : null;
+        $postType = $entity->prop('post_type') ? get_post_type_object($entity->prop('post_type')) : null;
         if (!$postType instanceof \WP_Post_Type) {
             return false;
         }
 
-        return current_user_can($postType->cap->edit_post, $post->ID)
+        return current_user_can($postType->cap->edit_post, $entity->prop('ID'))
             && $this->postTypes->arePostTypesActive($postType->name)
-            && $this->relationshipPermission->isRelatedPostEditable($post, $this->siteId());
+            && $this->relationshipPermission->isRelatedPostEditable($entity->expose(), $this->siteId());
     }
 
     /**
@@ -130,12 +126,12 @@ final class Metabox implements PostMetabox
     /**
      * @inheritdoc
      */
-    public function viewForPost(\WP_Post $post): View
+    public function view(Entity $entity): View
     {
         return new MetaboxView(
             new MetaboxFields(),
             $this->fieldsHelper,
-            $this->relationshipContext($post),
+            $this->relationshipContext($entity->expose()),
             new ChangedFields()
         );
     }
@@ -143,12 +139,12 @@ final class Metabox implements PostMetabox
     /**
      * @inheritdoc
      */
-    public function actionForPost(\WP_Post $post): Action
+    public function action(Entity $entity): Action
     {
         return new MetaboxAction(
             new MetaboxFields(),
             $this->fieldsHelper,
-            $this->relationshipContext($post),
+            $this->relationshipContext($entity->expose()),
             $this->postTypes,
             $this->contentRelations
         );

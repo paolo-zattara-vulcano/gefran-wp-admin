@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Framework;
 
+use WP_Comment;
+use WP_Post;
+use WP_Term;
+
 use function get_class;
 
 /**
@@ -23,7 +27,7 @@ use function get_class;
 class Entity
 {
     /**
-     * @var \WP_Post|\WP_Term|Entity|null
+     * @var WP_Post|WP_Term|WP_Comment|Entity|null
      */
     private $entity;
 
@@ -33,7 +37,7 @@ class Entity
     private $id = 0;
 
     /**
-     * @param \WP_Post|\WP_Term|Entity $object
+     * @param WP_Post|WP_Term|WP_Comment|Entity $object
      *
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      */
@@ -50,13 +54,17 @@ class Entity
         }
 
         switch (true) {
-            case ($object instanceof \WP_Post):
+            case ($object instanceof WP_Post):
                 $this->entity = $object;
                 $this->id = (int)$object->ID;
                 break;
-            case ($object instanceof \WP_Term):
+            case ($object instanceof WP_Term):
                 $this->entity = $object;
                 $this->id = (int)$object->term_id;
+                break;
+            case ($object instanceof WP_Comment):
+                $this->entity = $object;
+                $this->id = (int)$object->comment_ID;
                 break;
         }
     }
@@ -139,7 +147,7 @@ class Entity
     }
 
     /**
-     * @return \WP_Post|\WP_Term|null
+     * @return WP_Post|WP_Term|null
      *
      * phpcs:disable Inpsyde.CodeQuality.ReturnTypeDeclaration
      */

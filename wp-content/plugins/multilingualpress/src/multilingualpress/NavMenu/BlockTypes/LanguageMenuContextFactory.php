@@ -67,6 +67,10 @@ class LanguageMenuContextFactory implements ContextFactoryInterface
             $siteId = (int)$siteId;
             $translation = $this->siteTranslation($siteId);
 
+            if (!$translation) {
+                continue;
+            }
+
             foreach ($titleValues as $value) {
                 if (! isset($value['id']) || $siteId !== (int)$value['id']) {
                     continue;
@@ -100,9 +104,9 @@ class LanguageMenuContextFactory implements ContextFactoryInterface
      * Returns the translation of a given site.
      *
      * @param int $siteId The site ID.
-     * @return Translation
+     * @return ?Translation
      */
-    protected function siteTranslation(int $siteId): Translation
+    protected function siteTranslation(int $siteId): ?Translation
     {
         $args = TranslationSearchArgs::forContext(new WordpressContext())
             ->forSiteId(get_current_blog_id())
@@ -112,7 +116,7 @@ class LanguageMenuContextFactory implements ContextFactoryInterface
         $translation = $translations[$siteId] ?? false;
 
         if (!$translation) {
-            throw new RuntimeException("The translation doesn't exist");
+            return null;
         }
 
         return $translation;

@@ -122,7 +122,7 @@ class Onboarding
         $onboardingDismissed = $this->request->bodyValue(
             self::OPTION_ONBOARDING_DISMISSED,
             INPUT_GET,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if ($onboardingDismissed === '1' && current_user_can('create_sites')) {
@@ -146,7 +146,7 @@ class Onboarding
         $type = $this->request->bodyValue(
             'type',
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!empty($type) && update_site_option(self::OPTION_LANGUAGE_SETTINGS_CHANGED_DISMISSED, true)) {
@@ -233,7 +233,7 @@ class Onboarding
         }
 
         $generalMessage = __('From now on your site frontend language will be decided by default WordPress language
-        setting. We have automatically checked if WordPress default language setting matches MultilingualPress language 
+        setting. We have automatically checked if WordPress default language setting matches MultilingualPress language
         for your existing sites but please recheck the language settings of your sites', 'multilingualpress');
 
         if (!empty($languagesForNotices)) {

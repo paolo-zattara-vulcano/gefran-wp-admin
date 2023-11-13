@@ -87,7 +87,7 @@ final class SiteSettingsUpdater implements SiteSettingsUpdatable
         $siteMenuLanguageStyle = $this->request->bodyValue(
             SiteSettingsRepository::KEY_SITE_MENU_LANGUAGE_STYLE,
             INPUT_POST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
         if (!is_string($siteMenuLanguageStyle)) {
             $siteMenuLanguageStyle = '';

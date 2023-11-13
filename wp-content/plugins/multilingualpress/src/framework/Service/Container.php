@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Framework\Service;
 
+use phpDocumentor\Reflection\Types\Mixed_;
+
 /**
  * Append-only container implementation to be used for dependency management.
  */
@@ -314,6 +316,7 @@ class Container implements \ArrayAccess
      *
      * @see Container::get()
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->get($offset);
@@ -325,7 +328,7 @@ class Container implements \ArrayAccess
      * @see Container::addService()
      * @see Container::addValue()
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         is_callable($value)
             ? $this->addService($offset, $value)
@@ -338,7 +341,7 @@ class Container implements \ArrayAccess
      * @param string $offset
      * @throws Exception\UnsetNotAllowed
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw Exception\UnsetNotAllowed::forName($offset);
     }

@@ -34,6 +34,7 @@ use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Factory\NonceFactory;
 use Inpsyde\MultilingualPress\Framework\Http\RequestGlobalsManipulator;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
+use Inpsyde\MultilingualPress\Framework\Module\ModuleManager;
 use Inpsyde\MultilingualPress\Framework\Service\BootstrappableServiceProvider;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
 use Inpsyde\MultilingualPress\Framework\Service\Exception\LateAccessToNotSharedService;
@@ -43,6 +44,7 @@ use Inpsyde\MultilingualPress\Framework\Service\Exception\WriteAccessOnLockedCon
 use Inpsyde\MultilingualPress\TranslationUi\Post;
 use Inpsyde\MultilingualPress\TranslationUi\Post\PostRelationSaveHelper;
 use Inpsyde\MultilingualPress\TranslationUi\Post\RelationshipContext;
+use Throwable;
 use WP_Post;
 use WP_Screen;
 
@@ -90,13 +92,21 @@ final class ServiceProvider implements BootstrappableServiceProvider
                     $container[RequestGlobalsManipulator::class],
                     $container[PersistentAdminNotices::class],
                     $container[MetaboxUpdater::class],
-                    $container[PostTypeRepository::class]
+                    $container[PostTypeRepository::class],
+                    $container->get(ModuleManager::class)
                 );
             }
         );
 
         $this->registerForPost($container);
         $this->registerForTerm($container);
+
+        $container->share(
+            MetaboxFieldsHelperFactory::class,
+            static function (): MetaboxFieldsHelperFactoryInterface {
+                return new MetaboxFieldsHelperFactory();
+            }
+        );
     }
 
     /**
@@ -246,7 +256,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
     /**
      * @inheritdoc
      * @param Container $container
-     * @throws \Throwable
+     * @throws Throwable
      * phpcs:disable Generic.Metrics.NestingLevel.TooHigh
      */
     public function bootstrap(Container $container)
@@ -314,6 +324,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
      * Delete the relation when a content is permanently deleted
      *
      * @param Container $container
+     * @throws NonexistentTable
      */
     private function deleteRelationOnContentDelete(Container $container)
     {
@@ -337,7 +348,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
      * Bootstrap the Table Lists
      *
      * @param Container $container
-     * @throws \Throwable
+     * @throws Throwable
      */
     private function bootstrapTablesLists(Container $container)
     {
@@ -349,7 +360,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
      * Bootstrap the Post Type table lists
      *
      * @param Container $container
-     * @throws \Throwable
+     * @throws Throwable
      */
     private function bootstrapPostTypeTablesLists(Container $container)
     {
@@ -379,7 +390,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
      * Bootstrap the Taxonomy table list
      *
      * @param Container $container
-     * @throws \Throwable
+     * @throws Throwable
      */
     private function bootstrapTaxonomyTablesLists(Container $container)
     {

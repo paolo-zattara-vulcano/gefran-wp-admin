@@ -32,6 +32,7 @@ use Inpsyde\MultilingualPress\Framework\Database\TableStringReplacer;
 use Inpsyde\MultilingualPress\Framework\Filesystem;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
 use Inpsyde\MultilingualPress\Framework\Message\MessageFactoryInterface;
+use Inpsyde\MultilingualPress\Framework\Module\ModuleManager;
 use Inpsyde\MultilingualPress\Framework\Nonce\Context;
 use Inpsyde\MultilingualPress\Framework\Nonce\Nonce;
 use Inpsyde\MultilingualPress\Framework\Nonce\SiteAwareNonce;
@@ -64,6 +65,7 @@ use Inpsyde\MultilingualPress\SiteDuplication\Settings\ConnectContentSetting;
 use Inpsyde\MultilingualPress\SiteDuplication\Settings\CopyAttachmentsSetting;
 use Inpsyde\MultilingualPress\SiteDuplication\Settings\CopyUsersSetting;
 use Inpsyde\MultilingualPress\SiteDuplication\Settings\SearchEngineVisibilitySetting;
+use Inpsyde\MultilingualPress\SiteDuplication\Settings\ConnectCommentsSetting;
 
 use function Inpsyde\MultilingualPress\wpHookProxy;
 use function Inpsyde\MultilingualPress\wpVersion;
@@ -158,6 +160,13 @@ class ServiceProvider implements BootstrappableServiceProvider
         );
 
         $container->addService(
+            ConnectCommentsSetting::class,
+            static function (): ConnectCommentsSetting {
+                return new ConnectCommentsSetting('mlp-copy-comments');
+            }
+        );
+
+        $container->addService(
             SearchEngineVisibilitySetting::class,
             static function (): SearchEngineVisibilitySetting {
                 return new SearchEngineVisibilitySetting();
@@ -175,7 +184,8 @@ class ServiceProvider implements BootstrappableServiceProvider
                     $container[ActivePlugins::class],
                     $container[ContentRelations::class],
                     $container[ServerRequest::class],
-                    $this->duplicateNonce($container)
+                    $this->duplicateNonce($container),
+                    $container->get(ModuleManager::class)
                 );
             }
         );
@@ -344,6 +354,7 @@ class ServiceProvider implements BootstrappableServiceProvider
                 $container[BasedOnSiteSetting::class],
                 $container[CopyAttachmentsSetting::class],
                 $container[ConnectContentSetting::class],
+                $container[ConnectCommentsSetting::class],
                 $container[ActivatePluginsSetting::class],
                 $container[CopyUsersSetting::class],
                 $container[SearchEngineVisibilitySetting::class],
@@ -446,6 +457,7 @@ class ServiceProvider implements BootstrappableServiceProvider
                 'wpmu_new_blog',
                 wpHookProxy([$siteSettingsUpdater, 'defineInitialSettings'])
             );
+
             return;
         }
 

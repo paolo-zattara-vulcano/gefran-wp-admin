@@ -16,6 +16,7 @@ namespace Inpsyde\MultilingualPress\NavMenu;
 
 use Inpsyde\MultilingualPress\Cache\NavMenuItemsSerializer;
 use Inpsyde\MultilingualPress\Core\Admin\Settings\Cache\CacheSettingsRepository;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository;
 use Inpsyde\MultilingualPress\Framework\Api\SiteRelations;
 use Inpsyde\MultilingualPress\Framework\Api\Translations;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetException;
@@ -112,7 +113,8 @@ final class ServiceProvider implements BootstrappableServiceProvider, Integratio
                     $container[Translations::class],
                     $container[ItemRepository::class],
                     new Facade($container[Server::class], ItemFilter::class),
-                    $container[CacheSettingsRepository::class]
+                    $container[CacheSettingsRepository::class],
+                    $container[SiteSettingsRepository::class]
                 );
             }
         );

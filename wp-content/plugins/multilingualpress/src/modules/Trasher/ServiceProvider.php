@@ -162,10 +162,15 @@ final class ServiceProvider implements ModuleServiceProvider
                     ]
                 )
             )
-            ->enqueueScript(
+            ->enqueueScriptWithData(
                 'multilingualpress-trasher',
-                true,
-                'enqueue_block_editor_assets'
+                'trasherSettings',
+                [
+                    'checkboxLabel' => __(
+                        'Send all the translations to trash when this post is trashed.',
+                        'multilingualpress'
+                    ),
+                ]
             );
 
         add_filter(

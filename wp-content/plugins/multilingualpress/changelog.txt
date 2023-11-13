@@ -1,3 +1,35 @@
+version 4.4.0
+* Added: Support for ACF "clone" type fields.
+* Added: Support for Hreflang display style for menu items.
+* Added: aria-label to language switcher navigation.
+* Added: Improved strings for External Sites settings error messages.
+* Fixed: Error when editing page with language menu block.
+* Fixed: Label started from lowercase [Italian translation].
+* Fixed: Deprecated messages.
+* Fixed: Notice on External Sites page on PHP 8.1.
+* Fixed: Error when creating and saving Language Switcher widget.
+* Fixed: TermTranslator::publicUrl() returns incorrect term links.
+* Fixed: Type Mismatch Issue in RegularPrice.php - Fatal Error Due to Expected String vs. Returned Float
+
+version 4.3.0
+* Added: Support for External Sites
+* Added: Compatibility with WC High-Performance Order Storage
+* Added: Comments relation update compatible with rest-api
+* Added: A filter that allows custom user meta fields to be translated
+* Fixed: Undefined variable $taxonomy in TermTranslator.php
+* Fixed: No posts found & JavaScript error when searching for "event" post type (via Events Calender plugin)
+* Fixed: Minor issue with checkbox labels on MLP comments tab in site settings
+* Fixed: "Copy comments to selected sites" feature not copying rating from WooCommerce reviews
+* Fixed: Language Menu Block crashes when selecting a language
+* Fixed: Text "Send all the translations to trash when this post is trashed." is not translated
+* Fixed: [Comments] Changing status to Pending via translation metabox works incorrectly
+* Fixed: [Reviews, comments] Translation metabox disappears if connected review has status = Trash
+* Fixed: Error when copying certain ACF content
+
+version 4.2.0
+* Added: Support for comments
+* Fixed: Deprecated notices on PHP 8.1
+
 version 4.1.1
 * Added: Make relation update compatible with rest-api
 * Added: filter to change order of term Metaboxes

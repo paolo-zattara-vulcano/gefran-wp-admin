@@ -69,7 +69,7 @@ class SiteSettingUpdater
         $value = $this->request->bodyValue(
             $this->option,
             INPUT_REQUEST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         return $value

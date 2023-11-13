@@ -192,6 +192,7 @@ acf_add_local_field_group(array(
 					'button_label' => 'Aggiungi Marker',
 					'acfe_field_group_condition' => 0,
 					'rows_per_page' => 20,
+					'parent_repeater' => 'field_63b5bd87ff735',
 					'sub_fields' => array(
 						array(
 							'key' => 'field_63b5be08ff73a',
@@ -403,7 +404,6 @@ acf_add_local_field_group(array(
 							'parent_repeater' => 'field_63b5bdeaff739',
 						),
 					),
-					'parent_repeater' => 'field_63b5bd87ff735',
 				),
 				array(
 					'key' => 'field_63bda3df5de30',
@@ -428,6 +428,7 @@ acf_add_local_field_group(array(
 					'button_label' => 'Add Contact',
 					'acfe_field_group_condition' => 0,
 					'rows_per_page' => 20,
+					'parent_repeater' => 'field_63b5bd87ff735',
 					'sub_fields' => array(
 						array(
 							'key' => 'field_650429bdddfed',
@@ -610,7 +611,6 @@ acf_add_local_field_group(array(
 							'parent_repeater' => 'field_63bda3df5de30',
 						),
 					),
-					'parent_repeater' => 'field_63b5bd87ff735',
 				),
 				array(
 					'key' => 'field_65040f7ca9e33',
@@ -814,7 +814,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'acfOffices',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1695044983,
+	'modified' => 1699877304,
 ));
 
 endif;

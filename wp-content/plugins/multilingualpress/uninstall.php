@@ -62,6 +62,7 @@ $uninstaller->uninstallTables(
         resolve(Table\RelationshipsTable::class),
         resolve(Table\SiteRelationsTable::class),
         resolve(Table\RelationshipMetaTable::class),
+        resolve(Table\ExternalSitesTable::class),
     ]
 );
 
@@ -88,6 +89,9 @@ $uninstaller->deletePostMeta(
     [
         Module\Trasher\TrasherSettingRepository::META_KEY,
         NavMenu\ItemRepository::META_KEY_SITE_ID,
+        Module\ExternalSites\ExternalSitesMetaBox\ExternalSitesMetaBoxView::META_NAME,
+        Module\ExternalSites\NavMenu\ExternalSiteMenuItemFactory::META_KEY_EXTERNAL_SITE_ID,
+        Module\ExternalSites\NavMenu\ExternalSiteMenuItemFactory::META_KEY_ITEM_TYPE,
     ]
 );
 

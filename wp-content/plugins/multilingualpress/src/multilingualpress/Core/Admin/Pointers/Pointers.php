@@ -119,7 +119,7 @@ class Pointers
      */
     public function dismiss()
     {
-        $pointer = $this->request->bodyValue('pointer', INPUT_POST, FILTER_SANITIZE_STRING);
+        $pointer = $this->request->bodyValue('pointer', INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$pointer) {
             return;
         }

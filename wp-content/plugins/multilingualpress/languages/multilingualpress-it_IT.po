@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the MultilingualPress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-03 08:58:31+0000\n"
+"PO-Revision-Date: 2023-09-15 07:21:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,201 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0\n"
 "Language: it\n"
 "Project-Id-Version: MultilingualPress\n"
+
+#. translators: %s: Human readable name of the field
+#: src/modules/ExternalSites/ExternalSitesRepository/ExternalSitesRepository.php:282
+msgid "Required field missing: %s"
+msgstr "Campo obbligatorio mancante: %s"
+
+#: src/modules/LanguageSwitcher/View.php:59
+msgid "Language menu"
+msgstr "Lingua"
+
+#: src/modules/LanguageSwitcher/Widget.php:203
+msgid "Show External Sites"
+msgstr "Mostra i siti esterni"
+
+#: src/modules/ExternalSites/Settings/services.php:117
+msgid "Enable Automatic Redirect"
+msgstr "Abilita il reindirizzamento automatico"
+
+#: src/modules/ExternalSites/Settings/services.php:103
+msgid "Enable Hreflang"
+msgstr "Abilita Hreflang"
+
+#: src/modules/ExternalSites/Settings/services.php:95
+msgid "Site Language Locale"
+msgstr "Linguaggio locale del sito"
+
+#: src/modules/ExternalSites/Settings/services.php:87
+msgid "Site Language Name"
+msgstr "Nome linguaggio del sito"
+
+#: src/modules/ExternalSites/Settings/services.php:79
+msgid "Site Url"
+msgstr "Url del sito"
+
+#: src/modules/ExternalSites/Settings/PageView.php:69
+msgid "Save External Sites"
+msgstr "Salva i Siti Esterni"
+
+#: src/modules/ExternalSites/ServiceProvider.php:469
+msgid "External Site"
+msgstr "Sito esterno"
+
+#: src/modules/ExternalSites/ServiceProvider.php:297
+msgid "Delete External Site"
+msgstr "Elimina Sito Esterno"
+
+#: src/modules/ExternalSites/ServiceProvider.php:291
+msgid "New External Site"
+msgstr "Nuovo Sito Esterno"
+
+#: src/modules/ExternalSites/ServiceProvider.php:186
+msgid "external"
+msgstr "esterno"
+
+#: src/modules/ExternalSites/ServiceProvider.php:150
+msgid "MultilingualPress: External Sites"
+msgstr "MultilingualPress: Siti Esterni"
+
+#: src/modules/ExternalSites/ServiceProvider.php:68
+#: src/modules/ExternalSites/ServiceProvider.php:112
+#: src/modules/ExternalSites/ServiceProvider.php:113
+#: src/modules/ExternalSites/ServiceProvider.php:339
+msgid "External Sites"
+msgstr "Siti Esterni"
+
+#: src/modules/ExternalSites/ServiceProvider.php:64
+msgid "Enable External Sites module to be able to use external sites as a translation."
+msgstr "Abilita il modulo Siti Esterni per poter utilizzare siti esterni come traduzione."
+
+#: src/modules/ExternalSites/Integrations/Redirect/Fallback/ExternalRedirectFallbackViewRenderer.php:88
+msgctxt "External Sites Module Settings"
+msgid "None"
+msgstr "Nessuno"
+
+#: src/modules/ExternalSites/Integrations/Redirect/Fallback/ExternalRedirectFallbackViewRenderer.php:69
+msgctxt "External Sites Module Settings"
+msgid "Choose where to redirect the user when the browser language does not correspond to any available language sites in the network."
+msgstr "Scegli dove reindirizzare l'utente quando la lingua del browser non corrisponde a nessun sito di lingua disponibile nella rete."
+
+#: src/modules/ExternalSites/Integrations/Redirect/Fallback/ExternalRedirectFallbackViewRenderer.php:37
+msgctxt "External Sites Module Settings"
+msgid "Redirect Fallback As An External Site"
+msgstr "Reindirizzamento fallback come sito esterno"
+
+#: src/modules/ExternalSites/ExternalSitesMetaBox/ExternalSitesMetaBoxView.php:34
+msgid "Item Url"
+msgstr "Elemento Url"
+
+#: src/multilingualpress/SiteDuplication/Settings/ConnectCommentsSetting.php:62
+msgid "Connect Comments"
+msgstr "Collega i commenti"
+
+#: src/multilingualpress/SiteDuplication/Settings/ConnectCommentsSetting.php:46
+msgid "Connect the comments from source site (the site selected in Based on site option)"
+msgstr "Collega i commenti dal sito di origine (il sito selezionato nell'opzione \"Based on site\")"
+
+#: src/modules/WooCommerce/ServiceProvider.php:528
+msgid "Rating"
+msgstr "Valutazione"
+
+#: src/modules/Comments/TranslationUi/services.php:105
+msgctxt "translation comment metabox"
+msgid "Content"
+msgstr "Contenuto"
+
+#: src/modules/Comments/TranslationUi/services.php:100
+msgctxt "translation comment metabox"
+msgid "Relationship"
+msgstr "Relazione"
+
+#: src/modules/Comments/TranslationUi/services.php:67
+msgid "Copy source author field values"
+msgstr "Copia i valori del campo dell'autore di origine"
+
+#: src/modules/Comments/TranslationUi/services.php:62
+msgid "Author Url"
+msgstr "URL dell'autore"
+
+#: src/modules/Comments/TranslationUi/services.php:57
+msgid "Author Name"
+msgstr "Nome dell'autore"
+
+#: src/modules/Comments/TranslationUi/services.php:52
+msgid "Author Email"
+msgstr "E-mail dell'autore"
+
+#: src/modules/Comments/TranslationUi/MetaboxAction.php:253
+msgid "Error updating translation: error updating comment in database."
+msgstr "Errore durante l'aggiornamento della traduzione: errore durante l'aggiornamento del commento nel database."
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxStatus.php:68
+msgid "Trash"
+msgstr "Cestino"
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxStatus.php:67
+msgid "Spam"
+msgstr "Spam"
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxStatus.php:66
+msgid "Pending"
+msgstr "In attesa"
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxStatus.php:65
+msgid "Approved"
+msgstr "Approvato"
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:276
+msgid "No comments found matching search."
+msgstr "Nessun commento trovato corrispondente alla ricerca."
+
+#. translators: %1$s is the comment type.
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:225
+msgid "Do not change connected %1$s.."
+msgstr "Non modificare i %1$s connessi.."
+
+#. translators: %1$s is the comment edit link
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:81
+msgid "Currently connected with Comment: %1$s"
+msgstr "Attualmente connesso al commento: %1$s"
+
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxCopyContent.php:89
+msgid "Overwrites all the translated author field values with the ones from source."
+msgstr "Sovrascrive tutti i valori tradotti del campo dell'autore con quelli della fonte."
+
+#: src/modules/Comments/SiteSettings/services.php:113
+msgid "MultilingualPress: Comments"
+msgstr "MultilingualPress: Commenti"
+
+#: src/modules/Comments/SiteSettings/services.php:74
+msgid "Create comments on selected sites when new comment is added"
+msgstr "Crea commenti sui siti selezionati quando viene aggiunto un nuovo commento"
+
+#: src/modules/Comments/SiteSettings/services.php:68
+msgid "Copy comments to selected sites"
+msgstr "Copia i commenti nei siti selezionati"
+
+#: src/modules/Comments/SiteSettings/CommentSettingViewModel.php:76
+msgid "You can manage comment settings of this site only to connected sites. Other sites will not show up here."
+msgstr "Puoi gestire le impostazioni dei commenti di questo sito solo verso i siti collegati. Altri siti non verranno visualizzati qui."
+
+#: src/modules/Comments/SiteSettings/CommentSettingViewModel.php:69
+msgid "This site is not connected to any other site. Please connect this site to other sites to be able to manage comment settings here."
+msgstr "Questo sito non è collegato a nessun altro sito. Si prega di collegare questo sito ad altri siti per poter gestire le impostazioni dei commenti qui."
+
+#: src/modules/Comments/ServiceProvider.php:394
+msgid "You are about to copy all the comments of selected post type(s) to the selected site(s). The action cannot be undone"
+msgstr "Stai per copiare tutti i commenti dei post type selezionati nei siti selezionati. L'azione non può essere annullata"
+
+#: src/modules/Comments/ServiceProvider.php:67
+msgid "Comments"
+msgstr "Commenti"
+
+#: src/modules/Comments/ServiceProvider.php:66
+msgid "Enable Comments functionality for MultilingualPress."
+msgstr "Abilita la funzionalità Commenti per MultilingualPress."
 
 #: src/modules/OriginalTranslationLanguage/ServiceProvider.php:54
 msgid "(original)"
@@ -33,15 +228,15 @@ msgctxt "QuickLinks Module Settings"
 msgid "Show Original Language"
 msgstr "Mostra la Lingua Originale"
 
-#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:97
+#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:105
 msgid "Current site doesn't have any relations"
 msgstr "Il sito attuale non ha alcuna relazione"
 
-#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:96
+#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:104
 msgid "Language Selector"
 msgstr "Selettore Lingua"
 
-#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:80
+#: src/modules/Blocks/resources/js/LanguageMenuBlock.js:88
 msgid "Site Flags"
 msgstr "Bandiere del sito"
 
@@ -61,19 +256,20 @@ msgstr "Blocchi Gutenberg"
 msgid "Enable Gutenberg Blocks Support for MultilingualPress."
 msgstr "Abilita il supporto per i Blocchi Gutenberg su MultilingualPress."
 
-#: src/modules/Redirect/ServiceProvider.php:263
+#: src/modules/Redirect/ServiceProvider.php:299
 msgid "Redirect Fallback site for this language"
 msgstr "Sito per reindirizzamento di riserva per questa lingua"
 
-#: src/multilingualpress/Core/ServiceProvider.php:501
+#: src/multilingualpress/Core/ServiceProvider.php:502
 msgid "Select how do you want to display the hreflang for this language"
 msgstr "Seleziona come vuoi mostrare il hreflang per questa lingua"
 
-#: src/multilingualpress/Core/ServiceProvider.php:500
+#: src/modules/ExternalSites/Settings/services.php:108
+#: src/multilingualpress/Core/ServiceProvider.php:501
 msgid "Display Style"
 msgstr "Mostra Stile"
 
-#: src/multilingualpress/Core/ServiceProvider.php:494
+#: src/multilingualpress/Core/ServiceProvider.php:495
 msgid "X-Default"
 msgstr "X-Default"
 
@@ -113,7 +309,21 @@ msgstr "La lingua del sito %1$s è stata cambiata in %2$s"
 msgid "The site with given site id doesn't exist"
 msgstr "Il sito con l'ID sito specificato non esiste"
 
+#: src/modules/ExternalSites/Settings/services.php:44
+msgid "Only Languages"
+msgstr "Solo Lingue"
+
+#: src/modules/ExternalSites/Settings/services.php:49
+msgid "Only Flags"
+msgstr "Solo Segnali"
+
+#: src/modules/ExternalSites/Settings/services.php:48
+msgid "Flags and Languages"
+msgstr "Segnali e Lingue"
+
+#. translators: %s is the external site Language name.
 #. translators: %s: The site language name.
+#: src/modules/ExternalSites/Integrations/Flags/ExternalSiteFlagFactory.php:44
 #: src/multilingualpress/NavMenu/tpl/language-menu.php:31
 msgid "%s language flag"
 msgstr "%s segnale della lingua"
@@ -129,10 +339,10 @@ msgstr "</br> Le seguenti impostazioni di lingua di WordPress sono state modific
 #: src/multilingualpress/Onboarding/Onboarding.php:235
 msgid ""
 "From now on your site frontend language will be decided by default WordPress language\n"
-"        setting. We have automatically checked if WordPress default language setting matches MultilingualPress language \n"
+"        setting. We have automatically checked if WordPress default language setting matches MultilingualPress language\n"
 "        for your existing sites but please recheck the language settings of your sites"
 msgstr ""
-"D'ora in poi la lingua del frontend del tuo sito sarà decisa per impostazione predefinita come lingua di WordPress.↵\n"
+"D'ora in poi la lingua del frontend del tuo sito dipenderà dall'impostazione della lingua predefinita di WordPress.↵\n"
 "       Abbiamo verificato automaticamente se l'impostazione della lingua predefinita di WordPress corrisponde alla lingua di MultilingualPress ↵\n"
 "         per i tuoi siti esistenti, ma per favore ricontrolla le impostazioni della lingua dei tuoi siti"
 
@@ -146,7 +356,7 @@ msgstr "Lingua WordPress"
 
 #: src/multilingualpress/Core/Admin/LanguageSiteSetting.php:55
 msgid "MultilingualPress Language"
-msgstr "Lingua MultilingualPress"
+msgstr "Lingua MultilingualPress"
 
 #: src/modules/WooCommerce/TranslationUi/Product/Field/Inventory/StockStatus.php:69
 msgctxt "WooCommerce Product Field"
@@ -241,7 +451,7 @@ msgstr "Utenti"
 msgid "Copy the users from source site (the site selected in Based on site option)"
 msgstr "Copia gli utenti dal sito di origine (il sito selezionato nell'opzione \"Based on\")"
 
-#: resources/js/admin/TranslationBoxFactory.js:99
+#: resources/js/admin/TranslationBoxFactory.js:103
 msgid "Changes you made may not be saved."
 msgstr "Le modifiche apportate potrebbero non essere salvate."
 
@@ -389,23 +599,23 @@ msgstr "La Licenza con API Key %s è attiva."
 msgid "Activate License"
 msgstr "Attiva la Licenza"
 
-#: src/modules/LanguageSwitcher/Widget.php:153
+#: src/modules/LanguageSwitcher/Widget.php:161
 msgid "Language ISO Code"
 msgstr "Codice ISO Lingua"
 
-#: src/modules/LanguageSwitcher/Widget.php:152
+#: src/modules/LanguageSwitcher/Widget.php:160
 msgid "Language Name"
 msgstr "Nome della Lingua"
 
-#: src/modules/LanguageSwitcher/Widget.php:151
+#: src/modules/LanguageSwitcher/Widget.php:159
 msgid "Language Locale"
 msgstr "Locale Lingua"
 
-#: src/modules/LanguageSwitcher/Widget.php:150
+#: src/modules/LanguageSwitcher/Widget.php:158
 msgid "Language ISO Name"
 msgstr "Nome ISO Lingua"
 
-#: src/modules/LanguageSwitcher/Widget.php:145
+#: src/modules/LanguageSwitcher/Widget.php:153
 msgid "Choose how to show the language name:"
 msgstr "Seleziona come desideri mostrare il nome della lingua:"
 
@@ -416,6 +626,10 @@ msgstr "Product ID"
 #: src/multilingualpress/Core/Admin/LicenseSettingsTabView.php:114
 msgid "Master API Key"
 msgstr "Master API Key"
+
+#: src/modules/Comments/TranslationUi/services.php:70
+msgid "Status"
+msgstr "Stato"
 
 #: src/multilingualpress/Core/Admin/LicenseSettingsTabView.php:101
 #: src/multilingualpress/Core/Admin/LicenseSettingsTabView.php:162
@@ -464,34 +678,34 @@ msgstr "Se lo disattivi, dovrai copiare manualmente le cartelle. <br/> Disattiva
 msgid "Copy the attachments to the new site."
 msgstr "Copia gli allegati nel nuovo sito."
 
-#: src/multilingualpress/SiteDuplication/ServiceProvider.php:306
+#: src/multilingualpress/SiteDuplication/ServiceProvider.php:316
 msgctxt "Site Duplication"
 msgid "Attachments copy has been stopped without errors."
 msgstr "La copia degli allegati è stata interrotta senza errori."
 
-#: src/modules/LanguageSwitcher/ServiceProvider.php:36
+#: src/modules/LanguageSwitcher/ServiceProvider.php:38
 msgid "Enable Language Switcher Widget."
 msgstr "Abilita il Widget Language Switcher"
 
-#: src/modules/LanguageSwitcher/Widget.php:177
+#: src/modules/LanguageSwitcher/Widget.php:185
 msgid "Show flags"
 msgstr "Mostra le bandiere"
 
-#: src/modules/LanguageSwitcher/Widget.php:131
+#: src/modules/LanguageSwitcher/Widget.php:139
 msgid "Show current site"
 msgstr "Mostra il sito corrente"
 
-#: src/modules/LanguageSwitcher/Widget.php:113
+#: src/modules/LanguageSwitcher/Widget.php:121
 msgid "Show links for translated content only"
 msgstr "Mostra i link solo per i contenuti tradotti"
 
-#: src/modules/LanguageSwitcher/Widget.php:97
+#: src/modules/LanguageSwitcher/Widget.php:105
 msgid "Title:"
 msgstr "Titolo"
 
-#: src/modules/LanguageSwitcher/ServiceProvider.php:40
-#: src/modules/LanguageSwitcher/Widget.php:47
-#: src/modules/LanguageSwitcher/Widget.php:52
+#: src/modules/LanguageSwitcher/ServiceProvider.php:42
+#: src/modules/LanguageSwitcher/Widget.php:54
+#: src/modules/LanguageSwitcher/Widget.php:59
 msgid "Language Switcher"
 msgstr "Language Switcher"
 
@@ -543,27 +757,27 @@ msgctxt "QuickLinks Module Settings"
 msgid "QuickLinks Position"
 msgstr "Posizioni Quicklinks"
 
-#: src/modules/QuickLinks/QuickLink.php:205
+#: src/modules/QuickLinks/QuickLink.php:223
 msgctxt "QuickLinks"
 msgid "Redirect"
 msgstr "Redireziona"
 
-#: src/modules/QuickLinks/QuickLink.php:155
-#: src/modules/QuickLinks/QuickLink.php:186
+#: src/modules/QuickLinks/QuickLink.php:173
+#: src/modules/QuickLinks/QuickLink.php:204
 msgctxt "QuickLinks"
 msgid "Read In:"
 msgstr "Leggi in:"
 
-#: src/modules/QuickLinks/ServiceProvider.php:161
+#: src/modules/QuickLinks/ServiceProvider.php:163
 msgctxt "QuickLinks Module Settings"
 msgid "QuickLinks"
 msgstr "QuickLinks"
 
-#: src/modules/QuickLinks/ServiceProvider.php:196
+#: src/modules/QuickLinks/ServiceProvider.php:198
 msgid "QuickLink"
 msgstr "QuickLink"
 
-#: src/modules/QuickLinks/ServiceProvider.php:192
+#: src/modules/QuickLinks/ServiceProvider.php:194
 msgid "Show link to translations in post content."
 msgstr "Mostra il link alle traduzioni nel contenuto del post"
 
@@ -658,7 +872,7 @@ msgctxt "sites relationship"
 msgid "%s Site"
 msgstr "Sito %s"
 
-#: src/inc/utils.php:170
+#: src/inc/utils.php:172
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
@@ -675,17 +889,17 @@ msgstr "Visita"
 msgid "Edit Site: %s"
 msgstr "Modifica il Sito: %s"
 
-#: src/framework/Admin/Metabox/Metaboxes.php:453
+#: src/framework/Admin/Metabox/Metaboxes.php:488
 msgid "Metabox Not Saved"
 msgstr "Metabox Non Salvata."
 
 #. translators: 1 is the site ID, 2 the metabox title
-#: src/framework/Admin/Metabox/Metaboxes.php:448
+#: src/framework/Admin/Metabox/Metaboxes.php:483
 msgid "Site %1$d was not accessible when attempting to save metabox \"%2$s\"."
 msgstr "Non è stato possibile accedere al sito %1$d durante il salvataggio della metabox \"%2$s\"."
 
 #. translators: %s is the site ID.
-#: src/framework/Admin/Metabox/Metaboxes.php:387
+#: src/framework/Admin/Metabox/Metaboxes.php:413
 msgid "Site %s is not accessible."
 msgstr "Non è possibile accedere al sito %s."
 
@@ -907,7 +1121,7 @@ msgstr "Salva i Cambiamenti"
 msgid "Deactivate License"
 msgstr "Disattiva la licenza"
 
-#: src/multilingualpress/Core/ServiceProvider.php:495
+#: src/multilingualpress/Core/ServiceProvider.php:496
 msgid "Select a default site as fallback when no page translation is found."
 msgstr "Seleziona un sito predefinito come fallback quando non viene trovata alcuna traduzione di pagina."
 
@@ -919,53 +1133,55 @@ msgstr "Tassonomia"
 msgid "Site URL"
 msgstr "URL del Sito"
 
+#: src/modules/Comments/SiteSettings/CommentSettingsPageView.php:78
 #: src/multilingualpress/Core/Admin/PostTypeSlugsSettingsTabView.php:82
 #: src/multilingualpress/Core/Admin/SiteSettingsTabView.php:82
 msgid "The requested site does not exist."
 msgstr "il sito richiesto non esiste."
 
+#: src/modules/Comments/SiteSettings/CommentSettingsPageView.php:73
 #: src/multilingualpress/Core/Admin/PostTypeSlugsSettingsTabView.php:77
 #: src/multilingualpress/Core/Admin/SiteSettingsTabView.php:77
 msgid "Invalid site ID."
 msgstr "ID sito non valido."
 
-#: src/multilingualpress/Core/ServiceProvider.php:1120
-#: src/multilingualpress/Core/ServiceProvider.php:1133
+#: src/multilingualpress/Core/ServiceProvider.php:1127
+#: src/multilingualpress/Core/ServiceProvider.php:1140
 msgid "Settings"
 msgstr "Impostazioni"
 
 #: src/multilingualpress/Core/Admin/RelationshipsSiteSetting.php:97
-#: src/multilingualpress/Core/ServiceProvider.php:973
+#: src/multilingualpress/Core/ServiceProvider.php:980
 msgid "Relationships"
 msgstr "Relazioni"
 
-#: src/multilingualpress/Core/ServiceProvider.php:962
-#: src/multilingualpress/Core/ServiceProvider.php:980
+#: src/multilingualpress/Core/ServiceProvider.php:969
+#: src/multilingualpress/Core/ServiceProvider.php:987
 msgid "none"
 msgstr "nessuna"
 
-#: src/multilingualpress/Core/ServiceProvider.php:960
+#: src/multilingualpress/Core/ServiceProvider.php:967
 msgid "Site Language"
 msgstr "Lingua Sito"
 
-#: src/multilingualpress/Core/ServiceProvider.php:904
 #: src/multilingualpress/Core/ServiceProvider.php:911
+#: src/multilingualpress/Core/ServiceProvider.php:918
 msgid "Post Type Slugs"
 msgstr "Slug Articolo"
 
-#: src/multilingualpress/Core/ServiceProvider.php:350
+#: src/multilingualpress/Core/ServiceProvider.php:351
 msgid "License"
 msgstr "Licenza"
 
-#: src/multilingualpress/Core/ServiceProvider.php:337
+#: src/multilingualpress/Core/ServiceProvider.php:338
 msgid "Translatable Taxonomies"
 msgstr "Tassonomie traducibili"
 
-#: src/multilingualpress/Core/ServiceProvider.php:325
+#: src/multilingualpress/Core/ServiceProvider.php:326
 msgid "Translatable Post Types"
 msgstr "Post Types traducibili"
 
-#: src/multilingualpress/Core/ServiceProvider.php:313
+#: src/multilingualpress/Core/ServiceProvider.php:314
 msgid "Modules"
 msgstr "Moduli"
 
@@ -999,10 +1215,12 @@ msgctxt "translation post metabox"
 msgid "Relationship"
 msgstr "Relazione"
 
+#: src/modules/Comments/TranslationUi/CommentMetaboxView.php:142
 #: src/multilingualpress/TranslationUi/Post/MetaboxView.php:180
 msgid "Edit the relationship or no further editing will be possible."
 msgstr "Modifica la relazione o altrimenti non sarà possibile effettuare nessuna ulteriore modifica."
 
+#: src/modules/Comments/TranslationUi/CommentMetaboxView.php:137
 #: src/multilingualpress/TranslationUi/Post/MetaboxView.php:175
 msgid "The currently connected translation post is trashed."
 msgstr "L'articolo traduzione attualmente connesso è cestinato."
@@ -1045,12 +1263,16 @@ msgstr "Nessun risultato trovato."
 msgid "Do not change connected %s."
 msgstr "Non modificare il %s connesso."
 
+#. translators: %1$s is the comment type and %2$s is the language name.
 #. translators: 1 is the post type, 2 the language name
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:211
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:196
 msgid "Select an existing %1$s to be used as translation in %2$s."
 msgstr "Seleziona un esistente %1$s per utilizzarlo come traduzione in %2$s."
 
+#. translators: %1$s is the comment type and %2$s is the language name.
 #. translators: 1 is the post type, 2 the language name
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:204
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:157
 msgid "Create a new %1$s, and use it as translation in %2$s."
 msgstr "Crea un nuovo %1$s, e utilizzalo come traduzione in %2$s."
@@ -1111,8 +1333,10 @@ msgid "If empty will be auto-generated"
 msgstr "Se vuoto verrà generato automaticamente"
 
 #. translators: %s is site name including language
-#: src/multilingualpress/TranslationUi/Post/Metabox.php:165
-#: src/multilingualpress/TranslationUi/Term/Metabox.php:160
+#: src/modules/Comments/ServiceProvider.php:312
+#: src/modules/Comments/TranslationUi/Ajax/AjaxUpdateCommentsRelationshipRequestHandler.php:116
+#: src/multilingualpress/TranslationUi/Post/Metabox.php:161
+#: src/multilingualpress/TranslationUi/Term/Metabox.php:158
 msgid "Translation for \"%s\""
 msgstr "Traduzione per \"%s\""
 
@@ -1126,12 +1350,14 @@ msgctxt "translation term metabox"
 msgid "Relationship"
 msgstr "Relazione"
 
+#: src/modules/Comments/TranslationUi/services.php:138
 #: src/multilingualpress/Core/Admin/Settings/Cache/CacheSettingsOptions.php:84
 #: src/multilingualpress/TranslationUi/Post/TableList.php:52
 #: src/multilingualpress/TranslationUi/Term/TableList.php:48
 msgid "Translations"
 msgstr "Traduzioni"
 
+#: src/modules/Comments/TranslationUi/CommentMetaboxView.php:103
 #: src/multilingualpress/TranslationUi/Post/MetaboxView.php:144
 #: src/multilingualpress/TranslationUi/Term/MetaboxView.php:117
 msgid "Edit"
@@ -1150,6 +1376,7 @@ msgstr "Descrizione Termine:"
 msgid "New Term Description:"
 msgstr "Descrizione del Nuovo Termine"
 
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:303
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:345
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:328
 msgid "Update now"
@@ -1159,16 +1386,19 @@ msgstr "Aggiorna"
 msgid "No terms found matching search."
 msgstr "Nessun termine trovato."
 
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:254
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:298
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:281
 msgid "Search"
 msgstr "Cerca"
 
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:243
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:287
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:270
 msgid "Start typing to search..."
 msgstr "Inizia a scrivere per effettuare la ricerca..."
 
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:228
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:261
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:244
 msgid "Keep not connected."
@@ -1178,11 +1408,13 @@ msgstr "Mantienilo non connesso."
 msgid "Do not change connected term."
 msgstr "non modificare il termine connesso."
 
+#. translators: %s is the language name.
 #. translators: %s is the language name
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:218
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:226
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:219
 msgid "Remove connection (don't translate in %s)."
-msgstr "rimuovi la connessione (non tradurre in %s)."
+msgstr "Rimuovi la connessione (non tradurre in %s)."
 
 #. translators: %s is the language name
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:189
@@ -1199,6 +1431,7 @@ msgstr "Crea un nuovo termine e utilizzalo come traduzione in %s."
 msgid "Currently connected with \"%s\""
 msgstr "attualmente connesso con \"%s\""
 
+#: src/modules/Comments/TranslationUi/Field/CommentMetaboxRelation.php:77
 #: src/multilingualpress/TranslationUi/Post/Field/Relation.php:62
 #: src/multilingualpress/TranslationUi/Term/Field/Relation.php:67
 msgid "Currently not connected."
@@ -1298,27 +1531,30 @@ msgstr "Meno di un minuto"
 msgid "Unknown"
 msgstr "Sconosciuto"
 
+#: src/modules/ExternalSites/NavMenu/MetaBoxView.php:114
 #: src/multilingualpress/NavMenu/LanguagesMetaboxView.php:128
 msgid "Add to Menu"
 msgstr "Aggiungi al Menu"
 
+#: src/modules/ExternalSites/NavMenu/MetaBoxView.php:108
 #: src/multilingualpress/Core/Admin/RelationshipsSiteSetting.php:112
 #: src/multilingualpress/NavMenu/LanguagesMetaboxView.php:122
 msgid "Select All"
 msgstr "Seleziona Tutto"
 
+#: src/modules/ExternalSites/NavMenu/MetaBoxView.php:54
 #: src/multilingualpress/NavMenu/LanguagesMetaboxView.php:61
 msgid "No items."
 msgstr "Nessun elemento."
 
 #: src/multilingualpress/Customizer/ServiceProvider.php:45
 #: src/multilingualpress/Customizer/ServiceProvider.php:79
-#: src/multilingualpress/NavMenu/ServiceProvider.php:290
+#: src/multilingualpress/NavMenu/ServiceProvider.php:292
 msgid "Language"
 msgstr "Lingua"
 
 #: src/multilingualpress/Customizer/ServiceProvider.php:44
-#: src/multilingualpress/NavMenu/ServiceProvider.php:263
+#: src/multilingualpress/NavMenu/ServiceProvider.php:265
 msgid "Languages"
 msgstr "Lingue"
 
@@ -1383,24 +1619,24 @@ msgstr "Cestino"
 msgid "Enable the Thrash checkbox on post/page edit page: this allows you to send all the translations to trash when the source post/page is trashed."
 msgstr "Abilita la checkbox del Cestino sulla pagina di modifica dell'articolo o della pagina: questo permette di cestinare tutte le traduzioni quando l'articolo o la pagina sorgente sono cestinati."
 
+#: src/modules/Trasher/ServiceProvider.php:169
 #: src/modules/Trasher/TrasherSettingView.php:80
-#: src/modules/Trasher/resources/js/Trasher.js:40
 msgid "Send all the translations to trash when this post is trashed."
 msgstr "Cestina tutte le traduzioni quando l'articolo viene cestinato."
 
-#: src/modules/Redirect/ServiceProvider.php:315
+#: src/modules/Redirect/ServiceProvider.php:351
 msgid "Enable the Redirect checkbox on each site: this allows you to enable/disable the automatic redirection feature according to the user browser language settings."
 msgstr "Abilita la checkbox di redirezione su ciascun sito: questo permette di abilitare/disabilitare la redirezione automatica in base alle impostazioni di lingua del browser dell'utente."
 
-#: src/modules/Redirect/ServiceProvider.php:257
+#: src/modules/Redirect/ServiceProvider.php:293
 msgid "Enable automatic redirect"
 msgstr "Abilita la redirezione automatica"
 
 #: src/modules/Redirect/RedirectSiteSettings.php:87
 #: src/modules/Redirect/RedirectUserSetting.php:90
-#: src/modules/Redirect/ServiceProvider.php:155
-#: src/modules/Redirect/ServiceProvider.php:319
-#: src/modules/Redirect/ServiceProvider.php:403
+#: src/modules/Redirect/ServiceProvider.php:191
+#: src/modules/Redirect/ServiceProvider.php:355
+#: src/modules/Redirect/ServiceProvider.php:439
 msgid "Redirect"
 msgstr "Redirezione"
 
@@ -1451,10 +1687,12 @@ msgstr "Nome originale"
 msgid "Delete Language"
 msgstr "Elimina Lingua"
 
+#: src/modules/ExternalSites/ServiceProvider.php:293
 #: src/modules/LanguageManager/ServiceProvider.php:217
 msgid "Undo Delete"
 msgstr "Annulla Eliminazione"
 
+#: src/modules/ExternalSites/ServiceProvider.php:292
 #: src/modules/LanguageManager/ServiceProvider.php:216
 msgid "Delete"
 msgstr "Elimina"
@@ -1649,15 +1887,15 @@ msgctxt "WooCommerce Product Field"
 msgid "Cross-sell Products"
 msgstr "Prodotti Cross-sell"
 
-#: src/modules/WooCommerce/ServiceProvider.php:79
+#: src/modules/WooCommerce/ServiceProvider.php:93
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: src/modules/WooCommerce/ServiceProvider.php:68
+#: src/modules/WooCommerce/ServiceProvider.php:82
 msgid "The module can be activated only if WooCommerce is active at least in the main site."
 msgstr "Il modulo può essere attivato solo se WooCommerce è attivo almeno nel sito principale."
 
-#: src/modules/WooCommerce/ServiceProvider.php:62
+#: src/modules/WooCommerce/ServiceProvider.php:76
 msgid "Enable WooCommerce Support for MultilingualPress."
 msgstr "Abilita il supporto Woocommerce per MultilingualPress"
 
@@ -1665,7 +1903,7 @@ msgstr "Abilita il supporto Woocommerce per MultilingualPress"
 msgid "You try to activate MLP Version 3 but you already have MLP Version 2 activated. Please check out our <a href=\"https://multilingualpress.org/docs/getting-started-with-multilingualpress-3/\">guide</a> before you continue!"
 msgstr "Stai tentando di attivare la versione 3 di MLP, ma la versione 2 risulta essere già attivata. Si prega di consultare la nostra <a href=\"https://multilingualpress.org/docs/getting-started-with-multilingualpress-3/\">guida</a> prima di continuare!"
 
-#: multilingualpress.php:73 multilingualpress.php:96 multilingualpress.php:267
+#: multilingualpress.php:73 multilingualpress.php:96 multilingualpress.php:281
 msgid "The plugin MultilingualPress has been deactivated"
 msgstr "Il plugin MultilingualPress è stato disattivato"
 
@@ -1691,11 +1929,11 @@ msgstr "https://multilingualpress.org/"
 
 #. Plugin Name of the plugin
 #: src/multilingualpress/Core/Admin/NewSiteSettings.php:63
-#: src/multilingualpress/Core/ServiceProvider.php:542
-#: src/multilingualpress/Core/ServiceProvider.php:886
-#: src/multilingualpress/Core/ServiceProvider.php:1110
-#: src/multilingualpress/Core/ServiceProvider.php:1111
-#: src/multilingualpress/Core/ServiceProvider.php:1119
-#: src/multilingualpress/TranslationUi/ServiceProvider.php:543
+#: src/multilingualpress/Core/ServiceProvider.php:543
+#: src/multilingualpress/Core/ServiceProvider.php:893
+#: src/multilingualpress/Core/ServiceProvider.php:1117
+#: src/multilingualpress/Core/ServiceProvider.php:1118
+#: src/multilingualpress/Core/ServiceProvider.php:1126
+#: src/multilingualpress/TranslationUi/ServiceProvider.php:565
 msgid "MultilingualPress"
 msgstr "MultilingualPress"

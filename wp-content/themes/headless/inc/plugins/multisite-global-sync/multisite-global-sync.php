@@ -32,7 +32,7 @@ class Global_Sync
 
             add_action('add_meta_boxes_product', array($this, 'add_product_custom_box'), 10, 2);
             add_action('add_meta_boxes_application', array($this, 'add_application_custom_box'), 10, 2);
-            add_action('add_meta_boxes_page', array($this, 'add_page_post_box'), 10, 2);
+            // add_action('add_meta_boxes_page', array($this, 'add_page_post_box'), 10, 2);
 
             // taxonomy
             $taxonomy = 'product_category';

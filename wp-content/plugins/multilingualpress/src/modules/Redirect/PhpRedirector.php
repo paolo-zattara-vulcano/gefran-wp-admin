@@ -72,7 +72,7 @@ class PhpRedirector implements Redirector
         $value = (string)$this->request->bodyValue(
             NoredirectPermalinkFilter::QUERY_ARGUMENT,
             INPUT_GET,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if ($value !== '') {

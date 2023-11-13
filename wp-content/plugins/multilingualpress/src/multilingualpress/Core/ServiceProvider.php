@@ -83,6 +83,7 @@ class ServiceProvider implements BootstrappableServiceProvider
     const FILTER_PLUGIN_LOCALE = 'plugin_locale';
     const FILTER_AVAILABLE_POST_TYPE_FOR_SETTINGS = 'multilingualpress.post_type_slugs_settings';
     const FILTER_HTTP_CLIENT_CONFIG = 'multilingualpress.http_client_config';
+    public const FILTER_ADMIN_ALLOWED_SCRIPT_PAGES = 'multilingualpress.allowed_admin_script_pages';
     const ACTION_BUILD_TABS = 'multilingualpress.build_tabs';
 
     const WORDPRESS_LANGUAGE_SETTING_MARKUP = 'wordpress.language_setting_markup';
@@ -413,7 +414,7 @@ class ServiceProvider implements BootstrappableServiceProvider
             self::WORDPRESS_LANGUAGE_SETTING_MARKUP,
             static function (Container $container): string {
                 $request = $container[ServerRequest::class];
-                $siteId = (int)$request->bodyValue('id', INPUT_REQUEST, FILTER_SANITIZE_NUMBER_INT);
+                $siteId = (int)$request->bodyValue('id', INPUT_GET, FILTER_SANITIZE_NUMBER_INT);
                 $selected = get_blog_option($siteId, 'WPLANG');
                 return wp_dropdown_languages(
                     [
@@ -781,16 +782,21 @@ class ServiceProvider implements BootstrappableServiceProvider
         $container[PersistentAdminNotices::class]->init();
 
         global $pagenow;
-        $allowedPages = [
-            'post.php',
-            'post-new.php',
-            'nav-menus.php',
-            'term.php',
-            'plugins.php',
-            'profile.php',
-            'user-edit.php',
-            'options-general.php',
-        ];
+
+        $allowedPages = apply_filters(
+            self::FILTER_ADMIN_ALLOWED_SCRIPT_PAGES,
+            [
+                'post.php',
+                'post-new.php',
+                'nav-menus.php',
+                'term.php',
+                'plugins.php',
+                'profile.php',
+                'user-edit.php',
+                'options-general.php',
+            ]
+        );
+
         if (in_array($pagenow, $allowedPages, true)) {
             try {
                 $container[AssetManager::class]->enqueueScript('multilingualpress-admin');
@@ -810,6 +816,7 @@ class ServiceProvider implements BootstrappableServiceProvider
             'admin_post_' . Admin\SiteSettingsUpdateRequestHandler::ACTION,
             [$container[Admin\SiteSettingsUpdateRequestHandler::class], 'handlePostRequest']
         );
+
         add_action(
             'admin_post_' . Admin\PostTypeSlugsSettingsUpdateRequestHandler::ACTION,
             [
@@ -1154,7 +1161,7 @@ class ServiceProvider implements BootstrappableServiceProvider
      */
     private function isMultilingualPressSettingsPage(string $currentPage): bool
     {
-        $adminPage = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+        $adminPage = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
         $isAdminPage = 'admin.php' === $currentPage;
         $isAllowedPage = $adminPage === 'multilingualpress';
 

@@ -13,7 +13,7 @@
  * Description: The multisite-based plugin for your multilingual WordPress websites.
  * Author: Inpsyde GmbH
  * Author URI: https://inpsyde.com
- * Version: 4.1.1
+ * Version: 4.4.0
  * Text Domain: multilingualpress
  * Domain Path: /languages/
  * License: GPLv2+
@@ -104,6 +104,18 @@ if (is_plugin_active('multilingual-press/multilingual-press.php')) {
 }
 
 /**
+ * Declares HPOS compat.
+ * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+ */
+add_action('before_woocommerce_init', static function () {
+    if (!class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+        return;
+    }
+
+    \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+});
+
+/**
  * Loads definitions and/or autoloader.
  *
  * @param string $rootDir
@@ -175,6 +187,8 @@ function bootstrap()
             new Module\Elementor\ServiceProvider(),
             new Module\User\ServiceProvider(),
             new Module\OriginalTranslationLanguage\ServiceProvider(),
+            new Module\Comments\ServiceProvider(),
+            new Module\ExternalSites\ServiceProvider(),
         ];
 
         $modules = apply_filters('multilingualpress.modules', $modules);

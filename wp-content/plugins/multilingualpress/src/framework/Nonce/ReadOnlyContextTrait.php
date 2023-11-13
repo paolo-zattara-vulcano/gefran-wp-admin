@@ -23,7 +23,7 @@ trait ReadOnlyContextTrait
      * @param $value
      * @throws ContextValueManipulationNotAllowed
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
         throw ContextValueManipulationNotAllowed::forName($name, 'set');
     }
@@ -32,7 +32,7 @@ trait ReadOnlyContextTrait
      * @param $name
      * @throws ContextValueManipulationNotAllowed
      */
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         throw ContextValueManipulationNotAllowed::forName($name, 'unset');
     }

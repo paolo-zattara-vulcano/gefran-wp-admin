@@ -71,11 +71,10 @@ class Updater
             $settings,
             [
                 Repository::MODULE_SETTING_FALLBACK_REDIRECT_SITE_ID => FILTER_SANITIZE_NUMBER_INT,
+                Repository::MODULE_SETTING_FALLBACK_REDIRECT_EXTERNAL_SITE_ID => FILTER_SANITIZE_NUMBER_INT,
             ]
         );
 
-        $this->repository->updateRedirectFallbackSiteId(
-            (int)$settings[Repository::MODULE_SETTING_FALLBACK_REDIRECT_SITE_ID]
-        );
+        $this->repository->updateModuleSettings($settings);
     }
 }

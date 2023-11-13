@@ -66,7 +66,7 @@ class CacheSettingsOptionsView
                     </h4>
                     <table class="widefat mlp-settings-table mlp-settings-table--cache">
                         <tbody>
-                        <?php $this->renderGroup($groupName, $group) ?>
+                        <?php $this->renderGroup((string)$groupName, $group) ?>
                         </tbody>
                     </table>
                 </section>

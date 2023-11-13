@@ -31,7 +31,7 @@ interface Request
 
     const INPUT_GET = INPUT_GET;
     const INPUT_POST = INPUT_POST;
-    const INPUT_REQUEST = INPUT_REQUEST;
+    const INPUT_REQUEST = 99;
     const INPUT_COOKIE = INPUT_COOKIE;
     const INPUT_SERVER = INPUT_SERVER;
     const INPUT_ENV = INPUT_ENV;

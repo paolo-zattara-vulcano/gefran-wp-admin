@@ -16,24 +16,17 @@ namespace Inpsyde\MultilingualPress\Module\LanguageSwitcher;
 
 class ItemFactory
 {
-    /**
-     * @param string $languageName
-     * @param string $locale
-     * @param string $isoCode
-     * @param string $flag
-     * @param string $url
-     * @param int $siteId
-     * @return Item
-     */
     public function create(
         string $languageName,
         string $locale,
         string $isoCode,
         string $flag,
         string $url,
-        int $siteId
+        int $siteId,
+        string $hreflangDisplayCode,
+        string $type = ''
     ): Item {
 
-        return new Item($languageName, $locale, $isoCode, $flag, $url, $siteId);
+        return new Item($languageName, $locale, $isoCode, $flag, $url, $siteId, $hreflangDisplayCode, $type);
     }
 }

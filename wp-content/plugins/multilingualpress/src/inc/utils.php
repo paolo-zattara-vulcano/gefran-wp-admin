@@ -166,7 +166,9 @@ function redirectAfterSettingsUpdate(
     string $code = 'mlp-setting'
 ) {
 
-    if ($setting) {
+    $errors = get_transient('settings_errors');
+
+    if ($setting && !$errors) {
         settingsErrors([$code => __('Settings saved.', 'multilingualpress')], $setting, 'updated');
     }
 

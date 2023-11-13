@@ -115,9 +115,12 @@ class FieldCopier
      * @param int $postId The id for the post for which to get ACF field objects
      * @return array The list of advanced custom fields
      * @psalm-return array<Field> The list of advanced custom fields
+     * phpcs:disable Inpsyde.CodeQuality.NestingLevel.High
      */
     private function getACFFieldObjects(int $postId): array
     {
+        // phpcs:enable
+
         $acfFieldObjects = [];
         $allPostMetaForPost = get_post_meta($postId);
 
@@ -126,7 +129,10 @@ class FieldCopier
 
             // get_field_object returns false if the meta key is not an ACF field
             if (empty($acfFieldObject)) {
-                continue;
+                $acfFieldObject = $this->handleCloneFields($singlePostMetaValue[0] ?? '', $singlePostMetaKey);
+                if (empty($acfFieldObject)) {
+                    continue;
+                }
             }
 
             $acfFieldObjects[] = $acfFieldObject;
@@ -200,6 +206,10 @@ class FieldCopier
                 case self::FIELD_TYPE_RELATIONSHIP:
                     $returnFormat = $acfFieldObject['return_format'] ?? '';
                     $fieldValue = $acfFieldObject['value'] ?? [];
+
+                    if (!$fieldValue) {
+                        break;
+                    }
 
                     $selectedPostIds = $this->selectedPostIdsByFieldConfig($returnFormat, $fieldValue);
                     $connectedPostIds = $this->connectedPostIds($selectedPostIds, $context);
@@ -285,6 +295,7 @@ class FieldCopier
             return;
         }
 
+        $attachmentIds = [];
         $attachmentIds[] = $fieldValue['id'] ?? $fieldValue[0] ?? '';
         $remoteAttachmentIds = $this->copyAttachments($context, $attachmentIds);
 
@@ -399,5 +410,35 @@ class FieldCopier
             },
             $value
         );
+    }
+
+    /**
+     * Handles the clone type fields.
+     *
+     * @param string $fieldValue The field value.
+     * @param string $fieldKey The field key.
+     * @return array The clone field.
+     * @psalm-return Field
+     */
+    protected function handleCloneFields(string $fieldValue, string $fieldKey): array
+    {
+        if (substr_count($fieldValue, "field_") !== 2) {
+            return [];
+        }
+
+        $splitValues = explode("_field_", $fieldValue);
+        $acfFieldObjectName = $splitValues[0];
+
+        if (empty($acfFieldObjectName)) {
+            return [];
+        }
+
+        $acfFieldObject = get_field_object($acfFieldObjectName);
+
+        if ($acfFieldObject && isset($acfFieldObject['type']) && $acfFieldObject['type'] === 'clone') {
+            $acfFieldObject['name'] = ltrim($fieldKey, "_");
+        }
+
+        return $acfFieldObject;
     }
 }

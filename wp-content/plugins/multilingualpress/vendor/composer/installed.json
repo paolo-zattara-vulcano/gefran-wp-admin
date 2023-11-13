@@ -156,17 +156,17 @@
         },
         {
             "name": "inpsyde/multilingualpress-site-flags",
-            "version": "2.0.6-alpha3",
-            "version_normalized": "2.0.6.0-alpha3",
+            "version": "2.0.6-alpha4",
+            "version_normalized": "2.0.6.0-alpha4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:inpsyde/multilingualpress-site-flags.git",
-                "reference": "5ba0fbf6a067269b5a38351efb4f2e1537e23d44"
+                "reference": "7c399bb3b74eac49b91b4bd1b370128b819be6a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inpsyde/multilingualpress-site-flags/zipball/5ba0fbf6a067269b5a38351efb4f2e1537e23d44",
-                "reference": "5ba0fbf6a067269b5a38351efb4f2e1537e23d44",
+                "url": "https://api.github.com/repos/inpsyde/multilingualpress-site-flags/zipball/7c399bb3b74eac49b91b4bd1b370128b819be6a5",
+                "reference": "7c399bb3b74eac49b91b4bd1b370128b819be6a5",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -186,7 +186,7 @@
                 "squizlabs/php_codesniffer": "^3.2",
                 "wp-cli/i18n-command": "dev-master"
             },
-            "time": "2022-12-06T14:17:26+00:00",
+            "time": "2023-06-22T10:43:07+00:00",
             "type": "mlp-mod",
             "extra": {
                 "branch-alias": {
@@ -218,7 +218,7 @@
             ],
             "description": "An external module to add additional functionality to MultilingualPress. The module will enable displaying flags in the language switcher, it can be activated from MultilingualPress settings",
             "support": {
-                "source": "https://github.com/inpsyde/multilingualpress-site-flags/tree/2.0.6-alpha3"
+                "source": "https://github.com/inpsyde/multilingualpress-site-flags/tree/2.0.6-alpha4"
             },
             "install-path": "../inpsyde/multilingualpress-site-flags"
         },

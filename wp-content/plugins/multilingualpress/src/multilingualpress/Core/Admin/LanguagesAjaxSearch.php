@@ -51,7 +51,7 @@ class LanguagesAjaxSearch
             wp_send_json_error('Invalid action.');
         }
 
-        $search = $this->request->bodyValue(self::SEARCH_PARAM, INPUT_POST, FILTER_SANITIZE_STRING);
+        $search = $this->request->bodyValue(self::SEARCH_PARAM, INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$search) {
             wp_send_json_success([]);
         }

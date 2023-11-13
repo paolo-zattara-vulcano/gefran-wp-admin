@@ -140,6 +140,13 @@ final class ServiceProvider implements BaseServiceProvider, IntegrationServicePr
                 return new Table\RelationshipMetaTable($container[\wpdb::class]->base_prefix);
             }
         );
+
+        $container->share(
+            Table\ExternalSitesTable::class,
+            static function (Container $container): Table\ExternalSitesTable {
+                return new Table\ExternalSitesTable($container->get(\wpdb::class)->base_prefix);
+            }
+        );
     }
 
     /**

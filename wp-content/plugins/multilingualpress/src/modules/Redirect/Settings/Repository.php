@@ -27,6 +27,7 @@ class Repository
 
     const MODULE_SETTINGS = 'multilingualpress_module_redirect_settings';
     const MODULE_SETTING_FALLBACK_REDIRECT_SITE_ID = 'fallback_site_id';
+    public const MODULE_SETTING_FALLBACK_REDIRECT_EXTERNAL_SITE_ID = 'fallback_external_site_id';
 
     /**
      * Is the Redirect enabled for the given site?
@@ -77,18 +78,15 @@ class Repository
     }
 
     /**
-     * Update Redirect Fallback Site Id
+     * Retrieve the redirect external site id for fallback
      *
-     * @param int $siteId
-     * @return void
+     * @return int
      */
-    public function updateRedirectFallbackSiteId(int $siteId)
+    public function redirectFallbackExternalSiteId(): int
     {
         $options = $this->moduleSettings();
 
-        $options[self::MODULE_SETTING_FALLBACK_REDIRECT_SITE_ID] = $siteId;
-
-        $this->updateModuleSettings($options);
+        return (int)($options[self::MODULE_SETTING_FALLBACK_REDIRECT_EXTERNAL_SITE_ID] ?? 0);
     }
 
     /**
@@ -107,7 +105,7 @@ class Repository
      * @param array $options
      * @return void
      */
-    protected function updateModuleSettings(array $options)
+    public function updateModuleSettings(array $options)
     {
         update_network_option(null, self::MODULE_SETTINGS, $options);
     }

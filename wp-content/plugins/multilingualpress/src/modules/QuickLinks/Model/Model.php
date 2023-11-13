@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Module\QuickLinks\Model;
 
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository;
+use Inpsyde\MultilingualPress\Framework\Api\Translations;
 use Inpsyde\MultilingualPress\Framework\Language\Bcp47Tag;
 use Inpsyde\MultilingualPress\Framework\Url\Url;
 use InvalidArgumentException;
@@ -39,14 +41,17 @@ class Model implements ModelInterface
      */
     private $label;
 
+    private $hreflangDisplayCode;
+
     /**
      * Model constructor.
      * @param Url $url
      * @param Bcp47Tag $language
      * @param string $label
+     * @param string $hreflangDisplayCode
      * @throws InvalidArgumentException
      */
-    public function __construct(Url $url, Bcp47Tag $language, string $label)
+    public function __construct(Url $url, Bcp47Tag $language, string $label, string $hreflangDisplayCode)
     {
         if ('' === $label) {
             throw new InvalidArgumentException('Label cannot be an empty string.');
@@ -55,6 +60,7 @@ class Model implements ModelInterface
         $this->url = $url;
         $this->language = $language;
         $this->label = $label;
+        $this->hreflangDisplayCode = $hreflangDisplayCode;
     }
 
     /**
@@ -79,5 +85,10 @@ class Model implements ModelInterface
     public function label(): string
     {
         return $this->label;
+    }
+
+    public function hreflangDisplayCode(): string
+    {
+        return $this->hreflangDisplayCode;
     }
 }

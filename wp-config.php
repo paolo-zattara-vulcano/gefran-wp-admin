@@ -39,6 +39,10 @@ if (file_exists(dirname(__FILE__) . '/local-config.php')) {
     define('AUTOMATIC_UPDATER_DISABLED', true);
     define('CORE_UPGRADE_SKIP_NEW_BUNDLED', true);
 
+    // DISABLE FILE EDIT
+    define( 'DISALLOW_FILE_EDIT', true );
+    define( 'DISALLOW_FILE_MODS', true );
+
 
 
     // ** Database settings - You can get this info from your web host ** //

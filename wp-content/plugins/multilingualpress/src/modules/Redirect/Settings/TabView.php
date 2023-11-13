@@ -25,7 +25,7 @@ use function Inpsyde\MultilingualPress\printNonceField;
  */
 class TabView implements SettingsPageView
 {
-    const FILTER_VIEW_MODELS = 'multilingualpress.redirect_module_setting_models';
+    public const FILTER_VIEW_MODELS = 'multilingualpress.redirect_module_setting_models';
 
     /**
      * @var Nonce

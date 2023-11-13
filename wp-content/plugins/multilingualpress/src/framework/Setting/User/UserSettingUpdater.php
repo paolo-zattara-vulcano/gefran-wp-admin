@@ -69,7 +69,7 @@ class UserSettingUpdater
         $value = $this->request->bodyValue(
             $this->metaKey,
             INPUT_REQUEST,
-            FILTER_SANITIZE_STRING
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         if (!is_string($value)) {

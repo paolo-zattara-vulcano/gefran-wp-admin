@@ -19,13 +19,13 @@ use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Action;
 use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Info;
 use Inpsyde\MultilingualPress\Framework\Admin\Metabox\View;
 use Inpsyde\MultilingualPress\Framework\Entity;
-use Inpsyde\MultilingualPress\Framework\Admin\Metabox\TermMetabox;
+use Inpsyde\MultilingualPress\Framework\Admin\Metabox\Metabox as MetaboxInterface;
 use Inpsyde\MultilingualPress\Framework\Api\ContentRelations;
 use Inpsyde\MultilingualPress\TranslationUi\MetaboxFieldsHelper;
 
 use function Inpsyde\MultilingualPress\siteNameWithLanguage;
 
-final class Metabox implements TermMetabox
+final class Metabox implements MetaboxInterface
 {
     const RELATIONSHIP_TYPE = 'term';
     const ID_PREFIX = 'multilingualpress_term_translation_metabox_';
@@ -99,20 +99,18 @@ final class Metabox implements TermMetabox
     }
 
     /**
-     * @param \WP_Term $term
-     * @param string $saveOrShow
-     * @return bool
+     * @inheritDoc
      */
-    public function acceptTerm(\WP_Term $term, string $saveOrShow): bool
+    public function isValid(Entity $entity): bool
     {
-        $taxonomy = $term->taxonomy ? get_taxonomy($term->taxonomy) : null;
+        $taxonomy = $entity->prop('taxonomy') ? get_taxonomy($entity->prop('taxonomy')) : null;
         if (!$taxonomy instanceof \WP_Taxonomy) {
             return false;
         }
 
-        return current_user_can($taxonomy->cap->edit_terms, $term->term_id)
+        return current_user_can($taxonomy->cap->edit_terms, $entity->prop('term_id'))
             && $this->taxonomies->areTaxonomiesActive($taxonomy->name)
-            && $this->relationshipPermission->isRelatedTermEditable($term, $this->siteId());
+            && $this->relationshipPermission->isRelatedTermEditable($entity->expose(), $this->siteId());
     }
 
     /**
@@ -126,24 +124,24 @@ final class Metabox implements TermMetabox
     /**
      * @inheritdoc
      */
-    public function viewForTerm(\WP_Term $term): View
+    public function view(Entity $entity): View
     {
         return new MetaboxView(
             new MetaboxFields(),
             $this->fieldsHelper,
-            $this->relationshipContext($term)
+            $this->relationshipContext($entity->expose())
         );
     }
 
     /**
      * @inheritdoc
      */
-    public function actionForTerm(\WP_Term $term): Action
+    public function action(Entity $entity): Action
     {
         return new MetaboxAction(
             new MetaboxFields(),
             $this->fieldsHelper,
-            $this->relationshipContext($term),
+            $this->relationshipContext($entity->expose()),
             $this->taxonomies,
             $this->contentRelations
         );

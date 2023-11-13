@@ -49,6 +49,7 @@ final class ServerRequestContext implements Context
     /**
      * @inheritdoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {

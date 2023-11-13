@@ -133,12 +133,12 @@ class AjaxScheduleHandler
      */
     public function handle(ServerRequest $request, Context $context = null)
     {
-        $action = $request->bodyValue('action', INPUT_REQUEST, FILTER_SANITIZE_STRING);
+        $action = $request->bodyValue('action', INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$action || !\in_array($action, [self::ACTION_INFO, self::ACTION_SCHEDULE], true)) {
             wp_send_json_error(esc_html__('Invalid action.', 'multilingualpress'));
         }
 
-        $public = $request->bodyValue(self::MODE_PUBLIC, INPUT_REQUEST, FILTER_SANITIZE_STRING);
+        $public = $request->bodyValue(self::MODE_PUBLIC, INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$public && !is_user_logged_in()) {
             wp_send_json_error(esc_html__('User not allowed.', 'multilingualpress'));
         }
@@ -161,7 +161,7 @@ class AjaxScheduleHandler
      */
     private function sendScheduleInfo(ServerRequest $request)
     {
-        $id = $request->bodyValue(self::SCHEDULE_ID, INPUT_REQUEST, FILTER_SANITIZE_STRING);
+        $id = $request->bodyValue(self::SCHEDULE_ID, INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$id) {
             wp_send_json_error(
                 [
@@ -196,13 +196,13 @@ class AjaxScheduleHandler
      */
     private function createNewSchedule(ServerRequest $request)
     {
-        $hook = $request->bodyValue(self::SCHEDULE_HOOK, INPUT_REQUEST, FILTER_SANITIZE_STRING);
-        $steps = $request->bodyValue(self::SCHEDULE_STEPS, INPUT_REQUEST, FILTER_VALIDATE_INT);
+        $hook = $request->bodyValue(self::SCHEDULE_HOOK, INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $steps = $request->bodyValue(self::SCHEDULE_STEPS, INPUT_POST, FILTER_VALIDATE_INT);
         if (!$hook || !$steps) {
             wp_send_json_error(esc_html__('Missing schedule data.', 'multilingualpress'));
         }
 
-        $args = $request->bodyValue(self::SCHEDULE_ARGS, INPUT_REQUEST) ?: [];
+        $args = $request->bodyValue(self::SCHEDULE_ARGS, INPUT_POST) ?: [];
 
         $hook = (string)$hook;
         $steps = (int)$steps;

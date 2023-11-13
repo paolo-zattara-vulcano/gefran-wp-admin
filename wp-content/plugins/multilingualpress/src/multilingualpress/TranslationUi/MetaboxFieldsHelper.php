@@ -16,10 +16,10 @@ namespace Inpsyde\MultilingualPress\TranslationUi;
 
 use Inpsyde\MultilingualPress\Framework\Http\Request;
 
-class MetaboxFieldsHelper
+class MetaboxFieldsHelper implements MetaboxFieldsHelperInterface
 {
-    const NAME_PREFIX = 'multilingualpress';
-    const ID_PREFIX = 'multilingualpress-';
+    public const NAME_PREFIX = 'multilingualpress';
+    public const ID_PREFIX = 'multilingualpress-';
     /**
      * @var int
      */

@@ -32,6 +32,7 @@ class QuickLink
     const FILTER_NOFOLLOW_ATTRIBUTE = 'multilingualpress.quicklinks_nofollow';
     public const FILTER_RENDER_AS_SELECT = 'multilingualpress.QuickLinks.RenderAsSelect';
     public const FILTER_QUICKLINK_LABEL = 'multilingualpress.QuickLinks.Label';
+    public const FILTER_MODEL_COLLECTION = 'multilingualpress.QuickLinks.ModelCollection';
 
     /**
      * @var CollectionFactory
@@ -96,9 +97,11 @@ class QuickLink
 
         try {
             $modelCollection = $this->collectionFactory->create($currentBlogId, $post->ID);
+            $modelCollection = apply_filters(self::FILTER_MODEL_COLLECTION, $modelCollection);
 
             $modelCollectionAsMap = iterator_to_array($modelCollection->getIterator());
-            if (empty(array_intersect_key($modelCollectionAsMap, $this->relatedSites))) {
+
+            if (empty($modelCollectionAsMap)) {
                 return $theContent;
             }
         } catch (InvalidArgumentException $exc) {
@@ -176,7 +179,7 @@ class QuickLink
                         <a class="mlp-quicklinks-link"
                            href="<?= esc_url($model->url()) ?>"
                            lang="<?= esc_attr($model->language()) ?>"
-                           hreflang="<?= esc_attr($model->language()) ?>"
+                           hreflang="<?= esc_attr($model->hreflangDisplayCode()) ?>"
                            rel="<?= esc_attr($rel) ?>"
                         >
                             <?= wp_kses_post($label) ?>

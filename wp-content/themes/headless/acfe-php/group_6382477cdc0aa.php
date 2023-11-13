@@ -94,7 +94,7 @@ acf_add_local_field_group(array(
 	'graphql_field_name' => 'Comp_Hero',
 	'map_graphql_types_from_location_rules' => 0,
 	'graphql_types' => '',
-	'modified' => 1693584437,
+	'modified' => 1699876680,
 ));
 
 endif;

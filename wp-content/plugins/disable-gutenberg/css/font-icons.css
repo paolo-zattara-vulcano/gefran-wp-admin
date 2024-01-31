@@ -21,10 +21,10 @@
 .fa-pad-more {
 	padding: 0 5px 0 0;
 	}
-.fa-cogs:before {
+.fa-cogs::before {
 	content: "\f085";
 	}
-.fa-cog:before,
-.fa-gear:before {
+.fa-cog::before,
+.fa-gear::before {
 	content: "\f013";
 	}

@@ -1,6 +1,21 @@
 CHANGES LOG (full version).
 ===========================
 
+= [4.64.1] 24.10.2023 =
+* Update: Marked as compatible with WordPress 6.4
+* Fix: Notice shown by PHP 8.3 is removed: PHP Deprecated: Creation of dynamic property URE_Editor::$hide_pro_banner is deprecated in /wp-content/plugins/user-role-editor/includes/classes/editor.php on line 166
+* Fix: Notice shown by PHP 8.3 is removed: PHP Deprecated: Creation of dynamic property URE_Role_View::$caps_to_remove is deprecated in /wp-content/plugins/user-role-editor/includes/classes/role-view.php on line 23
+* Fix: Notice shown by PHP 8.3 is removed: PHP Deprecated: Function utf8_decode() is deprecated in /wp-content/plugins/user-role-editor-pro/includes/classes/editor.php on line 984
+
+= [4.64] 08.08.2023 =
+* Update: "Show capabilities in human readable form" checkbox switches between capability 2 text forms without full page reloading using JavaScript.
+* Fix: Missed 'message' parameter was added  to a response for AJAX request. It fixed the PHP Warning:  Undefined array key "message" in expressions like "strpos( $data['message'], ...
+
+= [4.63.3] 12.03.2023 =
+* Fix: PHP version 8.2 showed warning: Creation of dynamic property User_Role_Editor::$settings_page_hook is deprecated : wp-content/plugins/user-role-editor/includes/classes/user-role-editor.php:603
+* Fix: PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, int given in wp-content/plugins/user-role-editor/includes/classes/view.php:81
+* Fix: PHP Parse error: syntax error, unexpected ‘:’, expecting ‘;’ or ‘{‘: wp-content/plugins/user-role-editor/includes/classes/base-lib.php on line 119, type declarations were removed for compatibility with older PHP versions. 
+
 = [4.63.2] 16.12.2022 =
 * Update: symbols '{}$' are removed from capability name before use it for internal purpose, to exclude cases like when one of plugins broke URE work adding capability like 'edit_{$type}s'.
 * Update: array_merge() function is replaced with wrapper ure_array_merge(), to exclude fatal error: Argument #2 must be of type array.

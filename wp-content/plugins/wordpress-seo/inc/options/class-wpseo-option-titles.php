@@ -93,6 +93,14 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		'open_graph_frontpage_image'       => '', // Text field.
 		'open_graph_frontpage_image_id'    => 0,
 
+		'publishing_principles_id'         => 0,
+		'ownership_funding_info_id'        => 0,
+		'actionable_feedback_policy_id'    => 0,
+		'corrections_policy_id'            => 0,
+		'ethics_policy_id'                 => 0,
+		'diversity_policy_id'              => 0,
+		'diversity_staffing_report_id'     => 0,
+
 		/*
 		 * Uses enrich_defaults to add more along the lines of:
 		 * - 'title-' . $pt->name                => ''; // Text field.
@@ -174,6 +182,8 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 
 	/**
 	 * Make sure we can recognize the right action for the double cleaning.
+	 *
+	 * @return void
 	 */
 	public function end_of_init() {
 		do_action( 'wpseo_double_clean_titles' );
@@ -203,7 +213,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		/**
 		 * Allow altering the array with separator options.
 		 *
-		 * @api array $separator_options Array with the separator options.
+		 * @param array $separator_options Array with the separator options.
 		 */
 		$filtered_separators = apply_filters( 'wpseo_separator_options', $separators );
 
@@ -226,7 +236,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		$separator_options = [];
 
 		foreach ( $separators as $key => $label ) {
-			$aria_label = isset( $separator_list[ $key ]['label'] ) ? $separator_list[ $key ]['label'] : '';
+			$aria_label = ( $separator_list[ $key ]['label'] ?? '' );
 
 			$separator_options[ $key ] = [
 				'label'      => $label,
@@ -579,6 +589,13 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				case 'person_logo_id':
 				case 'social-image-id-':
 				case 'open_graph_frontpage_image_id':
+				case 'publishing_principles_id':
+				case 'ownership_funding_info_id':
+				case 'actionable_feedback_policy_id':
+				case 'corrections_policy_id':
+				case 'ethics_policy_id':
+				case 'diversity_policy_id':
+				case 'diversity_staffing_report_id':
 					if ( isset( $dirty[ $key ] ) ) {
 						$int = WPSEO_Utils::validate_int( $dirty[ $key ] );
 						if ( $int !== false && $int >= 0 ) {
@@ -592,7 +609,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 						}
 					}
 					break;
-
 				/* Separator field - Radio. */
 				case 'separator':
 					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
@@ -626,7 +642,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 						 *
 						 * Make sure when you filter this to also filter `wpseo_schema_article_types_labels`.
 						 *
-						 * @api array $schema_article_types The available schema article types.
+						 * @param array $schema_article_types The available schema article types.
 						 */
 						if ( array_key_exists( $dirty[ $key ], apply_filters( 'wpseo_schema_article_types', Schema_Types::ARTICLE_TYPES ) ) ) {
 							$clean[ $key ] = $dirty[ $key ];
@@ -764,12 +780,10 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		}
 		unset( $old_option );
 
-
 		// Fix wrongness created by buggy version 1.2.2.
 		if ( isset( $option_value['title-home'] ) && $option_value['title-home'] === '%%sitename%% - %%sitedesc%% - 12345' ) {
 			$option_value['title-home-wpseo'] = '%%sitename%% - %%sitedesc%%';
 		}
-
 
 		/*
 		 * Renaming these options to avoid ever overwritting these if a (bloody stupid) user /
@@ -798,7 +812,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 			}
 		}
 		unset( $rename, $old, $new );
-
 
 		/*
 		 * {@internal This clean-up action can only be done effectively once the taxonomies
@@ -834,10 +847,8 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 							if ( ! isset( $post_type_names[ $tax ] ) && isset( $option_value[ $old_prefix . $tax ] ) ) {
 								unset( $option_value[ $old_prefix . $tax ] );
 							}
-							else {
-								if ( isset( $post_type_names[ $tax ] ) && ! isset( $option_value[ $old_prefix . $tax ] ) ) {
-									$option_value[ $old_prefix . $tax ] = $original[ $old_prefix . $tax ];
-								}
+							elseif ( isset( $post_type_names[ $tax ] ) && ! isset( $option_value[ $old_prefix . $tax ] ) ) {
+								$option_value[ $old_prefix . $tax ] = $original[ $old_prefix . $tax ];
 							}
 
 							if ( $old_prefix === 'tax-hideeditbox-' ) {
@@ -918,7 +929,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 			/**
 			 * Allow altering the array with variable array key patterns.
 			 *
-			 * @api  array  $patterns  Array with the variable array key patterns.
+			 * @param array $patterns Array with the variable array key patterns.
 			 */
 			$patterns = apply_filters( 'wpseo_option_titles_variable_array_key_patterns', $patterns );
 
@@ -953,11 +964,11 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				'label'  => __( 'Dash', 'wordpress-seo' ),
 			],
 			'sc-ndash'  => [
-				'option' => '&ndash;',
+				'option' => '&#8211;',
 				'label'  => __( 'En dash', 'wordpress-seo' ),
 			],
 			'sc-mdash'  => [
-				'option' => '&mdash;',
+				'option' => '&#8212;',
 				'label'  => __( 'Em dash', 'wordpress-seo' ),
 			],
 			'sc-colon'  => [
@@ -965,11 +976,11 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				'label'  => __( 'Colon', 'wordpress-seo' ),
 			],
 			'sc-middot' => [
-				'option' => '&middot;',
+				'option' => '&#183;',
 				'label'  => __( 'Middle dot', 'wordpress-seo' ),
 			],
 			'sc-bull'   => [
-				'option' => '&bull;',
+				'option' => '&#8226;',
 				'label'  => __( 'Bullet', 'wordpress-seo' ),
 			],
 			'sc-star'   => [
@@ -989,19 +1000,19 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				'label'  => __( 'Small tilde', 'wordpress-seo' ),
 			],
 			'sc-laquo'  => [
-				'option' => '&laquo;',
+				'option' => '&#171;',
 				'label'  => __( 'Left angle quotation mark', 'wordpress-seo' ),
 			],
 			'sc-raquo'  => [
-				'option' => '&raquo;',
+				'option' => '&#187;',
 				'label'  => __( 'Right angle quotation mark', 'wordpress-seo' ),
 			],
 			'sc-lt'     => [
-				'option' => '&lt;',
+				'option' => '&#062;',
 				'label'  => __( 'Less than sign', 'wordpress-seo' ),
 			],
 			'sc-gt'     => [
-				'option' => '&gt;',
+				'option' => '&#060;',
 				'label'  => __( 'Greater than sign', 'wordpress-seo' ),
 			],
 		];
@@ -1009,7 +1020,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		/**
 		 * Allows altering the separator options array.
 		 *
-		 * @api array $separators Array with the separator options.
+		 * @param array $separators Array with the separator options.
 		 */
 		$separator_list = apply_filters( 'wpseo_separator_option_list', $separators );
 

@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com
 Tags: delete, bulk, clean, bulk delete, bulk clean, posts delete, delete all, mass delete, posts delete, delete posts, delete comments, delete users, delete meta, delete taxonomy, delete revision, wp clean, clean trash, bulk user delete, delete all, delete all users, delete all comments, delete all posts, trash, clean spam, delete with condition, delete with filter, remove
 Requires at least: 4.9
 Requires PHP: 5.3
-Tested up to: 6.3 
-Stable tag: 1.2.5
+Tested up to: 6.4 
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,7 @@ WP bulk Delete support below powerfull conditions and filters.
 * Delete WooCommerce Order [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 * Delete Posts by custom query
 * Delete posts by category
+* Delete posts by Selected category
 * Delete posts by tag
 * Delete Posts by custom post type
 * Delete Posts by post status
@@ -33,7 +34,11 @@ WP bulk Delete support below powerfull conditions and filters.
 * Delete Posts by custom Taxonomy
 * Delete Posts by authors
 * Delete Post by meta fields
+* Delete Post by Content Count
+* Delete Post by Custom Query
 * Delete Posts by title or content. [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
+* Delete Posts by URL. [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
+* Delete the image along with the pos. [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 * Delete Posts by custom fields.  [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 * Delete Posts by any filters.  [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 * Delete Posts by any conditions.  [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
@@ -68,10 +73,12 @@ WP bulk Delete support below powerfull conditions and filters.
 
 * Delete Users
 * Delete Users by user roles
+* Delete Users by user Email
 * Delete Users by date interval
 * Delete users based on their registered date
 * Delete Users by user meta fields
 * Assign deleted user data to another user. [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
+* Delete Users who don't have an order. [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 * Scheduled Delete [PRO Version](https://xylusthemes.com/plugins/wp-bulk-delete/)
 
 
@@ -166,6 +173,20 @@ We are working on providing more options :)
 15. Scheduled Delete History
 
 == Changelog ==
+
+= 1.2.7 =
+* ADDED: Delete Posts by URL.(PRO)
+* ADDED: Delete the image along with the post.(PRO)
+* ADDED: Delete Users who don't have an order ( WooCommerce ).(PRO)
+* FIXED: Don't Repeat Schedule Bug.(PRO)
+
+= 1.2.6 =
+* ADDED: Posts Delete by Content Character Count Filter.(PRO)
+* ADDED: Background Progress Prefix (PRO)
+* FIXED: Delete WP Cron queue when you delete schedule delete.(PRO)
+* IMPROVEMENTS: Post type List Optimized
+* IMPROVEMENTS: Support for WP 6.4
+* IMPROVEMENTS: Added Support for PHP 8.2 and some design and security fixes
 
 = 1.2.5 =
 * ADDED: Delete post of selected category only. If post has multiple category it will not deleted.

@@ -65,7 +65,7 @@ class Social_Profiles_Helper {
 		 */
 		$person_social_profile_fields = \apply_filters( 'wpseo_person_social_profile_fields', $this->person_social_profile_fields );
 
-		return $person_social_profile_fields;
+		return (array) $person_social_profile_fields;
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Social_Profiles_Helper {
 		 */
 		$organization_social_profile_fields = \apply_filters( 'wpseo_organization_social_profile_fields', $this->organization_social_profile_fields );
 
-		return $organization_social_profile_fields;
+		return (array) $organization_social_profile_fields;
 	}
 
 	/**
@@ -224,7 +224,7 @@ class Social_Profiles_Helper {
 			if ( $field_name === 'other_social_urls' ) {
 				$other_social_urls = \array_filter(
 					$social_profiles[ $field_name ],
-					static function( $other_social_url ) {
+					static function ( $other_social_url ) {
 						return $other_social_url !== '';
 					}
 				);
@@ -274,17 +274,6 @@ class Social_Profiles_Helper {
 		}
 
 		return \sanitize_text_field( $social_field );
-	}
-
-	/**
-	 * Checks if the current user has the capability to edit a specific user.
-	 *
-	 * @param int $person_id The id of the person to edit.
-	 *
-	 * @return bool
-	 */
-	public function can_edit_profile( $person_id ) {
-		return \current_user_can( 'edit_user', $person_id );
 	}
 
 	/**
@@ -339,7 +328,7 @@ class Social_Profiles_Helper {
 		return [ $twitter_setting ];
 	}
 
-	/*** DEPRECATED METHODS ***/
+	/* DEPRECATED METHODS */
 
 	/**
 	 * Gets the person social profile fields supported by us after WP filtering.
@@ -352,5 +341,20 @@ class Social_Profiles_Helper {
 	public function get_supported_person_social_profile_fields() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO 20.1' );
 		return [];
+	}
+
+	/**
+	 * Checks if the current user has the capability to edit a specific user.
+	 *
+	 * @deprecated 20.2
+	 * @codeCoverageIgnore
+	 *
+	 * @param int $person_id The id of the person to edit.
+	 *
+	 * @return bool
+	 */
+	public function can_edit_profile( $person_id ) {
+		\_deprecated_function( __METHOD__, 'Yoast SEO 20.2' );
+		return \current_user_can( 'edit_user', $person_id );
 	}
 }

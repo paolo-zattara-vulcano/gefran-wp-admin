@@ -89,6 +89,8 @@ class Indexable_Ancestor_Watcher implements Integration_Interface {
 
 	/**
 	 * Registers the appropriate hooks.
+	 *
+	 * @return void
 	 */
 	public function register_hooks() {
 		\add_action( 'wpseo_save_indexable', [ $this, 'reset_children' ], \PHP_INT_MAX, 2 );
@@ -125,7 +127,6 @@ class Indexable_Ancestor_Watcher implements Integration_Interface {
 		$child_indexables    = $this->indexable_repository->find_by_ids( $child_indexable_ids );
 
 		\array_walk( $child_indexables, [ $this, 'update_hierarchy_and_permalink' ] );
-
 		if ( $indexable->object_type === 'term' ) {
 			$child_indexables_for_term = $this->get_children_for_term( $indexable->object_id, $child_indexables );
 
@@ -150,7 +151,7 @@ class Indexable_Ancestor_Watcher implements Integration_Interface {
 		// Removes the objects that are already present in the children.
 		$existing_post_indexables = \array_filter(
 			$child_indexables,
-			static function( $indexable ) {
+			static function ( $indexable ) {
 				return $indexable->object_type === 'post';
 			}
 		);
@@ -179,12 +180,16 @@ class Indexable_Ancestor_Watcher implements Integration_Interface {
 	 * Updates the indexable hierarchy and indexable permalink.
 	 *
 	 * @param Indexable $indexable The indexable to update the hierarchy and permalink for.
+	 *
+	 * @return void
 	 */
 	protected function update_hierarchy_and_permalink( $indexable ) {
-		$this->indexable_hierarchy_builder->build( $indexable );
+		if ( \is_a( $indexable, Indexable::class ) ) {
+			$this->indexable_hierarchy_builder->build( $indexable );
 
-		$indexable->permalink = $this->permalink_helper->get_permalink_for_indexable( $indexable );
-		$indexable->save();
+			$indexable->permalink = $this->permalink_helper->get_permalink_for_indexable( $indexable );
+			$indexable->save();
+		}
 	}
 
 	/**
@@ -196,7 +201,7 @@ class Indexable_Ancestor_Watcher implements Integration_Interface {
 	 * @return array List with object ids for the term.
 	 */
 	protected function get_object_ids_for_term( $term_id, $child_indexables ) {
-		$filter_terms = static function( $child ) {
+		$filter_terms = static function ( $child ) {
 			return $child->object_type === 'term';
 		};
 

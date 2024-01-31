@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 4.9
-	Tested up to: 6.1
-	Stable tag: 2.8.1
-	Version: 2.8.1
+	Tested up to: 6.4
+	Stable tag: 3.1
+	Version: 3.1
 	Requires PHP: 5.6.20
 	Text Domain: disable-gutenberg
 	Domain Path: /languages
@@ -32,7 +32,7 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2022 Monzilla Media. All rights reserved.
+	Copyright 2023 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
@@ -45,6 +45,8 @@ if (!class_exists('DisableGutenberg')) {
 			
 			$this->constants();
 			$this->includes();
+			
+			register_activation_hook(__FILE__, 'disable_gutenberg_dismiss_notice_activate');
 			
 			add_action('admin_init',          array($this, 'check_version'));
 			add_action('init',                array($this, 'load_i18n'));
@@ -61,6 +63,8 @@ if (!class_exists('DisableGutenberg')) {
 			add_action('admin_menu',            'disable_gutenberg_menu_items', 999);
 			add_action('admin_init',            'disable_gutenberg_acf_enable_meta');
 			add_action('admin_init',            'disable_gutenberg_privacy_notice');
+			add_action('admin_init',            'disable_gutenberg_dismiss_notice_save');
+			add_action('admin_init',            'disable_gutenberg_dismiss_notice_version');
 			add_filter('admin_init',            'disable_gutenberg_disable_nag');
 			add_filter('admin_init',            'disable_gutenberg_init');
 			
@@ -70,7 +74,7 @@ if (!class_exists('DisableGutenberg')) {
 		
 		function constants() {
 			
-			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '2.8.1');
+			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '3.1');
 			if (!defined('DISABLE_GUTENBERG_REQUIRE')) define('DISABLE_GUTENBERG_REQUIRE', '4.9');
 			if (!defined('DISABLE_GUTENBERG_AUTHOR'))  define('DISABLE_GUTENBERG_AUTHOR',  'Jeff Starr');
 			if (!defined('DISABLE_GUTENBERG_NAME'))    define('DISABLE_GUTENBERG_NAME',    __('Disable Gutenberg', 'disable-gutenberg'));
@@ -87,13 +91,13 @@ if (!class_exists('DisableGutenberg')) {
 			require_once DISABLE_GUTENBERG_DIR .'inc/classic-editor.php';
 			require_once DISABLE_GUTENBERG_DIR .'inc/plugin-core.php';
 			require_once DISABLE_GUTENBERG_DIR .'inc/plugin-frontend.php';
+			require_once DISABLE_GUTENBERG_DIR .'inc/settings-reset.php';
 			
 			if (is_admin()) {
 				
 				require_once DISABLE_GUTENBERG_DIR .'inc/resources-enqueue.php';
 				require_once DISABLE_GUTENBERG_DIR .'inc/settings-display.php';
 				require_once DISABLE_GUTENBERG_DIR .'inc/settings-register.php';
-				require_once DISABLE_GUTENBERG_DIR .'inc/settings-reset.php';
 				
 				if (version_compare($GLOBALS['wp_version'], '5.0-beta', '>')) {
 					
@@ -188,11 +192,11 @@ if (!class_exists('DisableGutenberg')) {
 		
 		function footer_text($text) {
 			
-			$screen = get_current_screen();
+			$screen_id = disable_gutenberg_get_current_screen_id();
 			
 			$ids = array('settings_page_disable-gutenberg');
 			
-			if (isset($screen->id) && apply_filters('disable_gutenberg_admin_footer_text', in_array($screen->id, $ids))) {
+			if ($screen_id && apply_filters('disable_gutenberg_admin_footer_text', in_array($screen_id, $ids))) {
 				
 				$text = __('Like this plugin? Give it a', 'disable-gutenberg');
 				
@@ -235,7 +239,7 @@ if (!class_exists('DisableGutenberg')) {
 		
 		function load_i18n() {
 			
-			load_plugin_textdomain('disable-gutenberg', false, dirname(plugin_basename(__FILE__)) .'/languages/');
+			load_plugin_textdomain('disable-gutenberg', false, dirname(DISABLE_GUTENBERG_FILE) .'/languages/');
 			
 		}
 		

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Disable Gutenberg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-25 20:47+0000\n"
+"POT-Creation-Date: 2023-10-20 20:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: disable-gutenberg.php:222
+#: disable-gutenberg.php:226
 msgid " or higher, and has been deactivated! "
 msgstr ""
 
@@ -26,8 +26,24 @@ msgstr ""
 msgid "ACF Support"
 msgstr ""
 
+#: inc/settings-reset.php:38
+msgid "and"
+msgstr ""
+
+#: inc/settings-reset.php:40
+msgid "Apply code"
+msgstr ""
+
+#: inc/settings-reset.php:40
+msgid "at checkout. Sale ends 12/30/23."
+msgstr ""
+
 #: inc/plugin-features.php:86
 msgid "Block Edit"
+msgstr ""
+
+#: inc/settings-reset.php:39
+msgid "books"
 msgstr ""
 
 #: inc/plugin-features.php:96
@@ -42,7 +58,7 @@ msgstr ""
 msgid "Click here"
 msgstr ""
 
-#: disable-gutenberg.php:178
+#: disable-gutenberg.php:182
 msgid "Click here to rate and review this plugin on WordPress.org"
 msgstr ""
 
@@ -50,11 +66,11 @@ msgstr ""
 msgid "Complete Disable"
 msgstr ""
 
-#: inc/resources-enqueue.php:41
+#: inc/resources-enqueue.php:33
 msgid "Confirm Reset"
 msgstr ""
 
-#: inc/settings-reset.php:18
+#: inc/settings-reset.php:16
 msgid "Default options restored."
 msgstr ""
 
@@ -71,7 +87,7 @@ msgid "Disable for"
 msgstr ""
 
 #. Name of the plugin
-#: disable-gutenberg.php:76
+#: disable-gutenberg.php:80
 msgid "Disable Gutenberg"
 msgstr ""
 
@@ -96,6 +112,10 @@ msgid ""
 "Disables Gutenberg Block Editor and restores the Classic Editor and original "
 "Edit Post screen. Provides options to enable on specific post types, user "
 "roles, and more."
+msgstr ""
+
+#: inc/settings-reset.php:111
+msgid "Dismiss"
 msgstr ""
 
 #: inc/settings-register.php:51
@@ -154,7 +174,7 @@ msgstr ""
 msgid "Hide this plugin&rsquo;s menu item"
 msgstr ""
 
-#: disable-gutenberg.php:173
+#: disable-gutenberg.php:177
 msgid "Homepage"
 msgstr ""
 
@@ -174,15 +194,15 @@ msgstr ""
 msgid "learn more"
 msgstr ""
 
-#: disable-gutenberg.php:197
+#: disable-gutenberg.php:201
 msgid "Like this plugin? Give it a"
 msgstr ""
 
-#: inc/settings-reset.php:24
+#: inc/settings-reset.php:22
 msgid "No changes made to options."
 msgstr ""
 
-#: inc/resources-enqueue.php:44
+#: inc/resources-enqueue.php:36
 msgid "No, abort mission."
 msgstr ""
 
@@ -190,11 +210,11 @@ msgstr ""
 msgid "Please give a 5-star rating! A huge THANK YOU for your support!"
 msgstr ""
 
-#: disable-gutenberg.php:223
+#: disable-gutenberg.php:227
 msgid "Please return to the"
 msgstr ""
 
-#: disable-gutenberg.php:172
+#: disable-gutenberg.php:176
 msgid "Plugin Homepage"
 msgstr ""
 
@@ -218,15 +238,19 @@ msgstr ""
 msgid "Post Type ="
 msgstr ""
 
+#: inc/settings-reset.php:37
+msgid "Pro WordPress plugins"
+msgstr ""
+
 #: inc/settings-register.php:54
 msgid "Rate Plugin"
 msgstr ""
 
-#: disable-gutenberg.php:179
+#: disable-gutenberg.php:183
 msgid "Rate this plugin"
 msgstr ""
 
-#: disable-gutenberg.php:221
+#: disable-gutenberg.php:225
 msgid "requires WordPress "
 msgstr ""
 
@@ -234,12 +258,16 @@ msgstr ""
 msgid "Reset Options"
 msgstr ""
 
-#: inc/resources-enqueue.php:42
+#: inc/resources-enqueue.php:34
 msgid "Restore default options?"
 msgstr ""
 
 #: inc/settings-register.php:53 inc/settings-register.php:224
 msgid "Restore default plugin options"
+msgstr ""
+
+#: inc/settings-reset.php:35
+msgid "Save BIG!"
 msgstr ""
 
 #: inc/settings-register.php:155
@@ -274,7 +302,7 @@ msgstr ""
 msgid "Separate multiple templates with commas"
 msgstr ""
 
-#: disable-gutenberg.php:157
+#: disable-gutenberg.php:161
 msgid "Settings"
 msgstr ""
 
@@ -290,8 +318,12 @@ msgstr ""
 msgid "Show support with a small donation&nbsp;&raquo;"
 msgstr ""
 
-#: disable-gutenberg.php:244 disable-gutenberg.php:250
+#: disable-gutenberg.php:248 disable-gutenberg.php:254
 msgid "Sorry, pal!"
+msgstr ""
+
+#: inc/settings-reset.php:36
+msgid "Take 25% OFF any of our"
 msgstr ""
 
 #: inc/settings-register.php:167
@@ -300,7 +332,7 @@ msgid ""
 "when hidden on this page."
 msgstr ""
 
-#: disable-gutenberg.php:224
+#: disable-gutenberg.php:228
 msgid "to upgrade WordPress and try again."
 msgstr ""
 
@@ -328,14 +360,14 @@ msgstr ""
 msgid "Whitelist Post Titles"
 msgstr ""
 
-#: disable-gutenberg.php:224
+#: disable-gutenberg.php:228
 msgid "WP Admin Area"
 msgstr ""
 
-#: inc/resources-enqueue.php:43
+#: inc/resources-enqueue.php:35
 msgid "Yes, make it so."
 msgstr ""
 
-#: disable-gutenberg.php:201
+#: disable-gutenberg.php:205
 msgid "★★★★★ rating&nbsp;&raquo;"
 msgstr ""

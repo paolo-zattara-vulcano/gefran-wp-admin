@@ -105,9 +105,9 @@ function disable_gutenberg_get_enabled_user_roles() {
 
 function disable_gutenberg_get_post_types() {
 	
-	$post_types = get_post_types(array(), 'objects');
+	$post_types = get_post_types(array('show_ui' => true), 'objects');
 	
-	$unset = array('attachment', 'revision', 'nav_menu_item', 'custom_css', 'customize_changeset', 'oembed_cache', 'user_request', 'wp_block');
+	$unset = array('attachment', 'custom_css', 'customize_changeset', 'nav_menu_item', 'oembed_cache', 'revision', 'user_request', 'wp_block', 'wp_navigation');
 	
 	$unset = apply_filters('disable_gutenberg_post_types_unset', $unset);
 	

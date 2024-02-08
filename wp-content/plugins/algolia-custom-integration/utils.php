@@ -1,17 +1,39 @@
 <?php
 
-function updateFrontedDomain($locale, $url)
+function updateFrontedDomain($locale, $url, $blog_id = null)
 {
+    if($blog_id) $locale = get_blog_locale_direct($blog_id);
+
+    $main_site_url = is_multisite() ? network_home_url() : get_home_url();
     $lang = explode("_", $locale)[0];
+
     if ($lang !== 'en') {
-        return str_replace('https://gefran.kinsta.cloud/' . $lang, '', $url);
-    } else return str_replace('https://gefran.kinsta.cloud', '', $url);
-    /*
-    if ($lang == 'it' || $lang == 'de' || $lang == 'fr' || $lang == 'es' || $lang == 'pt' || $lang == 'zh')
-        return str_replace('gefran.kinsta.cloud/' . $lang, 'gefran.' . $lang, $url);
-    else return 'gefran.com';
-    */
+        // convert zh to ch
+        $lang_part = ($lang === 'zh') ? 'ch' : $lang;
+        $fixed_url = str_replace($main_site_url . $lang_part, '', $url);
+    }
+    else $fixed_url = str_replace($main_site_url, '', $url);
+
+    return $fixed_url;
 }
+
+
+function get_blog_locale_direct($blog_id) {
+    global $wpdb;
+    // Prefix for the blog's tables in the database
+    $blog_prefix = $blog_id == 1 ? $wpdb->base_prefix : $wpdb->base_prefix . $blog_id . '_';
+
+    // Query to get the locale setting
+    $locale = $wpdb->get_var("SELECT option_value FROM " . $blog_prefix . "options WHERE option_name = 'WPLANG'");
+
+    // Fallback to default locale if the locale setting is not set
+    if (empty($locale)) {
+        $locale = 'en_US'; // or use get_locale() to get the default locale
+    }
+
+    return $locale;
+}
+
 
 /**
  * Add a flash notice to {prefix}options table until a full page refresh is done

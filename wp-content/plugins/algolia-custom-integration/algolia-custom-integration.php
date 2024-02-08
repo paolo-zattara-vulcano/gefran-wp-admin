@@ -11,11 +11,9 @@
 
 // Check if WP_LOCAL_DEV is defined and set to true - in this case prevent executing
 if (defined('WP_LOCAL_DEV') && WP_LOCAL_DEV === true) {
+    error_log('NO algolia - WP_LOCAL_DEV');
     return;
 }
-
-error_log('running algolia plugin');
-
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/wp-cli.php';
@@ -24,12 +22,32 @@ require_once __DIR__ . '/algolia.php';
 // check if it is a multisite network
 if (is_multisite()) {
 
-    if (in_array('algolia-custom-integration/algolia-custom-integration.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+    function is_algolia_plugin_active() {
+        // Check if the plugin is active on the current site.
+        $is_active_per_site = in_array('algolia-custom-integration/algolia-custom-integration.php', apply_filters('active_plugins', get_option('active_plugins')));
+
+        // Check if the plugin is network activated.
+        $active_sitewide_plugins = get_site_option('active_sitewide_plugins');
+        $is_active_network_wide = $active_sitewide_plugins && isset($active_sitewide_plugins['algolia-custom-integration/algolia-custom-integration.php']);
+
+        return $is_active_per_site || $is_active_network_wide;
+    }
+
+
+    if (is_algolia_plugin_active()) {
 
         function algolia_add_settings_page()
         {
-            add_options_page('Algolia Integration', 'Algolia Integration Menu', 'manage_options', 'algolia-custom-integration', 'algolia_render_plugin_settings_page');
+          add_options_page(
+            'Algolia Integration',                        // Page title: appears in the title tag of the page when rendered
+            'Algolia Integration',                    // Menu title: text for the menu in the admin sidebar
+            'edit_posts',                       // Capability: user capability needed to access this page
+            'algolia-custom-integration',        // Menu slug: unique identifier for the menu
+            'algolia_render_plugin_settings_page'              // Function to output the content for this page
+          );
         }
+        // show / hide the menu
+        add_action('admin_menu', 'algolia_add_settings_page', 999);
 
         function algolia_render_plugin_settings_page()
         {
@@ -79,7 +97,6 @@ if (is_multisite()) {
         }
 
         add_action('admin_init', 'algolia_register_settings');
-        add_action('admin_menu', 'algolia_add_settings_page', 10); // Change the priority to 10
         add_action('update_option_algolia_custom_integration_plugin_options', 'hook_options_page_after_save', 10, 2);
     }
 }

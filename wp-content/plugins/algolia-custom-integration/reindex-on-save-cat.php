@@ -33,12 +33,12 @@ function save_related_posts_on_product_category_save($term_id, $tt_id)
 
         // Loop through the posts and update the meta field
         foreach ($posts as $post_id) {
-            reindex($post_id, $index, $siteLocale);
+            reindex($post_id, $index);
         }
     }
 }
 
-function reindex($post_id, $index, $siteLocale)
+function reindex($post_id, $index)
 {
     error_log('Reindexing postID:' . $post_id);
     $record = array();

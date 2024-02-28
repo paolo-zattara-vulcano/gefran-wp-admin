@@ -18,7 +18,7 @@ function save_to_index($post_id, $post, $blog_id = null)
         }
         $algolia = Algolia::instance($options);
 
-        $siteLocale = $locale = get_option('WPLANG');
+        $siteLocale = $locale = get_option('WPLANG') ?: get_locale();
         $post_type = $post->post_type;
         $post_status = $post->post_status;
 
